@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { moderateScale, scale } from 'react-native-size-matters'; 
-import SCALE, { horizontalScale, isSmallDevice } from "../../styles";
+import  SCALE, { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -22,54 +21,54 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: moderateScale(20),
-        paddingTop: isSmallDevice ? moderateScale(45) : moderateScale(55),
+        paddingHorizontal: horizontalScale(20),
+        paddingTop: isSmallDevice ? verticalScale(430) : verticalScale(456),
         zIndex: 1, // Ensures the content is above the background image
     },
     textBold: {
         fontFamily: "Nunito-Bold",
-        fontSize: SCREEN_WIDTH < 768 ? 28 : SCALE.normalize(28, 'height'),
+        fontSize: SCREEN_WIDTH < 768 ? moderateScale(23) : moderateScale(25),
         color: "#ffffff",
     },
     button: {
         width: horizontalScale(332),
-        height: moderateScale(48),
+        height: SCREEN_WIDTH < 768 ?  verticalScale(48)  :verticalScale(44),
         borderRadius: moderateScale(54),
-        marginVertical: moderateScale(16),
+        marginVertical: verticalScale(16),
         backgroundColor: '#ffffff', // Button background color
     },
     buttonText: {
         fontFamily: 'Nunito-SemiBold',
-        fontSize: scale(20),
-        paddingVertical: moderateScale(12),
+        fontSize: moderateScale(20),
+        paddingVertical: verticalScale(9),
         color: '#00A8A8', // Text color for the button
         textAlign: 'center',
     },
     logInasGuesttextBold: {
         fontFamily: "Nunito-Bold",
-        fontSize: scale(20),
-        paddingVertical: moderateScale(6),
+        fontSize: moderateScale(20),
+        paddingVertical: verticalScale(6),
         color: "#ffffff",
     },
     haveAnAcc: {
         flexDirection: 'row',
         fontFamily: "Nunito-Regular",
-        fontSize: scale(16),
+        fontSize: moderateScale(16),
         color: "#ffffff",
-        paddingTop: moderateScale(4),
+        paddingTop: verticalScale(4),
     },
     logInText: {
         fontFamily: "Nunito-Bold",
-        fontSize: scale(16),
+        fontSize: moderateScale(16),
         color: "#ffffff",
     },
     privacyPolicyText: {
         fontFamily: "Nunito-Regular",
-        fontSize: scale(12), // Adjust for better spacing
+        fontSize: moderateScale(12), // Adjust for better spacing
         color: "#ffffff",
         textAlign: 'center',
-        paddingHorizontal: moderateScale(16),
-        paddingVertical: moderateScale(20),
+        paddingHorizontal: horizontalScale(16),
+        paddingVertical: verticalScale(20),
     },
     privacyPolicyTextBold: {
         fontFamily: "Nunito-Bold",
