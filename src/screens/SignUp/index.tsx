@@ -4,6 +4,8 @@ import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
 import styles from "./style";
+import { useNavigation } from '@react-navigation/native';
+import { getApi } from "../../apis/apis";
 
 interface FormValues {
     name: string;
@@ -29,6 +31,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp: React.FC = () => {
+
+    const navigation = useNavigation();
+
     const initialValues: FormValues = {
         name: "",
         email: "",
@@ -37,13 +42,16 @@ const SignUp: React.FC = () => {
         confirmPassword: "",
     };
 
+    const registerUser=async (values:FormValues)=>{
+        const user= await getApi('/')
+    }
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={(values: any) => {
-                    console.log(values);
+                    registerUser(values)
                 }}
             >
                 {({
@@ -57,7 +65,9 @@ const SignUp: React.FC = () => {
 
                     <View style={styles.container}>
                         <View>
-                            <CustomButton label={"sd"} onPress={undefined} isIcon={true} />
+                            <View style={styles.backicon}>
+                            <CustomButton label={"back-icon"} onPress={()=>{navigation.goBack();}} isIcon={true} />
+                            </View>
                             <View style={styles.titletext}>
                                 <Text style={styles.title}>Create an account</Text>
                                 <Text style={styles.subtitle}>Welcome! Please enter your details</Text>

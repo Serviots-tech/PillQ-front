@@ -11,6 +11,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "space-between",
   },
+  backicon:{
+    marginBottom:12
+  },
   titletext:{
     marginBottom:10
   },
