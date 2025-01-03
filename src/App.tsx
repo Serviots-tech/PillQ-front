@@ -1,19 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Welcome from './screens/Welcome/Welcome';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './Navigation/Routes';
-
-
-// export type RootStackParamList = {
-//   Welcome: undefined,
-//   // Details: { product: Product }
-// }
-
-// const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,20 +16,10 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaProvider style={backgroundStyle}>
-        <View style={{ flex: 1 }}>
-      <Routes />
-    </View>
-      {/* <NavigationContainer>
-        <Stack.Navigator initialRouteName='Welcome'>
-          <Stack.Screen
-            name="Welcome"
-            component={Welcome}
-            options={{
-              headerShown: false, // Hides the default header
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer> */}
+      <SafeAreaView></SafeAreaView>
+      <View style={{ flex: 1 }}>
+        <Routes />
+      </View>
     </SafeAreaProvider>
   );
 }
