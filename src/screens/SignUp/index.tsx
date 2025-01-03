@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
         setIsLoading(true)
         try {
             const { confirmPassword, ...rest } = values
-            const user = await postApi('/auth/register', { ...rest, phoneNumber: rest.phone })
+             await postApi('/auth/register', { ...rest, phoneNumber: rest.phone })
             navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
@@ -160,7 +160,7 @@ const SignUp: React.FC = () => {
 
                         {/* Button positioned at the bottom of the screen */}
                         <View>
-                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} />
+                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} isLoading={true}/>
                             <View style={styles.dividertext}>
                                 <DividerWithText color={'#333333'} />
                             </View>

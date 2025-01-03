@@ -10,50 +10,92 @@ export const BackIcon = () => (
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-export const AnimatedLoader = () => {
-  const opacity1 = useRef(new Animated.Value(1)).current;
-  const opacity2 = useRef(new Animated.Value(0)).current;
-  const opacity3 = useRef(new Animated.Value(0)).current;
+export const BouncingCircles = () => {
+  const cy1 = new Animated.Value(65);
+  const cy2 = new Animated.Value(65);
+  const cy3 = new Animated.Value(65);
 
   useEffect(() => {
-    const animateCircle = (opacity: Animated.Value, delay: number) => {
+    const animateCircles = () => {
       Animated.loop(
         Animated.sequence([
-          Animated.timing(opacity, {
-            toValue: 0,
+          Animated.timing(cy1, {
+            toValue: 135,
             duration: 1000,
-            useNativeDriver: true,
-            delay,
+            useNativeDriver: false,
           }),
-          Animated.timing(opacity, {
-            toValue: 1,
+          Animated.timing(cy1, {
+            toValue: 65,
             duration: 1000,
-            useNativeDriver: true,
+            useNativeDriver: false,
+          }),
+        ])
+      ).start();
+
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(cy2, {
+            toValue: 135,
+            duration: 1000,
+            delay: 200, // Delay for the second circle
+            useNativeDriver: false,
+          }),
+          Animated.timing(cy2, {
+            toValue: 65,
+            duration: 1000,
+            useNativeDriver: false,
+          }),
+        ])
+      ).start();
+
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(cy3, {
+            toValue: 135,
+            duration: 1000,
+            delay: 400, // Delay for the third circle
+            useNativeDriver: false,
+          }),
+          Animated.timing(cy3, {
+            toValue: 65,
+            duration: 1000,
+            useNativeDriver: false,
           }),
         ])
       ).start();
     };
 
-    animateCircle(opacity1, 0);
-    animateCircle(opacity2, 200);
-    animateCircle(opacity3, 300);
-  }, [opacity1, opacity2, opacity3]);
+    animateCircles();
+  }, []);
 
   return (
-    <View style={styles.container}>
-      <Svg height={100} width={200} viewBox="0 0 200 100">
-        <AnimatedCircle cx="40" cy="50" r="10" fill="#FFFFFF" opacity={opacity1} />
-        <AnimatedCircle cx="100" cy="50" r="10" fill="#FFFFFF" opacity={opacity2} />
-        <AnimatedCircle cx="160" cy="50" r="10" fill="#FFFFFF" opacity={opacity3} />
+    <View>
+      <Svg width="100" height="100" viewBox="0 0 80 400">
+        <AnimatedCircle
+          fill="#FFFFFF"
+          stroke="#FFFFFF"
+          strokeWidth="15"
+          r="15"
+          cx="40"
+          cy={cy1}
+        />
+        <AnimatedCircle
+          fill="#FFFFFF"
+          stroke="#FFFFFF"
+          strokeWidth="15"
+          r="15"
+          cx="100"
+          cy={cy2}
+        />
+        <AnimatedCircle
+          fill="#FFFFFF"
+          stroke="#FFFFFF"
+          strokeWidth="15"
+          r="15"
+          cx="160"
+          cy={cy3}
+        />
       </Svg>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
