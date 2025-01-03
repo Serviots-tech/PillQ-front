@@ -3,7 +3,8 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
     SignUp,
-    Welcome
+    Welcome,
+    LogIn,
 } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
 import { Text, View } from 'react-native';
@@ -12,6 +13,7 @@ import VerifyEmail from '../screens/VerifyEmail';
 export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
+    LogIn:undefined,
     VerifyEmail:undefined
 }
 
@@ -21,7 +23,11 @@ export default function AuthStack() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
+                  <SafeAreaView></SafeAreaView>
+            
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
+            <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
+
             <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 

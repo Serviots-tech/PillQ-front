@@ -46,7 +46,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                     Already have an account?{' '}
                     <Text
                         style={styles?.logInText}
-                        onPress={() => navigation.navigate('SignUp')}>
+                        onPress={() => navigation.navigate('LogIn')}>
                         Log In
                     </Text>
                 </Text>
