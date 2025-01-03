@@ -1,30 +1,29 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { BackIcon } from '../../constants/svgs'
 
 
 export default function CustomButton({
-  viewStyle,
-  label,
-  buttonTextStyle,
-  onPress,
-  isIcon=false
+    viewStyle,
+    label,
+    buttonTextStyle,
+    onPress,
+    isIcon = false
 }: {
-  viewStyle?: any;
-  label: any;
-  buttonTextStyle?: any;
-  onPress: any;
-  isIcon?:boolean
+    viewStyle?: any;
+    label: any;
+    buttonTextStyle?: any;
+    onPress: any;
+    isIcon?: boolean
 }) {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={viewStyle}
-    >
-      {isIcon  && (
-        <Icon name={label} />
-      )}
-      <Text style={buttonTextStyle}>{label}</Text>
-    </TouchableOpacity>
-  );
+    return (
+        <TouchableOpacity
+            onPress={onPress}
+            style={viewStyle}
+        >
+            {isIcon ? (
+                <BackIcon />
+            ) : <Text style={buttonTextStyle}>{label}</Text>}
+        </TouchableOpacity>
+    );
 }
