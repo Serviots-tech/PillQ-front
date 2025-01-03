@@ -95,23 +95,24 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                             </View>
 
 
-                        {/* Button positioned at the bottom of the screen */}
-                        <View>
-                            <CustomButton onPress={handleSubmit} label={"Log In"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} />
-                            <View style={styles.dividertext}>
-                                <DividerWithText color={'#333333'} />
+                            {/* Button positioned at the bottom of the screen */}
+                            <View>
+                                <CustomButton onPress={handleSubmit} label={"Log In"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} />
+                                <View style={{ marginVertical: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <DividerWithText color={'#333333'} />
+                                </View>
+                                <Text style={styles.footer}>
+                                    Don’t have an account? <Text style={styles.link}
+                                        onPress={() => {
+                                            navigation.navigate(navigationStrings.SIGN_UP);
+                                        }}>Sign up</Text>
+                                </Text>
                             </View>
-                            <Text style={styles.footer}>
-                                Don’t have an account? <Text style={styles.link} 
-                                onPress={() => {
-                                    navigation.navigate(navigationStrings.SIGN_UP);
-                                }}>Sign up</Text>
-                            </Text>
                         </View>
-                    </View>
-                )}
-            </Formik>
-        </KeyboardAvoidingView>
+                    )}
+                </Formik>
+            </KeyboardAvoidingView>
+        </>
     );
 };
 
