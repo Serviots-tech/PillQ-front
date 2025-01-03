@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import  SCALE, { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
+import SCALE, { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -11,11 +11,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     justifyContent: "space-between",
   },
-  backicon:{
-    marginBottom:12
+  backicon: {
+    marginBottom: 12
   },
-  titletext:{
-    marginBottom:10
+  titletext: {
+    marginBottom: 10
   },
   title: {
     fontSize: 24,
@@ -49,19 +49,19 @@ const styles = StyleSheet.create({
   },
   button: {
     width: horizontalScale(332),
-    height: SCREEN_WIDTH < 768 ?  verticalScale(48)  :verticalScale(44),
+    height: SCREEN_WIDTH < 768 ? verticalScale(48) : verticalScale(44),
     borderRadius: moderateScale(54),
     marginVertical: verticalScale(16),
-    backgroundColor: '#00a8a8', 
-    
-},
-buttonText: {
-  fontFamily: 'Nunito-SemiBold',
-  fontSize: moderateScale(20),
-  paddingVertical: verticalScale(9),
-  textAlign: 'center',
-  color:'#ffff'
-},
+    backgroundColor: '#00a8a8',
+
+  },
+  buttonText: {
+    fontFamily: 'Nunito-SemiBold',
+    fontSize: moderateScale(20),
+    paddingVertical: verticalScale(9),
+    textAlign: 'center',
+    color: '#ffff'
+  },
   footer: {
     marginTop: 20,
     textAlign: "center",
@@ -71,6 +71,12 @@ buttonText: {
     color: "#00bfa5",
     fontWeight: "bold",
   },
+  dividertext: {
+    marginVertical: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+
 });
 
 export default styles;
