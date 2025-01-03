@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Text, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";

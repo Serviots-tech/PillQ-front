@@ -31,7 +31,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                 </Text>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => navigation.navigate('SignUp')}>
+                    onPress={() => navigation.navigate('VerifyEmail')}>
                     <Text style={styles.buttonText}>
                         Sign Up
                     </Text>
