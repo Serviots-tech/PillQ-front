@@ -32,7 +32,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                     style={styles.button}
                     onPress={() => navigation.navigate('SignUp')}
                 >
-                    <Text style={styles.buttonText}>Get Started</Text>
+                    <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
                 <DividerWithText />
                 <Text style={styles.logInasGuesttextBold}>
