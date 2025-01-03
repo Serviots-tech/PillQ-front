@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Text, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
 import styles from "./style";
 import { useNavigation } from '@react-navigation/native';
-import {  postApi } from "../../apis/apis";
+import { postApi } from "../../apis/apis";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
+import { navigationStrings } from "../../constants/navigationStrings";
 
 interface FormValues {
     name: string;
@@ -36,7 +37,7 @@ const validationSchema = Yup.object().shape({
 const SignUp: React.FC = () => {
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const [isLoading,setIsLoading]=useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const initialValues: FormValues = {
         name: "",
@@ -46,18 +47,18 @@ const SignUp: React.FC = () => {
         confirmPassword: "",
     };
 
-    const registerUser=async (values:FormValues) => {
+    const registerUser = async (values: FormValues) => {
 
         setIsLoading(true)
-        try{
-        const {confirmPassword,...rest}= values
-        const user= await postApi('/auth/register',{...rest,phoneNumber:rest.phone})
-        navigation.navigate('VerifyEmail')
+        try {
+            const { confirmPassword, ...rest } = values
+             await postApi('/auth/register', { ...rest, phoneNumber: rest.phone })
+            navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
-        catch(error:any){
-        console.log("🚀 ~ registerUser ~ error:", error)
+        catch (error: any) {
+            console.log("🚀 ~ registerUser ~ error:", error)
         }
-        finally{
+        finally {
             setIsLoading(false)
         }
     }
@@ -82,7 +83,7 @@ const SignUp: React.FC = () => {
                     <View style={styles.container}>
                         <View>
                             <View style={styles.backicon}>
-                            <CustomButton label={"back-icon"} onPress={()=>{navigation.goBack();}} isIcon={true} />
+                                <CustomButton label={"back-icon"} onPress={() => { navigation.goBack(); }} isIcon={true} />
                             </View>
                             <View style={styles.titletext}>
                                 <Text style={styles.title}>Create an account</Text>
@@ -159,9 +160,13 @@ const SignUp: React.FC = () => {
 
                         {/* Button positioned at the bottom of the screen */}
                         <View>
-                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button}/>
-                            <DividerWithText/>
-                            <Text style={styles.footer}>
+                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} isLoading={true}/>
+                            <View style={styles.dividertext}>
+                                <DividerWithText color={'#333333'} />
+                            </View>
+                            <Text style={styles.footer} onPress={() => {
+                                navigation.navigate(navigationStrings.LOGIN);
+                            }}>
                                 Already have an account? <Text style={styles.link}>Log in</Text>
                             </Text>
                         </View>

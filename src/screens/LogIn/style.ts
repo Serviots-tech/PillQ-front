@@ -70,6 +70,11 @@ const styles = StyleSheet.create({
         color: "#00bfa5",
         fontWeight: "bold",
     },
+    dividertext: {
+        marginVertical: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }
 });
 
 export default styles;

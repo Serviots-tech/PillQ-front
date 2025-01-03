@@ -16,9 +16,12 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaProvider style={backgroundStyle}>
-      <View style={{ flex: 1 }}>
-        <Routes />
-      </View>
+      <Provider store={store}>
+        <SafeAreaView></SafeAreaView>
+        <View style={{ flex: 1 }}>
+          <Routes />
+        </View>
+      </Provider>
     </SafeAreaProvider>
   );
 }
