@@ -13,7 +13,6 @@ import VerifyEmail from '../screens/VerifyEmail';
 export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
-    LogIn:undefined,
     VerifyEmail:undefined
 }
 
@@ -26,8 +25,6 @@ export default function AuthStack() {
                   <SafeAreaView></SafeAreaView>
             
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
-            <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
-
             <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 
