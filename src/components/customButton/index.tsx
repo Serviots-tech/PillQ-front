@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import { BackIcon } from '../../constants/svgs'
+import { AnimatedLoader, BackIcon } from '../../constants/svgs'
 
 
 export default function CustomButton({
@@ -8,22 +8,26 @@ export default function CustomButton({
     label,
     buttonTextStyle,
     onPress,
-    isIcon = false
+    isIcon = false,
+    isLoading =false
 }: {
     viewStyle?: any;
     label: any;
     buttonTextStyle?: any;
     onPress: any;
-    isIcon?: boolean
+    isIcon?: boolean;
+    isLoading?:boolean
 }) {
     return (
         <TouchableOpacity
             onPress={onPress}
             style={viewStyle}
-        >
-            {isIcon ? (
+        >{isLoading ?<AnimatedLoader/>:
+            <>{isIcon ? (
                 <BackIcon />
             ) : <Text style={buttonTextStyle}>{label}</Text>}
+            </>
+        }
         </TouchableOpacity>
     );
 }

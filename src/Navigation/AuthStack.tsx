@@ -13,6 +13,7 @@ export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
     LogIn:undefined,
+    VerifyEmail:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -26,6 +27,7 @@ export default function AuthStack() {
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
             <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
 
+            <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 
     )
