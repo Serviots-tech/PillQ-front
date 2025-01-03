@@ -1,11 +1,10 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Welcome from './screens/Welcome';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './Navigation/Routes';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,19 +16,14 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaProvider style={backgroundStyle}>
-      <SafeAreaView></SafeAreaView>
-      <View style={{ flex: 1 }}>
-        <Routes />
-      </View>
+      <Provider store={store}>
+        <SafeAreaView></SafeAreaView>
+        <View style={{ flex: 1 }}>
+          <Routes />
+        </View>
+      </Provider>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-  },
-});
 
 export default App;

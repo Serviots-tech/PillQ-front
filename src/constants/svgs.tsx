@@ -2,14 +2,7 @@ import React from 'react';
 import Svg, { Path, G, ClipPath, Rect, Defs } from 'react-native-svg';
 
 export const BackIcon = () => (
-    <Svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <G clipPath="url(#clip0)">
-            <Path d="M32 23H19.83L25.42 17.41L24 16L16 24L24 32L25.41 30.59L19.83 25H32V23Z" fill="#3F4946" />
-        </G>
-        <Defs>
-            <ClipPath id="clip0">
-                <Rect x="4" y="4" width="40" height="40" rx="20" fill="white" />
-            </ClipPath>
-        </Defs>
-    </Svg>
+    <Svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <Path d="M16 7H3.83L9.42 1.41L8 0L0 8L8 16L9.41 14.59L3.83 9H16V7Z" fill="#3F4946" />
+  </Svg>
 );
