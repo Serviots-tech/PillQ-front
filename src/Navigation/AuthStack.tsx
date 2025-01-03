@@ -6,10 +6,13 @@ import {
     Welcome
 } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
+import { Text, View } from 'react-native';
+import VerifyEmail from '../screens/VerifyEmail';
 
 export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
+    VerifyEmail:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -19,6 +22,7 @@ export default function AuthStack() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
+            <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 
     )

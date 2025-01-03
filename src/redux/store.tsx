@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import AuthSlice from './slices/costCenterSlice';
-
+import AuthSlice from './slices/costCenterSlice'
 
 const store = configureStore({
 	reducer: {
-		// userProfile: profileSlice.reducer,
+		userProfile: AuthSlice.reducer,
 		// auth: AuthSlice.reducer,
 	},
 });

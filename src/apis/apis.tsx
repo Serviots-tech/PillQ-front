@@ -1,19 +1,21 @@
 import axios from 'axios';
 
-const endPoint = process.env.REACT_APP_API_ENDPOINT;
+import { API_URL } from '@env';
+
+const endPoint = API_URL
 
 const apiConfig = (flag = false) => {
-	if (localStorage.getItem('accessToken')) {
-		return {
-			headers: {
-				Authorization: `bearer ${localStorage.getItem('accessToken')}`,
-				'Content-Type': flag
-					? 'multipart/form-data'
-					: 'application/json',
-			},
-			method: 'PUT,DELETE,POST,GET,OPTION',
-		};
-	}
+	// if (localStorage.getItem('accessToken')) {
+	// 	return {
+	// 		headers: {
+	// 			Authorization: `bearer ${localStorage.getItem('accessToken')}`,
+	// 			'Content-Type': flag
+	// 				? 'multipart/form-data'
+	// 				: 'application/json',
+	// 		},
+	// 		method: 'PUT,DELETE,POST,GET,OPTION',
+	// 	};
+	// }
 	return { withCredentials: false };
 };
 
@@ -39,6 +41,7 @@ export const getApi = (url?: string, params?: any) => {
 };
 
 export const postApi = (url: string, apiData?: any, flag?: boolean) => {
+	console.log("🚀 ~ postApi ~ ${endPoint}${url}:", `${endPoint}${url}`)
 	return axios.post(`${endPoint}${url}`, apiData, apiConfig(flag));
 };
 

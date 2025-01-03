@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
 import styles from "./style";
 import { useNavigation } from '@react-navigation/native';
-import { getApi } from "../../apis/apis";
+import {  postApi } from "../../apis/apis";
+import { RootStackParamList } from "../../Navigation/AuthStack";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import DividerWithText from "../../components/DividerWithText/DividerWithText";
 
 interface FormValues {
     name: string;
@@ -32,7 +35,8 @@ const validationSchema = Yup.object().shape({
 
 const SignUp: React.FC = () => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const [isLoading,setIsLoading]=useState(false)
 
     const initialValues: FormValues = {
         name: "",
@@ -42,8 +46,20 @@ const SignUp: React.FC = () => {
         confirmPassword: "",
     };
 
-    const registerUser=async (values:FormValues)=>{
-        const user= await getApi('/')
+    const registerUser=async (values:FormValues) => {
+
+        setIsLoading(true)
+        try{
+        const {confirmPassword,...rest}= values
+        const user= await postApi('/auth/register',{...rest,phoneNumber:rest.phone})
+        navigation.navigate('VerifyEmail')
+        }
+        catch(error:any){
+        console.log("🚀 ~ registerUser ~ error:", error)
+        }
+        finally{
+            setIsLoading(false)
+        }
     }
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
@@ -143,7 +159,8 @@ const SignUp: React.FC = () => {
 
                         {/* Button positioned at the bottom of the screen */}
                         <View>
-                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} />
+                            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button}/>
+                            <DividerWithText/>
                             <Text style={styles.footer}>
                                 Already have an account? <Text style={styles.link}>Log in</Text>
                             </Text>
