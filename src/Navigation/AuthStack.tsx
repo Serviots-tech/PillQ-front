@@ -22,8 +22,6 @@ export default function AuthStack() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
-                  <SafeAreaView></SafeAreaView>
-            
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
             <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
             <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />

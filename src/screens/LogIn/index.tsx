@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Formik, FormikProps } from "formik";
 import React from "react";
-import { KeyboardAvoidingView, Platform, Text, TextInput, View } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, Text, TextInput, View } from "react-native";
 import * as Yup from "yup";
 // import { getApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
 
 type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
-const LogIn: React.FC<LogInProps> = ({navigation}) => {
+const LogIn: React.FC<LogInProps> = ({ navigation }) => {
 
     const initialValues: FormValues = {
         email: "",
@@ -36,61 +36,63 @@ const LogIn: React.FC<LogInProps> = ({navigation}) => {
     //     const user = await getApi('/')
     // }
     return (
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={(values: any) => {
-                    // registerUser(values)
-                }}
-            >
-                {({
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    values,
-                    errors,
-                    touched,
-                }: FormikProps<FormValues>) => (
+        <>
+            <SafeAreaView />
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={(values: any) => {
+                        // registerUser(values)
+                    }}
+                >
+                    {({
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        values,
+                        errors,
+                        touched,
+                    }: FormikProps<FormValues>) => (
 
-                    <View style={styles.container}>
-                        <View>
-                            <View style={styles.backicon}>
-                                <CustomButton label={"back-icon"} onPress={() => { navigation.goBack(); }} isIcon={true} />
-                            </View>
-                            <View style={styles.titletext}>
-                                <Text style={styles.title}>Log in to your account</Text>
-                                <Text style={styles.subtitle}>Welcome! Please enter your details</Text>
-                            </View>
+                        <View style={styles.container}>
+                            <View>
+                                <View style={styles.backicon}>
+                                    <CustomButton label={"back-icon"} onPress={() => { navigation.goBack(); }} isIcon={true} />
+                                </View>
+                                <View style={styles.titletext}>
+                                    <Text style={styles.title}>Log in to your account</Text>
+                                    <Text style={styles.subtitle}>Welcome! Please enter your details</Text>
+                                </View>
 
-                            <View style={styles.fieldContainer}>
-                                <Text style={styles.fieldTitle}>Email</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Enter your email"
-                                    onChangeText={handleChange("email")}
-                                    onBlur={handleBlur("email")}
-                                    value={values.email}
-                                    keyboardType="email-address"
-                                />
-                                {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
-                            </View>
+                                <View style={styles.fieldContainer}>
+                                    <Text style={styles.fieldTitle}>Email</Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Enter your email"
+                                        onChangeText={handleChange("email")}
+                                        onBlur={handleBlur("email")}
+                                        value={values.email}
+                                        keyboardType="email-address"
+                                    />
+                                    {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
+                                </View>
 
-                            <View style={styles.fieldContainer}>
-                                <Text style={styles.fieldTitle}>Password</Text>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Enter your password"
-                                    onChangeText={handleChange("password")}
-                                    onBlur={handleBlur("password")}
-                                    value={values.password}
-                                    secureTextEntry
-                                />
-                                {touched.password && errors.password && (
-                                    <Text style={styles.error}>{errors.password}</Text>
-                                )}
+                                <View style={styles.fieldContainer}>
+                                    <Text style={styles.fieldTitle}>Password</Text>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Enter your password"
+                                        onChangeText={handleChange("password")}
+                                        onBlur={handleBlur("password")}
+                                        value={values.password}
+                                        secureTextEntry
+                                    />
+                                    {touched.password && errors.password && (
+                                        <Text style={styles.error}>{errors.password}</Text>
+                                    )}
+                                </View>
                             </View>
-                        </View>
 
 
                         {/* Button positioned at the bottom of the screen */}
