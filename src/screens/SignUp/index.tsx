@@ -3,7 +3,8 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, KeyboardAvoidingVi
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
-import styles from "./signUp";
+import styles from "./style";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface FormValues {
   name: string;
@@ -28,7 +29,7 @@ const validationSchema = Yup.object().shape({
     .required("Confirm Password is required"),
 });
 
-const SignUpForm: React.FC = () => {
+const SignUp: React.FC = () => {
   const initialValues: FormValues = {
     name: "",
     email: "",
@@ -57,6 +58,7 @@ const SignUpForm: React.FC = () => {
        
           <View style={styles.container}>
                <View>
+                <CustomButton label={"arrow-back"} onPress={undefined} isIcon={true}/>
                <View style={styles.titletext}>
             <Text style={styles.title}>Create an account</Text>
             <Text style={styles.subtitle}>Welcome! Please enter your details</Text>
@@ -132,8 +134,7 @@ const SignUpForm: React.FC = () => {
 
             {/* Button positioned at the bottom of the screen */}
             <View>
-            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonStyle={styles.button} viewStyle={undefined} />
-
+            <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button}/>
             <Text style={styles.footer}>
               Already have an account? <Text style={styles.link}>Log in</Text>
             </Text>
@@ -145,4 +146,4 @@ const SignUpForm: React.FC = () => {
   );
 };
 
-export default SignUpForm;
+export default SignUp;

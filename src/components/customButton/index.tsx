@@ -1,34 +1,30 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 export default function CustomButton({
   viewStyle,
   label,
-  buttonStyle,
+  buttonTextStyle,
   onPress,
+  isIcon=false
 }: {
-  viewStyle: any;
-  label: string;
-  buttonStyle: any;
+  viewStyle?: any;
+  label: any;
+  buttonTextStyle?: any;
   onPress: any;
+  isIcon?:boolean
 }) {
   return (
-    <TouchableOpacity 
-      onPress={onPress} 
-      style={{ width: '100%' }} // Ensure TouchableOpacity is full width
+    <TouchableOpacity
+      onPress={onPress}
+      style={viewStyle}
     >
-      <View
-        style={[
-          viewStyle,
-          {
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%', // Ensure View is full width
-          },
-        ]}
-      >
-        <Text style={buttonStyle}>{label}</Text>
-      </View>
+      {isIcon  && (
+        <Icon name={label} />
+      )}
+      <Text style={buttonTextStyle}>{label}</Text>
     </TouchableOpacity>
   );
 }

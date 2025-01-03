@@ -1,4 +1,8 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+import  SCALE, { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
+
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+
 
 const styles = StyleSheet.create({
   container: {
@@ -41,17 +45,20 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#00bfa5",
-    padding: 15,
-    borderRadius: 8
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-    textAlign: "center",
-    width: "100%",
-  },
+    width: horizontalScale(332),
+    height: SCREEN_WIDTH < 768 ?  verticalScale(48)  :verticalScale(44),
+    borderRadius: moderateScale(54),
+    marginVertical: verticalScale(16),
+    backgroundColor: '#00a8a8', 
+    
+},
+buttonText: {
+  fontFamily: 'Nunito-SemiBold',
+  fontSize: moderateScale(20),
+  paddingVertical: verticalScale(9),
+  textAlign: 'center',
+  color:'#ffff'
+},
   footer: {
     marginTop: 20,
     textAlign: "center",
