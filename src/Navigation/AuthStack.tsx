@@ -29,6 +29,7 @@ export default function AuthStack() {
             <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
             
 
+            <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 
     )
