@@ -1,7 +1,7 @@
 export const navigationStrings = {
     WELCOME: "Welcome",
     SIGN_UP: "SignUp",
-    LOGIN: "Login",
+    LOGIN: "LogIn",
     FORGOT_PASSWORD: "ForgotPassword",
     SET_PASSWORD: "SetPassword",
     // TAB_ROUTES: "tabRoutes",

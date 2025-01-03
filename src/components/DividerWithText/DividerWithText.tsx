@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
-export default function DividerWithText() {
+export default function DividerWithText({ text = 'or', color = '#ccc' }) {
     return (
         <View style={styles.container}>
-            <View style={styles.leftLine} />
-            <Text style={styles.text}>or</Text>
-            <View style={styles.rightLine} />
+            <View style={[styles.line, styles.leftLine, { backgroundColor: color }]} />
+            <Text style={[styles.text, { color }]}>{text}</Text>
+            <View style={[styles.line, styles.rightLine, { backgroundColor: color }]} />
         </View>
     );
 }
@@ -18,19 +18,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginVertical: moderateScale(5),
     },
-    leftLine: {
-        width: moderateScale(68), // Fixed width for the left line
+    line: {
         height: 1,
-        backgroundColor: '#ccc',
+    },
+    leftLine: {
+        width: moderateScale(68), // Default width for the left line
+    },
+    rightLine: {
+        width: moderateScale(68), // Default width for the right line
     },
     text: {
         marginHorizontal: moderateScale(10),
         fontSize: moderateScale(14),
-        color: '#ffffff',
-    },
-    rightLine: {
-        width: moderateScale(68), // Fixed width for the right line
-        height: 1,
-        backgroundColor: '#ccc',
     },
 });
