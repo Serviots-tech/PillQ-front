@@ -5,19 +5,14 @@ import {
     SignUp,
     Welcome,
     LogIn,
-    Welcome,
-    LogIn,
 } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
-import VerifyEmail from '../screens/VerifyEmail';
 import { SafeAreaView } from 'react-native';
 import VerifyEmail from '../screens/VerifyEmail';
 
 export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
-    VerifyEmail:undefined
-    LogIn:undefined
     LogIn: undefined,
     VerifyEmail: undefined
 }
@@ -31,10 +26,6 @@ export default function AuthStack() {
             <Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
             <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
             <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
-            
-
-            <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
-            <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
         </Stack.Navigator>
 
     )
