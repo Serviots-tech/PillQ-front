@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: "bold",
         marginBottom: 0,
+        fontFamily: "Nunito-Bold",
     },
     subtitle: {
         fontSize: 16,
@@ -36,6 +36,14 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     input: {
+        borderWidth: 1,
+        borderColor: "#ddd",
+        borderRadius: 8,
+        padding: 10,
+        marginBottom: 10,
+    },
+    inputPassword: {
+        flex: 1 ,
         borderWidth: 1,
         borderColor: "#ddd",
         borderRadius: 8,
@@ -74,7 +82,17 @@ const styles = StyleSheet.create({
         marginVertical: 1,
         justifyContent: 'center',
         alignItems: 'center'
-      }
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'relative',
+    },
+    eyeIcon: {
+        position: 'absolute',
+        right: 10,
+        top: 12,
+    }
 });
 
 export default styles;
