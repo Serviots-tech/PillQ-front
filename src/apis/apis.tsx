@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_URL } from '@env';
 
 const endPoint = API_URL
+console.log("🚀 ~ endPoint:", endPoint)
 
 const apiConfig = (flag = false) => {
 	// if (localStorage.getItem('accessToken')) {
