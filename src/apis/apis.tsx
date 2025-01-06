@@ -41,6 +41,7 @@ export const getApi = (url?: string, params?: any) => {
 };
 
 export const postApi = (url: string, apiData?: any, flag?: boolean) => {
+	console.log("🚀 ~ postApi ~ apiData:", apiData)
 	console.log("🚀 ~ postApi ~ ${endPoint}${url}:", `${endPoint}${url}`)
 	return axios.post(`${endPoint}${url}`, apiData, apiConfig(flag));
 };
