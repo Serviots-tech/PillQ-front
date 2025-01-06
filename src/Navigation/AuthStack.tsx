@@ -3,11 +3,10 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
     SignUp,
-    Welcome,
     LogIn,
+    Welcome,
 } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
-import { SafeAreaView } from 'react-native';
 import VerifyEmail from '../screens/VerifyEmail';
 
 export type RootStackParamList = {

@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-import { API_URL } from '@env';
+import { ANDROID_API_URL,IOS_API_URL } from '@env';
+import { Platform } from 'react-native';
 
-const endPoint = API_URL
-console.log("🚀 ~ endPoint:", endPoint)
+
+const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 const apiConfig = (flag = false) => {
 	// if (localStorage.getItem('accessToken')) {

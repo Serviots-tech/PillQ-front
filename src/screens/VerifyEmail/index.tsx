@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import { retrieveData } from "../../helpers/asyncStorageHelpers";
 import { postApi } from "../../apis/apis";
+import { navigationStrings } from "../../constants/navigationStrings";
 
 const VerifyEmail: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -72,9 +73,8 @@ const VerifyEmail: React.FC = () => {
 
   const handleResend = () => {
     if (!isResendDisabled) {
-      console.log("Resending OTP...");
       setIsResendDisabled(true);
-      setTimer(180); // Reset the timer to 3 minutes
+      setTimer(180); 
     }
   };
 
@@ -90,7 +90,7 @@ const VerifyEmail: React.FC = () => {
     setIsLoading(true);
     try {
       await postApi("/auth/registration-otp-verification", { otp: otpString, email: email });
-      console.log("Success");
+      navigation.navigate(navigationStrings.LOGIN)
     } catch (error: any) {
       console.log("🚀 ~ registerUser ~ error:", error);
     } finally {
