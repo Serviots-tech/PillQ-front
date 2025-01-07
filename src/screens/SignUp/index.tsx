@@ -28,6 +28,11 @@ const validationSchema = Yup.object().shape({
         .required("Phone number is required"),
     password: Yup.string()
         .min(8, "Password must be at least 8 characters")
+        .max(16, "Password must be at most 16 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with optional special characters (@, $, !, %, *, ?, &)."
+        )
         .required("Password is required"),
     confirmPassword: Yup.string()
         .nullable()
@@ -53,9 +58,9 @@ const SignUp: React.FC = () => {
 
         setIsLoading(true)
         try {
-            const { confirmPassword,phone, ...rest } = values
+            const { confirmPassword, phone, ...rest } = values
             await storeData('registerEmail', values?.email?.toLowerCase())
-            const data=await postApi('/auth/register', { ...rest, phoneNumber: phone })
+            const data = await postApi('/auth/register', { ...rest, phoneNumber: phone })
             navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
@@ -90,9 +95,9 @@ const SignUp: React.FC = () => {
                     onSubmit={(values: any) => {
                         registerUser(values)
                     }}
-                    // onSubmit={(values, { resetForm }) => {
-                    //     registerUser(values)
-                    // }}
+                // onSubmit={(values, { resetForm }) => {
+                //     registerUser(values)
+                // }}
                 >
                     {({
                         handleChange,

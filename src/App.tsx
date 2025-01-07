@@ -5,6 +5,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './Navigation/Routes';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ToastProvider } from './components/CustomToastTimer/ToastManager';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,11 +18,15 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaProvider style={backgroundStyle}>
-      <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <Routes />
-        </View>
-      </Provider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ToastProvider>
+          <Provider store={store}>
+            <View style={{ flex: 1 }}>
+              <Routes />
+            </View>
+          </Provider>
+        </ToastProvider>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }

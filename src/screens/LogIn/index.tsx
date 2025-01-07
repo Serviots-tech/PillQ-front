@@ -6,14 +6,16 @@ import * as Yup from "yup";
 // import { getApi } from "../../apis/apis";
 import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
+import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
+import { storeData } from "../../helpers/asyncStorageHelpers";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style";
-import { postApi } from "../../apis/apis";
-
+import { CustomToast } from "../../components/CustomToast/CutomToast";
+import { showToast } from "../../components/CustomToastTimer/ToastManager";
 
 
 
@@ -23,17 +25,20 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Invalid email format")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|net|org|edu|gov)$/,
+            "Email must end with a valid domain like .com, .in"
+        )
+        .required("Email is required"),
     password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .max(16, "Password must be at most 16 characters")
-    .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
-        "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with optional special characters (@, $, !, %, *, ?, &)."
-    )
-    .required("Password is required"),
-
-
+        .min(8, "Password must be at least 8 characters")
+        .max(16, "Password must be at most 16 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with optional special characters (@, $, !, %, *, ?, &)."
+        )
+        .required("Password is required"),
 });
 
 type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
@@ -52,21 +57,32 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
         console.log("🚀 ~ loginUser ~ values:", values)
         setIsLoading(true)
         try {
-            await postApi('/auth/login', { ...values, deviceId })
+            const res = await postApi('/auth/login', { ...values, deviceId })
+            console.log("🚀 ~ loginUser ~ res:", res?.data)
             // navigation.navigate(navigationStrings.VERIFY_EMAIL)
+            storeData("accessToken", res?.data?.accessToken)
         }
         catch (error: any) {
-            console.log("Axios Error:", error.message); // Log error message
-            if (error.response) {
-                console.log("Response Data:", error.response.data); // Log response from server
-            } else if (error.request) {
-                console.log("Request Details:", error.request); // Log request sent
-            } else {
-                console.log("Error Details:", error); // Other errors
+            // console.log("🚀 ~ loginUser ~ error:", error)
+            // console.log("Axios Error:", error.message); 
+            if (error?.response?.data?.error?.code === 104) {
+                console.log("Invalid Credentials")
+            }
+            if (error?.response?.data?.error?.code === 103) {
+                console.log("User not verified")
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
+            }
+            if (error?.response?.data?.error?.code === 105) {
+                console.log("Buy subscription to move forward.")
             }
         }
         finally {
             setIsLoading(false)
+            showToast({
+                text: 'Success',
+                duration: 12000,
+                type: 'success'
+            })
         }
     }
 

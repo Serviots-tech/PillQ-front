@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 
 
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
+console.log("🚀 ~ endPoint:", endPoint)
 
 const apiConfig = (flag = false) => {
 	// if (localStorage.getItem('accessToken')) {
