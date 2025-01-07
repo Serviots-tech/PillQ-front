@@ -81,15 +81,6 @@ const VerifyEmail: React.FC = () => {
     }
   };
 
-  // const handleBackspace = (text: string, index: number) => {
-  //   if (!text && index > 0) {
-  //     const newOtp = [...otp];
-  //     newOtp[index - 1] = ""; // Clear the previous input value
-  //     setOtp(newOtp);
-  //     inputRefs.current[index - 1]?.focus(); // Focus on the previous input
-  //   }
-  // };
-
   const handleResend = async () => {
     if (!isResendDisabled) {
       setIsResendDisabled(true);
@@ -105,9 +96,7 @@ const VerifyEmail: React.FC = () => {
   };
 
   const handleVerify = async () => {
-    console.log("OTP Entered: ", otp.join(""));
     const otpString = otp.join("");
-    console.log("🚀 ~ email:", email);
     if (otpString.length !== 6 || !/^\d{6}$/.test(otpString)) {
       // display error message
       return;
@@ -130,7 +119,7 @@ const VerifyEmail: React.FC = () => {
       <View style={styles.container}>
         <View>
           <View style={styles.backicon}>
-            <CustomButton label={"back-icon"} onPress={() => navigation.goBack()} isIcon={true} />
+            <CustomButton label={"back-icon"} onPress={() => navigation.navigate(navigationStrings.SIGN_UP)} isIcon={true} />
           </View>
 
           <Text style={styles.title}>Check your email</Text>
@@ -143,7 +132,7 @@ const VerifyEmail: React.FC = () => {
                 <TextInput
                   key={index}
                   ref={(ref) => (inputRefs.current[index] = ref!)}
-                  style={[styles.input, { width: 40, textAlign: "center" }]} // Adjust width if needed
+                  style={[styles.input, { width: 40, textAlign: "center" }]}
                   keyboardType="numeric"
                   value={value}
                   maxLength={index === 0 ? 6 : 1}

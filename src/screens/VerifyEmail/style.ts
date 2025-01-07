@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         padding: 15,
         marginBottom: 10,
-        marginTop:'5%'
+        marginTop:'5%',
+        color:'#00A8A8',
+        fontWeight: 'bold',
     },
     error: {
         color: "red",

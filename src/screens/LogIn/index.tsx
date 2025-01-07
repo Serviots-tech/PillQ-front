@@ -9,10 +9,11 @@ import DeviceInfo from 'react-native-device-info';
 import CustomButton from "../../components/customButton";
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
-import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style";
 import { postApi } from "../../apis/apis";
+import { CustomInputField } from "../../components/customInputField";
+import { CustomPasswordInput } from "../../components/customPasswordField";
 
 
 
@@ -25,13 +26,13 @@ interface FormValues {
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter a valid email address").required("Please enter a valid email address"),
     password: Yup.string()
-    .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
-    .max(16,"Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
-    .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
-        "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &)."
-    )
-    .required("Please enter your password"),
+        .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
+        .max(16, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &)."
+        )
+        .required("Please enter your password"),
 
 
 });
@@ -40,7 +41,6 @@ type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<LogInProps> = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [deviceId, setDeviceId] = useState("");
 
     const initialValues: FormValues = {
@@ -49,7 +49,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
     };
 
     const loginUser = async (values: FormValues) => {
-        console.log("🚀 ~ loginUser ~ values:", values)
         setIsLoading(true)
         try {
             await postApi('/auth/login', { ...values, deviceId })
@@ -117,42 +116,27 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     <Text style={styles.subtitle}>Welcome! Please enter your details</Text>
                                 </View>
 
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Email</Text>
-                                    <TextInput
-                                        style={[styles.input,touched.email && errors.email ? styles.inputError : null]}
-                                        placeholder="Enter your email"
-                                        onChangeText={handleChange("email")}
-                                        onBlur={handleBlur("email")}
-                                        value={values.email}
-                                        keyboardType="email-address"
-                                    />
-                                    {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
-                                </View>
+                                <CustomInputField
+                                    fieldName="email"
+                                    label="Email"
+                                    value={values.email}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.email}
+                                    errors={errors.email}
+                                    placeholder="Enter your email"
+                                />
 
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Password</Text>
-                                    <View style={styles.passwordContainer}>
-                                        <TextInput
-                                            style={[styles.inputPassword,touched.password && errors.password ? styles.inputError : null]}
-                                            placeholder="Enter your password"
-                                            onChangeText={handleChange("password")}
-                                            onBlur={handleBlur("password")}
-                                            value={values.password}
-                                            secureTextEntry={!isPasswordVisible} 
-                                        />
-                                        <TouchableOpacity
-                                            style={styles.eyeIcon}
-                                            onPress={() => setIsPasswordVisible(!isPasswordVisible)} 
-                                        >
-                                            {isPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
-
-                                        </TouchableOpacity>
-                                    </View>
-                                    {touched.password && errors.password && (
-                                        <Text style={styles.error}>{errors.password}</Text>
-                                    )}
-                                </View>
+                                <CustomPasswordInput
+                                    fieldName="password"
+                                    label="Password"
+                                    value={values.password}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.password}
+                                    errors={errors.password}
+                                    placeholder="Enter your password"
+                                />
                             </View>
 
 

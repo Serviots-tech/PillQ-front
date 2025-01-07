@@ -27,26 +27,6 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     color: "#6b6b6b",
   },
-  fieldContainer: {
-    marginBottom: 10,
-  },
-  fieldTitle: {
-    fontSize: 16,
-    fontWeight: "500",
-    marginBottom: 5,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 4,
-    padding: 10,
-    marginBottom: 10,
-  },
-  error: {
-    color: "red",
-    fontSize: 12,
-    marginBottom: 10,
-  },
   button: {
     width: horizontalScale(332),
     height: SCREEN_WIDTH < 768 ? verticalScale(48) : verticalScale(44),
@@ -75,29 +55,7 @@ const styles = StyleSheet.create({
     marginVertical: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  passwordContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  inputPassword: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 4,
-    padding: 10,
-    marginBottom: 10,
-  },
-  eyeIcon: {
-    position: 'absolute',
-    right: 10,
-    top: 12,
-  },
-  inputError: {
-    borderColor: "red",
   }
-
 });
 
 export default styles;

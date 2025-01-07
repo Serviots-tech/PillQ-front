@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Keyboard, TouchableOpacity } from "react-native";
+import { View, Text, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Keyboard, TouchableOpacity } from "react-native";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
@@ -11,7 +11,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { storeData } from "../../helpers/asyncStorageHelpers";
-import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
+import { CustomInputField } from "../../components/customInputField";
+import { CustomPasswordInput } from "../../components/customPasswordField";
 
 interface FormValues {
     name: string;
@@ -27,9 +28,9 @@ const validationSchema = Yup.object().shape({
     phone: Yup.string().trim()
         .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
         .required("Please enter phone number"),
-    password: Yup.string().trim()
+    password: Yup.string()
         .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).").
-        max(16,"Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
+        max(16, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
             "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &)."
@@ -46,8 +47,6 @@ const SignUp: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [isLoading, setIsLoading] = useState(false)
     const [keyboardVisible, setKeyboardVisible] = useState(false);
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
     const initialValues: FormValues = {
         name: "",
@@ -118,98 +117,61 @@ const SignUp: React.FC = () => {
                                     <Text style={styles.title}>Create an account</Text>
                                     <Text style={styles.subtitle}>Welcome! Please enter your details</Text>
                                 </View>
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Name</Text>
-                                    <TextInput
-                                        style={[styles.input, touched.name && errors.name ? styles.inputError : null]}
-                                        placeholder="Enter your name"
-                                        onChangeText={handleChange("name")}
-                                        onBlur={handleBlur("name")}
-                                        value={values.name}
-                                        placeholderTextColor={'lightgray'}
-                                    />
-                                    {touched.name && errors.name && <Text style={styles.error}>{errors.name}</Text>}
-                                </View>
+                                <CustomInputField
+                                    fieldName="name"
+                                    label="Name"
+                                    value={values.name}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.name}
+                                    errors={errors.name}
+                                    placeholder="Enter your name"
+                                // isDisable={true}
+                                />
 
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Email</Text>
-                                    <TextInput
-                                        style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
-                                        placeholder="Enter your email"
-                                        onChangeText={handleChange("email")}
-                                        onBlur={handleBlur("email")}
-                                        value={values.email}
-                                        keyboardType="email-address"
-                                        placeholderTextColor={'lightgray'}
-                                    />
-                                    {touched.email && errors.email && <Text style={styles.error}>{errors.email}</Text>}
-                                </View>
+                                <CustomInputField
+                                    fieldName="email"
+                                    label="Email"
+                                    value={values.email}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.email}
+                                    errors={errors.email}
+                                    placeholder="Enter your email"
+                                />
 
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Phone Number</Text>
-                                    <TextInput
-                                        style={[styles.input, touched.phone && errors.phone ? styles.inputError : null]}
-                                        placeholder="Enter your phone number"
-                                        onChangeText={handleChange("phone")}
-                                        onBlur={handleBlur("phone")}
-                                        value={values.phone}
-                                        keyboardType="phone-pad"
-                                        placeholderTextColor={'lightgray'}
-                                    />
-                                    {touched.phone && errors.phone && <Text style={styles.error}>{errors.phone}</Text>}
-                                </View>
+                                <CustomInputField
+                                    fieldName="phone"
+                                    label="Phone"
+                                    value={values.phone}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.phone}
+                                    errors={errors.phone}
+                                    placeholder="Enter your phone number"
+                                />
+                                <CustomPasswordInput
+                                    fieldName="password"
+                                    label="Password"
+                                    value={values.password}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.password}
+                                    errors={errors.password}
+                                    placeholder="Enter your password"
+                                />
 
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Password</Text>
-                                    <View style={styles.passwordContainer}>
-                                        <TextInput
-                                            style={[styles.inputPassword, touched.password && errors.password ? styles.inputError : null]}
-                                            placeholder="Enter your password"
-                                            onChangeText={handleChange("password")}
-                                            onBlur={handleBlur("password")}
-                                            value={values.password}
-                                            secureTextEntry={!isPasswordVisible}
-                                            placeholderTextColor={'lightgray'}
-                                        />
-                                        <TouchableOpacity
-                                            style={styles.eyeIcon}
-                                            onPress={() => setIsPasswordVisible(!isPasswordVisible)}  // Toggle password visibility
-                                        >
-                                            {isPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
-
-                                        </TouchableOpacity>
-                                    </View>
-                                    {touched.password && errors.password && (
-                                        <Text style={styles.error}>{errors.password}</Text>
-                                    )}
-                                </View>
-
-                                <View style={styles.fieldContainer}>
-                                    <Text style={styles.fieldTitle}>Confirm Password</Text>
-                                    <View style={styles.passwordContainer}>
-                                        <TextInput
-                                            style={[styles.inputPassword, , touched.confirmPassword && errors.confirmPassword ? styles.inputError : null]}
-                                            placeholder="Re-enter your password"
-                                            onChangeText={handleChange("confirmPassword")}
-                                            onBlur={handleBlur("confirmPassword")}
-                                            value={values.confirmPassword}
-                                            secureTextEntry={!isConfirmPasswordVisible}
-                                            placeholderTextColor={'lightgray'}
-                                        />
-                                        <TouchableOpacity
-                                            style={styles.eyeIcon}
-                                            onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}  // Toggle password visibility
-                                        >
-                                            {isConfirmPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
-
-                                        </TouchableOpacity>
-                                    </View>
-                                    {touched.confirmPassword && errors.confirmPassword && (
-                                        <Text style={styles.error}>{errors.confirmPassword}</Text>
-                                    )}
-                                </View>
+                                <CustomPasswordInput
+                                    fieldName="confirmPassword"
+                                    label="Confirm Password"
+                                    value={values.confirmPassword}
+                                    onChangeText={handleChange}
+                                    onBlur={handleBlur}
+                                    touched={touched.confirmPassword}
+                                    errors={errors.confirmPassword}
+                                    placeholder="Confirm your password"
+                                />
                             </View>
-
                             <View>
                                 <CustomButton onPress={handleSubmit} label={"Sign Up"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} isLoading={isLoading} />
                                 <View style={styles.dividertext}>
