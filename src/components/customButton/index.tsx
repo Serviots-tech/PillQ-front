@@ -31,7 +31,7 @@ export default function CustomButton({
       disabled={isDisabled} 
     >
       {isLoading ? (
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: 'center' , marginStart : -20}}>
           <BouncingCircles />
         </View>
       ) : (

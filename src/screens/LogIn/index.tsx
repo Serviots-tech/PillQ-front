@@ -6,16 +6,19 @@ import * as Yup from "yup";
 // import { getApi } from "../../apis/apis";
 import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
+import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
+import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
+import { storeData } from "../../helpers/asyncStorageHelpers";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style";
-import { postApi } from "../../apis/apis";
+import { CustomToast } from "../../components/CustomToast/CutomToast";
+import { showToast } from "../../components/CustomToastTimer/ToastManager";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
 import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
-
 
 
 
@@ -52,21 +55,32 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
     const loginUser = async (values: FormValues) => {
         setIsLoading(true)
         try {
-            await postApi('/auth/login', { ...values, deviceId })
+            const res = await postApi('/auth/login', { ...values, deviceId })
+            console.log("🚀 ~ loginUser ~ res:", res?.data)
             // navigation.navigate(navigationStrings.VERIFY_EMAIL)
+            storeData("accessToken", res?.data?.accessToken)
         }
         catch (error: any) {
-            console.log("Axios Error:", error.message); // Log error message
-            if (error.response) {
-                console.log("Response Data:", error.response.data); // Log response from server
-            } else if (error.request) {
-                console.log("Request Details:", error.request); // Log request sent
-            } else {
-                console.log("Error Details:", error); // Other errors
+            // console.log("🚀 ~ loginUser ~ error:", error)
+            // console.log("Axios Error:", error.message); 
+            if (error?.response?.data?.error?.code === 104) {
+                console.log("Invalid Credentials")
+            }
+            if (error?.response?.data?.error?.code === 103) {
+                console.log("User not verified")
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
+            }
+            if (error?.response?.data?.error?.code === 105) {
+                console.log("Buy subscription to move forward.")
             }
         }
         finally {
             setIsLoading(false)
+            showToast({
+                text: 'Success',
+                duration: 12000,
+                type: 'info'
+            })
         }
     }
 
