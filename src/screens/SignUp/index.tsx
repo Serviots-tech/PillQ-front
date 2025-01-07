@@ -13,6 +13,7 @@ import { navigationStrings } from "../../constants/navigationStrings";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
+import { BackIcon, EmailIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
 
 interface FormValues {
     name: string;
@@ -111,7 +112,7 @@ const SignUp: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"back-icon"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} isIcon={true} />
+                                    <CustomButton label={"Back"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Create an account</Text>
@@ -126,6 +127,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.name}
                                     errors={errors.name}
                                     placeholder="Enter your name"
+                                    icon={<NameIcon/>}
                                 // isDisable={true}
                                 />
 
@@ -138,6 +140,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.email}
                                     errors={errors.email}
                                     placeholder="Enter your email"
+                                    icon={<EmailIcon/>}
                                 />
 
                                 <CustomInputField
@@ -149,6 +152,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.phone}
                                     errors={errors.phone}
                                     placeholder="Enter your phone number"
+                                    icon={<PhoneIcon/>}
                                 />
                                 <CustomPasswordInput
                                     fieldName="password"
@@ -159,6 +163,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.password}
                                     errors={errors.password}
                                     placeholder="Enter your password"
+                                    icon={<PasswordIcon/>}
                                 />
 
                                 <CustomPasswordInput
@@ -169,7 +174,8 @@ const SignUp: React.FC = () => {
                                     onBlur={handleBlur}
                                     touched={touched.confirmPassword}
                                     errors={errors.confirmPassword}
-                                    placeholder="Confirm your password"
+                                    placeholder="Re-Enter your password"
+                                    icon={<PasswordIcon/>}
                                 />
                             </View>
                             <View>

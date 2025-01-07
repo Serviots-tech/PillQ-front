@@ -1,21 +1,21 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import { BackIcon, BouncingCircles } from '../../constants/svgs';
+import { BouncingCircles } from '../../constants/svgs';
 
 export default function CustomButton({
   viewStyle,
   label,
   buttonTextStyle,
   onPress,
-  isIcon = false,
   isLoading = false,
   isDisabled = false,
+  icon
 }: {
   viewStyle?: any;
   label: any;
   buttonTextStyle?: any;
   onPress: any;
-  isIcon?: boolean;
+  icon?: React.ReactNode;
   isLoading?: boolean;
   isDisabled?: boolean;
 }) {
@@ -25,19 +25,26 @@ export default function CustomButton({
       style={[
         viewStyle,
         {
-          opacity: isDisabled ? 0.5 : 1, // Reduce opacity when disabled
+          opacity: isDisabled ? 0.5 : 1, 
         },
       ]}
-      disabled={isDisabled} // Disable interaction
+      disabled={isDisabled} 
     >
       {isLoading ? (
         <View style={{ alignItems: 'center' }}>
           <BouncingCircles />
         </View>
       ) : (
-        <>
-          {isIcon ? <BackIcon /> : <Text style={buttonTextStyle}>{label}</Text>}
-        </>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: icon ? 'flex-start' : 'center',
+          }}
+        >
+          {icon && <View>{icon}</View>}
+          <Text style={[buttonTextStyle, { fontWeight: '500' }]}>{'  '}{label}</Text>
+        </View>
       )}
     </TouchableOpacity>
   );

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: "#fff",
+        backgroundColor: "#F8F9FA",
         justifyContent: "space-between",
     },
     backicon: {
@@ -17,9 +17,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     title: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: "bold",
-        marginBottom: 0,
+        marginBottom: 8,
     },
     subtitle: {
         fontSize: 16,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     },
     fieldContainer: {
         marginBottom: 10,
-        marginTop:'15%'
+        marginTop:'5%'
     },
     fieldTitle: {
         fontSize: 20,
@@ -37,13 +37,14 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: "#ddd",
+        borderColor: "#333333",
         borderRadius: 8,
-        padding: 15,
+        padding: 10,
         marginBottom: 10,
         marginTop:'5%',
         color:'#00A8A8',
         fontWeight: 'bold',
+        fontSize:24
     },
     error: {
         color: "red",
@@ -65,14 +66,23 @@ const styles = StyleSheet.create({
         color: "#fff",
     },
     footer: {
-        marginTop: 20,
+        marginTop: '5%',
         textAlign: "center",
-        color: "#6b6b6b",
+        fontSize:16,
+        color: "#333333",
+        marginBottom:'3%'
     },
     link: {
         color: "#00bfa5",
         fontWeight: "bold",
+        textAlign: "center",
     },
+      disabledLink: {
+        color: "#9FA2A4",
+        fontWeight: "600",
+        textAlign: "center",
+        fontSize: 14,
+      },
 });
 
 export default styles;

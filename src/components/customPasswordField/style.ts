@@ -1,12 +1,12 @@
+
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-
   fieldContainer: {
     marginBottom: 10,
   },
   fieldTitle: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "500",
     marginBottom: 5,
   },
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'relative',
+    borderWidth: 1,
+    borderColor: "#333333",
+    borderRadius: 4,
+    padding:10
   },
   inputPassword: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 4,
-    padding: 10,
-    marginBottom: 10,
+    paddingVertical: 0,
   },
   eyeIcon: {
     position: 'absolute',
@@ -40,8 +40,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f0f0',
     color: '#d3d3d3', 
     borderColor: '#d3d3d3', 
-},
-
+  },
+  icon: {
+    marginRight: 10,
+  },
 });
 
 export default styles;

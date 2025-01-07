@@ -4,7 +4,7 @@ import { HideEyeIcon, ShowEyeIcon } from '../../constants/svgs';
 import styles from './style';
 
 interface PasswordInputProps {
-    fieldName: string
+    fieldName: string;
     label: string;
     value: string;
     onChangeText: any;
@@ -14,7 +14,8 @@ interface PasswordInputProps {
     placeholder?: string;
     style?: ViewStyle;
     placeholderTextColor?: string;
-    isDisable?: boolean
+    isDisable?: boolean;
+    icon?: React.ReactNode;
 }
 
 export const CustomPasswordInput: React.FC<PasswordInputProps> = ({
@@ -28,14 +29,16 @@ export const CustomPasswordInput: React.FC<PasswordInputProps> = ({
     placeholder = "Enter your password",
     style,
     isDisable = false,
-    placeholderTextColor = 'lightgray'
+    placeholderTextColor = '#7E8183',
+    icon
 }) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     return (
-        <View style={styles.fieldContainer}>
+        <View style={[styles.fieldContainer, style]}>
             <Text style={styles.fieldTitle}>{label}</Text>
-            <View style={styles.passwordContainer}>
+            <View style={[styles.passwordContainer, isDisable && styles.inputDisabled]}>
+                {icon && <View style={styles.icon}>{icon}</View>}
                 <TextInput
                     style={[
                         styles.inputPassword,

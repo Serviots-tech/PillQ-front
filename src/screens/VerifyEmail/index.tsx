@@ -8,6 +8,7 @@ import { RootStackParamList } from "../../Navigation/AuthStack";
 import { retrieveData } from "../../helpers/asyncStorageHelpers";
 import { postApi } from "../../apis/apis";
 import { navigationStrings } from "../../constants/navigationStrings";
+import { BackIcon } from "../../constants/svgs";
 
 const VerifyEmail: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -31,7 +32,7 @@ const VerifyEmail: React.FC = () => {
       const newOtp = [...otp];
       newOtp[index] = text;
       setOtp(newOtp);
-  
+
       if (text && index < otp.length - 1) {
         inputRefs.current[index + 1]?.focus();
       }
@@ -84,7 +85,7 @@ const VerifyEmail: React.FC = () => {
   const handleResend = async () => {
     if (!isResendDisabled) {
       setIsResendDisabled(true);
-      setTimer(180); 
+      setTimer(180);
     }
 
     try {
@@ -119,20 +120,20 @@ const VerifyEmail: React.FC = () => {
       <View style={styles.container}>
         <View>
           <View style={styles.backicon}>
-            <CustomButton label={"back-icon"} onPress={() => navigation.navigate(navigationStrings.SIGN_UP)} isIcon={true} />
+            <CustomButton label={"Back"} onPress={() => navigation.navigate(navigationStrings.SIGN_UP)} icon={<BackIcon />} />
           </View>
 
           <Text style={styles.title}>Check your email</Text>
           <Text style={styles.subtitle}>We have sent an OTP to {email}</Text>
 
           <View style={styles.fieldContainer}>
-            <Text style={styles.fieldTitle}>Enter OTP:</Text>
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+            {/* <Text style={styles.fieldTitle}>Enter OTP:</Text> */}
+            <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
               {otp.map((value, index) => (
                 <TextInput
                   key={index}
                   ref={(ref) => (inputRefs.current[index] = ref!)}
-                  style={[styles.input, { width: 40, textAlign: "center" }]}
+                  style={[styles.input, { width: 50, textAlign: "center" }]}
                   keyboardType="numeric"
                   value={value}
                   maxLength={index === 0 ? 6 : 1}
@@ -147,16 +148,17 @@ const VerifyEmail: React.FC = () => {
               ))}
             </View>
           </View>
-        </View>
-        <View>
           <TouchableOpacity onPress={handleResend} disabled={isResendDisabled}>
             <Text style={styles.footer}>
-              Don't receive the OTP?{" "}
-              <Text style={styles.link}>
-                {isResendDisabled ? `Resend in ${Math.floor(timer / 60)}:${timer % 60}` : "Click to Resend"}
-              </Text>
+              Don't receive the OTP?</Text>
+              <Text style={isResendDisabled ? styles.disabledLink : styles.link}>
+                {isResendDisabled ? `Resend in ${timer}s` : "Resend Now"}
+              
             </Text>
           </TouchableOpacity>
+        </View>
+        <View>
+          
 
           <CustomButton
             onPress={handleVerify}

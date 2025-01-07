@@ -14,6 +14,7 @@ import styles from "./style";
 import { postApi } from "../../apis/apis";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
+import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 
 
 
@@ -109,7 +110,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"back-icon"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} isIcon={true} />
+                                    <CustomButton label={"Back"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>
@@ -125,6 +126,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     touched={touched.email}
                                     errors={errors.email}
                                     placeholder="Enter your email"
+                                    icon={<EmailIcon/>}
                                 />
 
                                 <CustomPasswordInput
@@ -136,11 +138,11 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     touched={touched.password}
                                     errors={errors.password}
                                     placeholder="Enter your password"
+                                    icon={<PasswordIcon/>}
                                 />
                             </View>
 
 
-                            {/* Button positioned at the bottom of the screen */}
                             <View>
                                 <CustomButton
                                     onPress={handleSubmit}

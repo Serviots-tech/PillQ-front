@@ -1,21 +1,26 @@
-import { Dimensions, StyleSheet } from "react-native";
+
+import {  StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-
     fieldContainer: {
         marginBottom: 10,
     },
     fieldTitle: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "500",
         marginBottom: 5,
     },
-    input: {
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
         borderWidth: 1,
-        borderColor: "#ddd",
+        borderColor: "#333333",
         borderRadius: 4,
-        padding: 10,
-        marginBottom: 10,
+        padding:10
+    },
+    input: {
+        flex: 1,
+        paddingVertical: 0,
     },
     error: {
         color: "red",
@@ -27,10 +32,12 @@ const styles = StyleSheet.create({
     },
     inputDisabled: {
         backgroundColor: '#f0f0f0',
-        color: '#d3d3d3', 
-        borderColor: '#d3d3d3', 
+        color: '#d3d3d3',
+        borderColor: '#d3d3d3',
+    },
+    icon: {
+        marginRight: 10,
     },
 });
 
 export default styles;
-

@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     title: {
-        fontSize: 24,
-        marginBottom: 0,
+        fontSize: 28,
+        marginBottom: 8,
         fontFamily: "Nunito-Bold",
     },
     subtitle: {
