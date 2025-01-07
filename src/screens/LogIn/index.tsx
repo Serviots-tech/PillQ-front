@@ -81,7 +81,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             showToast({
                 text: 'Success',
                 duration: 12000,
-                type: 'success'
+                type: 'info'
             })
         }
     }

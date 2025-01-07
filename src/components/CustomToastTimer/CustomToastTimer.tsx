@@ -7,7 +7,7 @@ import { imagePaths } from '../../constants/imagePath';
 interface ToastProps { }
 
 export interface ToastConfig {
-    type: 'success' | 'warning' | 'error',
+    type: 'success' | 'info' | 'error',
     text: string,
     duration: number
 }
@@ -70,8 +70,9 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
     }))
 
     const animatedProgressBarStyles = useAnimatedStyle(() => ({
-        width: `${progressBarAnimation.value * 100}%`, // Dynamic width animation
+        width: `${progressBarAnimation.value * 107.5}%`, // Dynamic width animation
     }));
+    
     const panGesture = Gesture.Pan()
         .onBegin(() => {
             context.value = toastBottomAnimation.value
@@ -101,19 +102,19 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
         switch (toastConfig.type) {
             case 'success':
                 return {
-                    container: [style.toastContainer, style.successToastContainer],
+                    container: [style.toastContainer, style.successToastContainer, {borderBottomColor: '#44D688'}],
                     text: style.successToastText,
                     progressBar: style.successProgressBar
                 }
-            case 'warning':
+            case 'info':
                 return {
-                    container: [style.toastContainer, style.warningToastContainer],
-                    text: style.warningToastText,
-                    progressBar: style.warningProgressBar
+                    container: [style.toastContainer, style.infoToastContainer,{borderBottomColor: '#001D40'}],
+                    text: style.infoToastText,
+                    progressBar: style.infoProgressBar
                 }
             case 'error':
                 return {
-                    container: [style.toastContainer, style.errorToastContainer],
+                    container: [style.toastContainer, style.errorToastContainer,{borderBottomColor: '#E06664'}],
                     text: style.errorToastText,
                     progressBar: style.errorProgressBar
                 }
@@ -131,11 +132,10 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
     return (
         showing ? <GestureDetector gesture={panGesture}>
             <Animated.View style={[container, animatedTopStyles]}>
-                {/* All Conditions  styles toastIcon  , Animated Image animatedIconStyles*/}
                 <Animated.Image
                     source={
                         toastConfig.type === 'success' ? imagePaths?.chechked :
-                            toastConfig.type === 'warning' ? imagePaths?.warning :
+                            toastConfig.type === 'info' ? imagePaths?.info :
                                 imagePaths?.error
                     }
                     style={[style?.toastIcon, animatedIconStyles]}
@@ -163,7 +163,7 @@ const style = StyleSheet.create({
         bottom: 10,
         width: '80%',
         padding: 12,
-        borderRadius: 8,
+        borderRadius: 4,
         borderWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -191,33 +191,33 @@ const style = StyleSheet.create({
     },
     successToastContainer: {
         backgroundColor: '#def1d7',
-        borderColor: '#1f8722'
+        borderColor: '#BDF2D3'
     },
-    warningToastContainer: {
-        backgroundColor: '#fef7ec',
-        borderColor: '#f08135'
+    infoToastContainer: {
+        backgroundColor: '#D9EAFF',
+        borderColor: '#5E9AE5'
     },
     errorToastContainer: {
         backgroundColor: '#fae1db',
-        borderColor: '#d9100a'
+        borderColor: '#FCC1C0'
     },
     successToastText: {
-        color: '#1f8722'
+        color: '#00381A'
     },
-    warningToastText: {
-        color: '#f08135'
+    infoToastText: {
+        color: '#001D40'
     },
     errorToastText: {
-        color: '#d9100a'
+        color: '#580B0A'
     },
     progress_bar: {
         position: 'absolute',
         bottom: -4,
-        left: 0,
+        left: 0.3,
         height: 4,
-        borderRadius: 60,
         backgroundColor: '#1f8722', // Default color for success
-        width: 0, // Initial width
+        width: 0,
+        borderRadius:100 // Initial width
     },
     closeButton: {
         marginLeft: 10,
@@ -225,16 +225,16 @@ const style = StyleSheet.create({
     },
     close: {
         tintColor: '#888',
-        height: 16,
-        width: 16
+        height: 10,
+        width: 10
     },
     successProgressBar: {
         backgroundColor: '#00381A'
     },
-    warningProgressBar: {
-        backgroundColor: '#f08135'
+    infoProgressBar: {
+        backgroundColor: '#001D40'
     },
     errorProgressBar: {
-        backgroundColor: '#d9100a'
+        backgroundColor: '#580B0A'
     },
 })
