@@ -43,7 +43,7 @@ export default function CustomButton({
           }}
         >
           {icon && <View>{icon}</View>}
-          <Text style={[buttonTextStyle, { fontWeight: '500' }]}>{'  '}{label}</Text>
+          <Text style={[buttonTextStyle, { fontWeight: '600' }]}>{'  '}{label}</Text>
         </View>
       )}
     </TouchableOpacity>

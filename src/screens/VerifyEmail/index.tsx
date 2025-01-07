@@ -10,7 +10,9 @@ import { postApi } from "../../apis/apis";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon } from "../../constants/svgs";
 
-const VerifyEmail: React.FC = () => {
+const VerifyEmail= ({ route }: { route: any }) => {
+  const { isPassword } = route.params;
+  console.log("🚀 ~ VerifyEmail ~ isPassword:", isPassword)
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]); // Adjusted for 6 digits
@@ -120,7 +122,7 @@ const VerifyEmail: React.FC = () => {
       <View style={styles.container}>
         <View>
           <View style={styles.backicon}>
-            <CustomButton label={"Back"} onPress={() => navigation.navigate(navigationStrings.SIGN_UP)} icon={<BackIcon />} />
+            <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => navigation.navigate(navigationStrings.SIGN_UP)} icon={<BackIcon />} />
           </View>
 
           <Text style={styles.title}>Check your email</Text>
@@ -148,9 +150,9 @@ const VerifyEmail: React.FC = () => {
               ))}
             </View>
           </View>
-          <TouchableOpacity onPress={handleResend} disabled={isResendDisabled}>
             <Text style={styles.footer}>
               Don't receive the OTP?</Text>
+          <TouchableOpacity onPress={handleResend} disabled={isResendDisabled}>
               <Text style={isResendDisabled ? styles.disabledLink : styles.link}>
                 {isResendDisabled ? `Resend in ${timer}s` : "Resend Now"}
               

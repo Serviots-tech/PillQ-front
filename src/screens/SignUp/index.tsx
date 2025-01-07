@@ -63,8 +63,8 @@ const SignUp: React.FC = () => {
         try {
             const { confirmPassword, phone, ...rest } = values
             await storeData('registerEmail', values?.email?.toLowerCase())
-            const data = await postApi('/auth/register', { ...rest, phoneNumber: phone })
-            navigation.navigate(navigationStrings.VERIFY_EMAIL)
+            await postApi('/auth/register', { ...rest, phoneNumber: phone })
+            navigation.navigate(navigationStrings.VERIFY_EMAIL,{isPassword:false})
         }
         catch (error: any) {
             console.log("🚀 ~ registerUser ~ error:", JSON.stringify(error))
@@ -112,7 +112,7 @@ const SignUp: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
+                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Create an account</Text>

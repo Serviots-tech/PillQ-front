@@ -8,24 +8,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#fff",
+    backgroundColor: "#F8F9FA",
     justifyContent: "space-between",
   },
   backicon: {
     marginBottom: 12
   },
+  backBtn: {
+    fontSize: 17
+  },
   titletext: {
     marginBottom: 10
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 34,
     marginBottom: 8,
+    fontFamily: "Nunito-Bold",
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 2,
+    fontWeight: 500,
     color: "#6b6b6b",
+    fontFamily: "Nunito-semiBold",
   },
   button: {
     width: horizontalScale(332),
@@ -43,14 +48,15 @@ const styles = StyleSheet.create({
     color: '#ffff'
   },
   footer: {
-    marginTop: 20,
+    marginTop: 10,
     textAlign: "center",
     color: "#6b6b6b",
-  },
-  link: {
+    fontFamily: "Nunito-SemiBold",
+},
+link: {
     color: "#00bfa5",
-    fontWeight: "bold",
-  },
+    fontFamily: "Nunito-Bold",
+},
   dividertext: {
     marginVertical: 1,
     justifyContent: 'center',

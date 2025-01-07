@@ -13,18 +13,23 @@ const styles = StyleSheet.create({
     backicon: {
         marginBottom: 12,
     },
+    backBtn: {
+        fontSize: 17
+    },
     titletext: {
         marginBottom: 10,
     },
     title: {
-        fontSize: 28,
-        fontWeight: "bold",
+        fontSize: 34,
         marginBottom: 8,
+        fontFamily: "Nunito-Bold",
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: 17,
         marginBottom: 2,
+        fontWeight:500,
         color: "#6b6b6b",
+        fontFamily: "Nunito-SemiBold",
     },
     fieldContainer: {
         marginBottom: 10,
@@ -68,20 +73,24 @@ const styles = StyleSheet.create({
     footer: {
         marginTop: '5%',
         textAlign: "center",
-        fontSize:16,
+        fontSize:18,
         color: "#333333",
-        marginBottom:'3%'
+        marginBottom:'1.5%',
+        fontFamily: "Nunito-SemiBold",
     },
     link: {
         color: "#00bfa5",
         fontWeight: "bold",
         textAlign: "center",
+        fontSize: 18,
+        fontFamily: "Nunito-Bold",
+        
     },
       disabledLink: {
         color: "#9FA2A4",
         fontWeight: "600",
         textAlign: "center",
-        fontSize: 14,
+        fontSize: 18,
       },
 });
 

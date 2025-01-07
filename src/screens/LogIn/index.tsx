@@ -110,7 +110,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
+                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>
