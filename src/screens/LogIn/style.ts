@@ -38,15 +38,15 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderColor: "#ddd",
-        borderRadius: 8,
+        borderRadius: 4,
         padding: 10,
         marginBottom: 10,
     },
     inputPassword: {
-        flex: 1 ,
+        flex: 1,
         borderWidth: 1,
         borderColor: "#ddd",
-        borderRadius: 8,
+        borderRadius: 4,
         padding: 10,
         marginBottom: 10,
     },
@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 10,
         top: 12,
+    },
+    inputError: {
+        borderColor: "red",
     }
 });
 

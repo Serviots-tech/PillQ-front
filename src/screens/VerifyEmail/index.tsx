@@ -19,12 +19,22 @@ const VerifyEmail: React.FC = () => {
   const [timer, setTimer] = useState(180); // 3 minutes in seconds
 
   const handleOtpChange = (text: string, index: number) => {
-    const newOtp = [...otp];
-    newOtp[index] = text;
-    setOtp(newOtp);
-
-    if (text && index < otp.length - 1) {
-      inputRefs.current[index + 1]?.focus();
+    if (index === 0 && text.length > 1) {
+      if (/^\d{6}$/.test(text)) {
+        const newOtp = text.split("");
+        setOtp(newOtp);
+        inputRefs.current[5]?.focus();
+      } else {
+        // Handle invalid paste (e.g., show an error message)
+      }
+    } else {
+      const newOtp = [...otp];
+      newOtp[index] = text;
+      setOtp(newOtp);
+  
+      if (text && index < otp.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
     }
   };
 
@@ -71,10 +81,26 @@ const VerifyEmail: React.FC = () => {
     }
   };
 
-  const handleResend = () => {
+  // const handleBackspace = (text: string, index: number) => {
+  //   if (!text && index > 0) {
+  //     const newOtp = [...otp];
+  //     newOtp[index - 1] = ""; // Clear the previous input value
+  //     setOtp(newOtp);
+  //     inputRefs.current[index - 1]?.focus(); // Focus on the previous input
+  //   }
+  // };
+
+  const handleResend = async () => {
     if (!isResendDisabled) {
       setIsResendDisabled(true);
       setTimer(180); 
+    }
+
+    try {
+      await postApi("/auth/resend-otp", { email: email })
+      //display toast message
+    } catch (error: any) {
+      console.log("🚀 ~ registerUser ~ error:", error);
     }
   };
 
@@ -119,8 +145,9 @@ const VerifyEmail: React.FC = () => {
                   ref={(ref) => (inputRefs.current[index] = ref!)}
                   style={[styles.input, { width: 40, textAlign: "center" }]} // Adjust width if needed
                   keyboardType="numeric"
-                  maxLength={1}
                   value={value}
+                  maxLength={index === 0 ? 6 : 1}
+                  // maxLength=
                   onChangeText={(text) => handleOtpChange(text, index)}
                   onKeyPress={({ nativeEvent }) => {
                     if (nativeEvent.key === "Backspace") {
@@ -147,6 +174,7 @@ const VerifyEmail: React.FC = () => {
             label={"Verify Email"}
             buttonTextStyle={styles.buttonText}
             viewStyle={styles.button}
+            isLoading={isLoading}
           />
         </View>
       </View>

@@ -75,6 +75,27 @@ const styles = StyleSheet.create({
     marginVertical: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  inputPassword: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    borderRadius: 4,
+    padding: 10,
+    marginBottom: 10,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 10,
+    top: 12,
+  },
+  inputError: {
+    borderColor: "red",
   }
 
 });

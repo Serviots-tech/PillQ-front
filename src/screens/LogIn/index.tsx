@@ -23,15 +23,15 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Please enter a valid email address").required("Please enter a valid email address"),
     password: Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .max(16, "Password must be at most 16 characters")
+    .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
+    .max(16,"Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
     .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
-        "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with optional special characters (@, $, !, %, *, ?, &)."
+        "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &)."
     )
-    .required("Password is required"),
+    .required("Please enter your password"),
 
 
 });
@@ -110,7 +110,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"back-icon"} onPress={() => { navigation.goBack(); }} isIcon={true} />
+                                    <CustomButton label={"back-icon"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} isIcon={true} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>
@@ -120,7 +120,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Email</Text>
                                     <TextInput
-                                        style={styles.input}
+                                        style={[styles.input,touched.email && errors.email ? styles.inputError : null]}
                                         placeholder="Enter your email"
                                         onChangeText={handleChange("email")}
                                         onBlur={handleBlur("email")}
@@ -134,16 +134,16 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     <Text style={styles.fieldTitle}>Password</Text>
                                     <View style={styles.passwordContainer}>
                                         <TextInput
-                                            style={styles.inputPassword}
+                                            style={[styles.inputPassword,touched.password && errors.password ? styles.inputError : null]}
                                             placeholder="Enter your password"
                                             onChangeText={handleChange("password")}
                                             onBlur={handleBlur("password")}
                                             value={values.password}
-                                            secureTextEntry={!isPasswordVisible}  // Toggling secure text entry
+                                            secureTextEntry={!isPasswordVisible} 
                                         />
                                         <TouchableOpacity
                                             style={styles.eyeIcon}
-                                            onPress={() => setIsPasswordVisible(!isPasswordVisible)}  // Toggle password visibility
+                                            onPress={() => setIsPasswordVisible(!isPasswordVisible)} 
                                         >
                                             {isPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
 
@@ -169,7 +169,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     <DividerWithText color={'#333333'} />
                                 </View>
                                 <Text style={styles.footer}>
-                                    Don’t have an account?
+                                    Don’t have an account?{' '}
                                     <Text
                                         style={styles.link}
                                         onPress={() => {

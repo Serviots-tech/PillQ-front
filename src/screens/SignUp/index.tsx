@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Keyboard } from "react-native";
+import { View, Text, TextInput, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Keyboard, TouchableOpacity } from "react-native";
 import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
 import CustomButton from "../../components/customButton";
@@ -11,6 +11,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { storeData } from "../../helpers/asyncStorageHelpers";
+import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
 
 interface FormValues {
     name: string;
@@ -21,18 +22,23 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string()
+    name: Yup.string().trim().required("Please enter your name"),
+    email: Yup.string().trim().email("Invalid email").required("Please enter a valid email address"),
+    phone: Yup.string().trim()
         .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
-        .required("Phone number is required"),
-    password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .required("Password is required"),
-    confirmPassword: Yup.string()
+        .required("Please enter phone number"),
+    password: Yup.string().trim()
+        .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).").
+        max(16,"Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,16}$/,
+            "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &)."
+        )
+        .required("Please enter your password"),
+    confirmPassword: Yup.string().trim()
         .nullable()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Confirm Password is required"),
+        .oneOf([Yup.ref("password")], "Passwords do not match. Please try again")
+        .required("Please confirm your password"),
 });
 
 const SignUp: React.FC = () => {
@@ -40,6 +46,8 @@ const SignUp: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [isLoading, setIsLoading] = useState(false)
     const [keyboardVisible, setKeyboardVisible] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
 
     const initialValues: FormValues = {
         name: "",
@@ -53,9 +61,9 @@ const SignUp: React.FC = () => {
 
         setIsLoading(true)
         try {
-            const { confirmPassword,phone, ...rest } = values
+            const { confirmPassword, phone, ...rest } = values
             await storeData('registerEmail', values?.email?.toLowerCase())
-            const data=await postApi('/auth/register', { ...rest, phoneNumber: phone })
+            const data = await postApi('/auth/register', { ...rest, phoneNumber: phone })
             navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
@@ -87,12 +95,10 @@ const SignUp: React.FC = () => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={(values: any) => {
-                        registerUser(values)
+                    onSubmit={async (values, { resetForm }) => {
+                        await registerUser(values)
+                        resetForm();
                     }}
-                    // onSubmit={(values, { resetForm }) => {
-                    //     registerUser(values)
-                    // }}
                 >
                     {({
                         handleChange,
@@ -106,7 +112,7 @@ const SignUp: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"back-icon"} onPress={() => { navigation.goBack(); }} isIcon={true} />
+                                    <CustomButton label={"back-icon"} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} isIcon={true} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Create an account</Text>
@@ -115,7 +121,7 @@ const SignUp: React.FC = () => {
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Name</Text>
                                     <TextInput
-                                        style={styles.input}
+                                        style={[styles.input, touched.name && errors.name ? styles.inputError : null]}
                                         placeholder="Enter your name"
                                         onChangeText={handleChange("name")}
                                         onBlur={handleBlur("name")}
@@ -128,7 +134,7 @@ const SignUp: React.FC = () => {
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Email</Text>
                                     <TextInput
-                                        style={styles.input}
+                                        style={[styles.input, touched.email && errors.email ? styles.inputError : null]}
                                         placeholder="Enter your email"
                                         onChangeText={handleChange("email")}
                                         onBlur={handleBlur("email")}
@@ -142,7 +148,7 @@ const SignUp: React.FC = () => {
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Phone Number</Text>
                                     <TextInput
-                                        style={styles.input}
+                                        style={[styles.input, touched.phone && errors.phone ? styles.inputError : null]}
                                         placeholder="Enter your phone number"
                                         onChangeText={handleChange("phone")}
                                         onBlur={handleBlur("phone")}
@@ -155,15 +161,24 @@ const SignUp: React.FC = () => {
 
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Password</Text>
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Enter your password"
-                                        onChangeText={handleChange("password")}
-                                        onBlur={handleBlur("password")}
-                                        value={values.password}
-                                        secureTextEntry={true} // This ensures secure input for both platforms
-                                        placeholderTextColor={'lightgray'} // Optional: Platform-specific placeholder styling
-                                    />
+                                    <View style={styles.passwordContainer}>
+                                        <TextInput
+                                            style={[styles.inputPassword, touched.password && errors.password ? styles.inputError : null]}
+                                            placeholder="Enter your password"
+                                            onChangeText={handleChange("password")}
+                                            onBlur={handleBlur("password")}
+                                            value={values.password}
+                                            secureTextEntry={!isPasswordVisible}
+                                            placeholderTextColor={'lightgray'}
+                                        />
+                                        <TouchableOpacity
+                                            style={styles.eyeIcon}
+                                            onPress={() => setIsPasswordVisible(!isPasswordVisible)}  // Toggle password visibility
+                                        >
+                                            {isPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
+
+                                        </TouchableOpacity>
+                                    </View>
                                     {touched.password && errors.password && (
                                         <Text style={styles.error}>{errors.password}</Text>
                                     )}
@@ -171,24 +186,32 @@ const SignUp: React.FC = () => {
 
                                 <View style={styles.fieldContainer}>
                                     <Text style={styles.fieldTitle}>Confirm Password</Text>
-                                    <TextInput
-                                        style={styles.input}
-                                        placeholder="Re-enter your password"
-                                        onChangeText={handleChange("confirmPassword")}
-                                        onBlur={handleBlur("confirmPassword")}
-                                        value={values.confirmPassword}
-                                        secureTextEntry
-                                        placeholderTextColor={'lightgray'}
-                                    />
+                                    <View style={styles.passwordContainer}>
+                                        <TextInput
+                                            style={[styles.inputPassword, , touched.confirmPassword && errors.confirmPassword ? styles.inputError : null]}
+                                            placeholder="Re-enter your password"
+                                            onChangeText={handleChange("confirmPassword")}
+                                            onBlur={handleBlur("confirmPassword")}
+                                            value={values.confirmPassword}
+                                            secureTextEntry={!isConfirmPasswordVisible}
+                                            placeholderTextColor={'lightgray'}
+                                        />
+                                        <TouchableOpacity
+                                            style={styles.eyeIcon}
+                                            onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}  // Toggle password visibility
+                                        >
+                                            {isConfirmPasswordVisible ? <ShowEyeIcon /> : <HideEyeIcon />}
+
+                                        </TouchableOpacity>
+                                    </View>
                                     {touched.confirmPassword && errors.confirmPassword && (
                                         <Text style={styles.error}>{errors.confirmPassword}</Text>
                                     )}
                                 </View>
                             </View>
 
-                            {/* Button positioned at the bottom of the screen */}
                             <View>
-                                <CustomButton onPress={handleSubmit} label={"Verify Email"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} isLoading={false} />
+                                <CustomButton onPress={handleSubmit} label={"Sign Up"} buttonTextStyle={styles.buttonText} viewStyle={styles.button} isLoading={isLoading} />
                                 <View style={styles.dividertext}>
                                     <DividerWithText color={'#333333'} />
                                 </View>
