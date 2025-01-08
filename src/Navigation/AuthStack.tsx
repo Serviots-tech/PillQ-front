@@ -5,9 +5,9 @@ import {
     SignUp,
     LogIn,
     Welcome,
+    VerifyEmail
 } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
-import VerifyEmail from '../screens/VerifyEmail';
 import ForgetPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
 
