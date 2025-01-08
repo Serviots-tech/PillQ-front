@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, KeyboardTypeOptions } from 'react-native';
 import styles from './style';
 
 interface CustomInputFieldProps {
@@ -15,6 +15,8 @@ interface CustomInputFieldProps {
     placeholderTextColor?: string;
     isDisable?: boolean;
     icon?: React.ReactNode;
+    keyboardType?:KeyboardTypeOptions;
+    max?:number
 }
 
 export const CustomInputField: React.FC<CustomInputFieldProps> = ({
@@ -29,7 +31,9 @@ export const CustomInputField: React.FC<CustomInputFieldProps> = ({
     style,
     placeholderTextColor = '#7E8183',
     isDisable = false,
-    icon
+    icon,
+    keyboardType,
+    max
 }) => (
     <View style={[styles.fieldContainer, style]}>
         <Text style={styles.fieldTitle}>{label}</Text>
@@ -45,6 +49,8 @@ export const CustomInputField: React.FC<CustomInputFieldProps> = ({
                 onChangeText={isDisable ? null : onChangeText(fieldName)}
                 onBlur={isDisable ? null : onBlur(fieldName)}
                 value={value}
+                maxLength={max ? max : undefined}
+                keyboardType={keyboardType} 
                 placeholderTextColor={placeholderTextColor}
             />
         </View>

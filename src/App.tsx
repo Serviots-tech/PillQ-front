@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { SafeAreaView, View, useColorScheme } from 'react-native';
+import React from 'react';
+import {View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './Navigation/Routes';

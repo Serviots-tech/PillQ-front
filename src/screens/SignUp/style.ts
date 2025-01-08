@@ -7,7 +7,7 @@ const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: horizontalScale(20),
     backgroundColor: "#F8F9FA",
     justifyContent: "space-between",
   },

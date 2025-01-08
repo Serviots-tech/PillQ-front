@@ -11,6 +11,7 @@ import { CustomInputField } from "../../components/customInputField";
 import * as Yup from "yup";
 import { Formik, FormikProps } from "formik";
 import { postApi } from "../../apis/apis";
+import { storeData } from "../../helpers/asyncStorageHelpers";
 
 interface FormValues {
   email: string;
@@ -29,17 +30,16 @@ const ForgetPassword: React.FC = () => {
 
 
   const handleRequestOtp = async (values: any) => {
-    console.log("🚀 ~ handleRequestOtp ~ values:", values)
     try {
       setIsLoading(true)
-
-      // await postApi('/auth/forgot-password', { ...values })
-      navigation.navigate(navigationStrings.VERIFY_EMAIL, { isPassword: true });
+      await storeData('email', values?.email?.toLowerCase())
+      await postApi('/auth/forgot-password', { ...values })
+      navigation.navigate(navigationStrings.RESET_PASSWORD);
 
     } catch (error) {
       console.error("Error requesting OTP:", error);
     }
-    finally{
+    finally {
       setIsLoading(false)
     }
   };
@@ -91,7 +91,7 @@ const ForgetPassword: React.FC = () => {
                 label={"Request OTP"}
                 buttonTextStyle={styles.buttonText}
                 viewStyle={styles.button}
-                isLoading={false}
+                isLoading={isLoading}
               />
             </View>
           )}

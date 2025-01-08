@@ -62,9 +62,9 @@ const SignUp: React.FC = () => {
         setIsLoading(true)
         try {
             const { confirmPassword, phone, ...rest } = values
-            await storeData('registerEmail', values?.email?.toLowerCase())
+            await storeData('email', values?.email?.toLowerCase())
             await postApi('/auth/register', { ...rest, phoneNumber: phone })
-            navigation.navigate(navigationStrings.VERIFY_EMAIL,{isPassword:false})
+            navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
             console.log("🚀 ~ registerUser ~ error:", JSON.stringify(error))

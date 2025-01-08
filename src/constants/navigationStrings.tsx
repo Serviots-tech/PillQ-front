@@ -3,7 +3,7 @@ export const navigationStrings = {
     SIGN_UP: "SignUp",
     LOGIN: "LogIn",
     FORGOT_PASSWORD: "ForgotPassword",
-    SET_PASSWORD: "SetPassword",
+    RESET_PASSWORD: "ResetPassword",
     VERIFY_EMAIL:"VerifyEmail"
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",

@@ -9,13 +9,15 @@ import {
 import { navigationStrings } from '../constants/navigationStrings';
 import VerifyEmail from '../screens/VerifyEmail';
 import ForgetPassword from '../screens/ForgotPassword';
+import ResetPassword from '../screens/ResetPassword';
 
 export type RootStackParamList = {
     Welcome: undefined,
     SignUp: undefined,
     LogIn: undefined,
-    VerifyEmail: { isPassword: boolean },
-    ForgotPassword:undefined
+    VerifyEmail: undefined,
+    ForgotPassword:undefined,
+    ResetPassword:undefined
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -28,6 +30,7 @@ export default function AuthStack() {
             <Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
             <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
             <Stack.Screen name={navigationStrings?.FORGOT_PASSWORD} component={ForgetPassword} />
+            <Stack.Screen name={navigationStrings?.RESET_PASSWORD} component={ResetPassword} />
         </Stack.Navigator>
 
     )

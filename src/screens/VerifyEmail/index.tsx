@@ -10,9 +10,7 @@ import { postApi } from "../../apis/apis";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon } from "../../constants/svgs";
 
-const VerifyEmail= ({ route }: { route: any }) => {
-  const { isPassword } = route.params;
-  console.log("🚀 ~ VerifyEmail ~ isPassword:", isPassword)
+const VerifyEmail= () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [isLoading, setIsLoading] = useState(false);
   const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]); // Adjusted for 6 digits
@@ -74,7 +72,7 @@ const VerifyEmail= ({ route }: { route: any }) => {
   }, [isResendDisabled, timer]);
 
   const fetchAsyncStorageData = async () => {
-    const registerEmail = await retrieveData("registerEmail");
+    const registerEmail = await retrieveData("email");
     return registerEmail;
   };
 

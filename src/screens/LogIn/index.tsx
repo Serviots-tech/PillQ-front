@@ -69,7 +69,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             }
             if (error?.response?.data?.error?.code === 103) {
                 console.log("User not verified")
-                navigation?.navigate(navigationStrings?.VERIFY_EMAIL, { isPassword: false })
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
             }
             if (error?.response?.data?.error?.code === 105) {
                 console.log("Buy subscription to move forward.")
