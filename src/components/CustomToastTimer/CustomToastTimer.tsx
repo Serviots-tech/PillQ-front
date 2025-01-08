@@ -3,11 +3,12 @@ import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withDelay, withSequence, withSpring, withTiming } from 'react-native-reanimated';
 import { imagePaths } from '../../constants/imagePath';
+import { Platform } from 'react-native';
 
 interface ToastProps { }
 
 export interface ToastConfig {
-    type: 'success' | 'info' | 'error',
+    type: 'success' | 'info' | 'error' | 'warning',
     text: string,
     duration: number
 }
@@ -72,7 +73,7 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
     const animatedProgressBarStyles = useAnimatedStyle(() => ({
         width: `${progressBarAnimation.value * 107.5}%`, // Dynamic width animation
     }));
-    
+
     const panGesture = Gesture.Pan()
         .onBegin(() => {
             context.value = toastBottomAnimation.value
@@ -102,21 +103,27 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
         switch (toastConfig.type) {
             case 'success':
                 return {
-                    container: [style.toastContainer, style.successToastContainer, {borderBottomColor: '#44D688'}],
+                    container: [style.toastContainer, style.successToastContainer, { borderBottomColor: '#44D688' }],
                     text: style.successToastText,
                     progressBar: style.successProgressBar
                 }
             case 'info':
                 return {
-                    container: [style.toastContainer, style.infoToastContainer,{borderBottomColor: '#001D40'}],
+                    container: [style.toastContainer, style.infoToastContainer, { borderBottomColor: Platform.OS === 'ios' ? '#5E9AE5' : '#001D40' }],
                     text: style.infoToastText,
                     progressBar: style.infoProgressBar
                 }
             case 'error':
                 return {
-                    container: [style.toastContainer, style.errorToastContainer,{borderBottomColor: '#E06664'}],
+                    container: [style.toastContainer, style.errorToastContainer, { borderBottomColor: '#E06664' }],
                     text: style.errorToastText,
                     progressBar: style.errorProgressBar
+                }
+            case 'warning':
+                return {
+                    container: [style.toastContainer, style.warningToastContainer, { borderBottomColor: Platform.OS === 'ios' ? '#EDBD70' : '#382200' }],
+                    text: style.infoToastText,
+                    progressBar: style.infoProgressBar
                 }
             default:
                 return {
@@ -135,7 +142,7 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
                 <Animated.Image
                     source={
                         toastConfig.type === 'success' ? imagePaths?.chechked :
-                            toastConfig.type === 'info' ? imagePaths?.info :
+                            toastConfig.type === 'info' ? imagePaths?.info : toastConfig.type === 'warning' ? imagePaths?.warning :
                                 imagePaths?.error
                     }
                     style={[style?.toastIcon, animatedIconStyles]}
@@ -195,7 +202,11 @@ const style = StyleSheet.create({
     },
     infoToastContainer: {
         backgroundColor: '#D9EAFF',
-        borderColor: '#5E9AE5'
+        borderColor: Platform.OS === 'ios' ? '#001D40' : '#5E9AE5'
+    },
+    warningToastContainer: {
+        backgroundColor: '#FFEED3',
+        borderColor: Platform.OS === 'ios' ? '#382200' : '#EDBD70'
     },
     errorToastContainer: {
         backgroundColor: '#fae1db',
@@ -217,7 +228,7 @@ const style = StyleSheet.create({
         height: 4,
         backgroundColor: '#1f8722', // Default color for success
         width: 0,
-        borderRadius:100 // Initial width
+        borderRadius: 100 // Initial width
     },
     closeButton: {
         marginLeft: 10,

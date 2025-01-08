@@ -4,7 +4,7 @@ import chechked from '../assets/images/checked.png'
 import error from '../assets/images/error.png'
 import info from '../assets/images/info.png'
 import close from '../assets/images/close.png'
-
+import warning from '../assets/images/warning.png'
 
 
 export const imagePaths = {
@@ -13,5 +13,6 @@ export const imagePaths = {
     chechked,
     error,
     info,
-    close
+    close,
+    warning
 }

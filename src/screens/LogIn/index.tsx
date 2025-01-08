@@ -1,24 +1,22 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import * as Yup from "yup";
 // import { getApi } from "../../apis/apis";
 import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
+import { CustomInputField } from "../../components/customInputField";
+import { CustomPasswordInput } from "../../components/customPasswordField";
+import { showToast } from "../../components/CustomToastTimer/ToastManager";
 import DividerWithText from "../../components/DividerWithText/DividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
-import { HideEyeIcon, ShowEyeIcon } from "../../constants/svgs";
+import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style";
-import { CustomToast } from "../../components/CustomToast/CutomToast";
-import { showToast } from "../../components/CustomToastTimer/ToastManager";
-import { CustomInputField } from "../../components/customInputField";
-import { CustomPasswordInput } from "../../components/customPasswordField";
-import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 
 
 
@@ -28,7 +26,12 @@ interface FormValues {
 }
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().email("Please enter a valid email address").required("Please enter a valid email address"),
+    email: Yup.string().email("Invalid email format")
+    .matches(
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|net|org|edu|gov)$/,
+        "Email must end with a valid domain like .com, .in"
+    )
+    .required("Email is required"),
     password: Yup.string()
         .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
         .max(16, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
@@ -56,19 +59,17 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
         setIsLoading(true)
         try {
             const res = await postApi('/auth/login', { ...values, deviceId })
-            console.log("🚀 ~ loginUser ~ res:", res?.data)
             // navigation.navigate(navigationStrings.VERIFY_EMAIL)
             storeData("accessToken", res?.data?.accessToken)
         }
         catch (error: any) {
-            // console.log("🚀 ~ loginUser ~ error:", error)
-            // console.log("Axios Error:", error.message); 
+            console.log("🚀 ~ loginUser ~ error:", error)
             if (error?.response?.data?.error?.code === 104) {
                 console.log("Invalid Credentials")
             }
             if (error?.response?.data?.error?.code === 103) {
                 console.log("User not verified")
-                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL, { isPassword: false })
             }
             if (error?.response?.data?.error?.code === 105) {
                 console.log("Buy subscription to move forward.")
@@ -79,7 +80,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             showToast({
                 text: 'Success',
                 duration: 12000,
-                type: 'info'
+                type: 'warning'
             })
         }
     }
@@ -124,7 +125,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
+                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon />} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>
@@ -140,7 +141,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     touched={touched.email}
                                     errors={errors.email}
                                     placeholder="Enter your email"
-                                    icon={<EmailIcon/>}
+                                    icon={<EmailIcon />}
                                 />
 
                                 <CustomPasswordInput
@@ -152,7 +153,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     touched={touched.password}
                                     errors={errors.password}
                                     placeholder="Enter your password"
-                                    icon={<PasswordIcon/>}
+                                    icon={<PasswordIcon />}
                                 />
                             </View>
 
