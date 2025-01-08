@@ -14,6 +14,7 @@ import { storeData } from "../../helpers/asyncStorageHelpers";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
 import { BackIcon, EmailIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
+import { showToast } from "../../components/CustomToastTimer/ToastManager";
 
 interface FormValues {
     name: string;
@@ -25,7 +26,12 @@ interface FormValues {
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().trim().required("Please enter your name"),
-    email: Yup.string().trim().email("Invalid email").required("Please enter a valid email address"),
+    email: Yup.string().email("Invalid email format")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|net|org|edu|gov)$/,
+            "Email must end with a valid domain like .com, .in"
+        )
+        .required("Email is required"),
     phone: Yup.string().trim()
         .matches(/^[0-9]{10}$/, "Phone number must be 10 digits")
         .required("Please enter phone number"),
@@ -57,17 +63,25 @@ const SignUp: React.FC = () => {
         confirmPassword: "",
     };
 
-    const registerUser = async (values: FormValues) => {
+    const registerUser = async (values: FormValues, resetForm :any) => {
 
         setIsLoading(true)
         try {
             const { confirmPassword, phone, ...rest } = values
             await storeData('registerEmail', values?.email?.toLowerCase())
             await postApi('/auth/register', { ...rest, phoneNumber: phone })
-            navigation.navigate(navigationStrings.VERIFY_EMAIL,{isPassword:false})
+            navigation.navigate(navigationStrings.VERIFY_EMAIL, { isPassword: false })
+            resetForm();
         }
         catch (error: any) {
             console.log("🚀 ~ registerUser ~ error:", JSON.stringify(error))
+            if (error?.response?.data?.error?.code === 109) {
+                showToast({
+                    text: `${error?.response?.data?.error?.errorDescription}`,
+                    duration: 3000,
+                    type: 'error'
+                })
+            }
         }
         finally {
             setIsLoading(false)
@@ -96,8 +110,8 @@ const SignUp: React.FC = () => {
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={async (values, { resetForm }) => {
-                        await registerUser(values)
-                        resetForm();
+                        await registerUser(values,resetForm)
+                        // resetForm();
                     }}
                 >
                     {({
@@ -112,7 +126,7 @@ const SignUp: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon/>} />
+                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon />} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Create an account</Text>
@@ -127,7 +141,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.name}
                                     errors={errors.name}
                                     placeholder="Enter your name"
-                                    icon={<NameIcon/>}
+                                    icon={<NameIcon />}
                                 // isDisable={true}
                                 />
 
@@ -140,7 +154,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.email}
                                     errors={errors.email}
                                     placeholder="Enter your email"
-                                    icon={<EmailIcon/>}
+                                    icon={<EmailIcon />}
                                 />
 
                                 <CustomInputField
@@ -152,7 +166,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.phone}
                                     errors={errors.phone}
                                     placeholder="Enter your phone number"
-                                    icon={<PhoneIcon/>}
+                                    icon={<PhoneIcon />}
                                 />
                                 <CustomPasswordInput
                                     fieldName="password"
@@ -163,7 +177,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.password}
                                     errors={errors.password}
                                     placeholder="Enter your password"
-                                    icon={<PasswordIcon/>}
+                                    icon={<PasswordIcon />}
                                 />
 
                                 <CustomPasswordInput
@@ -175,7 +189,7 @@ const SignUp: React.FC = () => {
                                     touched={touched.confirmPassword}
                                     errors={errors.confirmPassword}
                                     placeholder="Re-Enter your password"
-                                    icon={<PasswordIcon/>}
+                                    icon={<PasswordIcon />}
                                 />
                             </View>
                             <View>
