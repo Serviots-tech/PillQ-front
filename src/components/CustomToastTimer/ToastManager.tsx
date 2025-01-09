@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { createRef, ReactNode } from 'react'
-import CustomToastTimer, { ToastConfig, ToastRef } from './CustomToastTimer'
+import CustomToastTimer, { ToastConfig, ToastRef } from '.'
 
 
 const toastRef = createRef<ToastRef>()

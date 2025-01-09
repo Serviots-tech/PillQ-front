@@ -3,15 +3,14 @@ import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import * as Yup from "yup";
-// import { getApi } from "../../apis/apis";
 import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
-import { showToast } from "../../components/CustomToastTimer/ToastManager";
-import DividerWithText from "../../components/DividerWithText/DividerWithText";
+import { showToast } from "../../components/customToastTimer/ToastManager";
+import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
@@ -69,7 +68,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
 
         }
         catch (error: any) {
-            console.log("🚀 ~ loginUser ~ error:", error)
             if (error?.response?.data?.error?.code === 103) {
                 console.log("User not verified")
                 showToast({
@@ -77,7 +75,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                     duration: 3000,
                     type: 'info'
                 })
-                navigation?.navigate(navigationStrings?.VERIFY_EMAIL, { isPassword: false })
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
 
             }
             if (error?.response?.data?.error?.code === 104) {

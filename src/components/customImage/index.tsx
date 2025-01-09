@@ -1,6 +1,5 @@
-import { Image, ImageBackground, ImageSourcePropType, ImageStyle, StyleProp, StyleSheet, Text, View } from 'react-native'
-import React, { PropsWithChildren } from 'react'
-import LinearGradient from 'react-native-linear-gradient';
+import React, { PropsWithChildren } from 'react';
+import { ImageBackground, ImageSourcePropType, ImageStyle, StyleProp, View } from 'react-native';
 
 type ImageProps = PropsWithChildren<{
     imageUrl: ImageSourcePropType,

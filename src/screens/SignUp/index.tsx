@@ -8,13 +8,13 @@ import { useNavigation } from '@react-navigation/native';
 import { postApi } from "../../apis/apis";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import DividerWithText from "../../components/DividerWithText/DividerWithText";
+import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
 import { BackIcon, EmailIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
-import { showToast } from "../../components/CustomToastTimer/ToastManager";
+import { showToast } from "../../components/customToastTimer/ToastManager";
 
 interface FormValues {
     name: string;

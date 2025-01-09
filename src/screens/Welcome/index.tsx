@@ -1,8 +1,8 @@
 import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
-import CustomImage from '../../components/CustomImage/CustomImage';
-import DividerWithText from '../../components/DividerWithText/DividerWithText';
+import CustomImage from '../../components/customImage';
+import DividerWithText from '../../components/dividerWithText';
 import { RootStackParamList } from '../../Navigation/AuthStack';
 import { styles } from './style';
 import { imagePaths } from '../../constants/imagePath';
