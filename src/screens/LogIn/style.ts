@@ -25,6 +25,13 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         fontFamily: "Nunito-Bold",
     },
+    forgotPassword: {
+        textAlign: 'right',
+        fontSize: 14,
+        color: "#00bfa5",
+        fontFamily: "Nunito-Bold",
+        marginBottom: 12,
+    },
     subtitle: {
         fontSize: 18,
         fontWeight: 500,

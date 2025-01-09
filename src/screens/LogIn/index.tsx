@@ -26,11 +26,11 @@ interface FormValues {
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format")
-    .matches(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|net|org|edu|gov)$/,
-        "Email must end with a valid domain like .com, .in"
-    )
-    .required("Email is required"),
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|in|net|org|edu|gov)$/,
+            "Email must end with a valid domain like .com, .in"
+        )
+        .required("Email is required"),
     password: Yup.string()
         .min(8, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
         .max(16, "Password must include at least one uppercase letter, one lowercase letter, one number, and be alphanumeric with special characters (@, $, !, %, *, ?, &).")
@@ -171,6 +171,11 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                                     placeholder="Enter your password"
                                     icon={<PasswordIcon />}
                                 />
+                                <Text
+                                    style={styles.forgotPassword}
+                                    onPress={() => navigation.navigate(navigationStrings.FORGOT_PASSWORD)}>
+                                    Forgot Password?
+                                </Text>
                             </View>
 
 
