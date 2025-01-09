@@ -3,7 +3,6 @@ import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import * as Yup from "yup";
-// import { getApi } from "../../apis/apis";
 import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
 import { postApi } from "../../apis/apis";
@@ -77,7 +76,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                     duration: 3000,
                     type: 'info'
                 })
-                navigation?.navigate(navigationStrings?.VERIFY_EMAIL, { isPassword: false })
+                navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
 
             }
             if (error?.response?.data?.error?.code === 104) {

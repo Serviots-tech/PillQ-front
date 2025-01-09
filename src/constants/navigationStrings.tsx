@@ -4,7 +4,8 @@ export const navigationStrings = {
     LOGIN: "LogIn",
     FORGOT_PASSWORD: "ForgotPassword",
     RESET_PASSWORD: "ResetPassword",
-    VERIFY_EMAIL:"VerifyEmail"
+    VERIFY_EMAIL:"VerifyEmail",
+    RESET_PASSWORD_SUCCESS: "ResetPasswordSuccess",
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"
