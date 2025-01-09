@@ -10,14 +10,14 @@ import { postApi } from "../../apis/apis";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon } from "../../constants/svgs";
 
-const VerifyEmail= () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [isLoading, setIsLoading] = useState(false);
-  const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]); // Adjusted for 6 digits
-  const inputRefs = useRef<TextInput[]>([]);
-  const [email, setEmail] = useState<string>("");
-  const [isResendDisabled, setIsResendDisabled] = useState(false);
-  const [timer, setTimer] = useState(180); // 3 minutes in seconds
+const VerifyEmail = () => {
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const [isLoading, setIsLoading] = useState(false);
+	const [otp, setOtp] = useState<string[]>(["", "", "", "", "", ""]); // Adjusted for 6 digits
+	const inputRefs = useRef<TextInput[]>([]);
+	const [email, setEmail] = useState<string>("");
+	const [isResendDisabled, setIsResendDisabled] = useState(false);
+	const [timer, setTimer] = useState(180); // 3 minutes in seconds
 
 	const handleOtpChange = (text: string, index: number) => {
 		if (index === 0 && text.length > 1) {
@@ -71,10 +71,10 @@ const VerifyEmail= () => {
 		return () => clearInterval(interval); // Cleanup interval on component unmount
 	}, [isResendDisabled, timer]);
 
-  const fetchAsyncStorageData = async () => {
-    const registerEmail = await retrieveData("email");
-    return registerEmail;
-  };
+	const fetchAsyncStorageData = async () => {
+		const registerEmail = await retrieveData("email");
+		return registerEmail;
+	};
 
 	const handleBackspace = (text: string, index: number) => {
 		if (!text && index > 0) {

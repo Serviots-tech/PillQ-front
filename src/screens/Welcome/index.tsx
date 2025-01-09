@@ -38,7 +38,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                 </TouchableOpacity>
 
                 <DividerWithText />
-                
+
                 <Text style={styles.logInasGuesttextBold}>
                     Log in as a Guest
                 </Text>
@@ -54,7 +54,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                 <Text style={styles.privacyPolicyText}>
                     By proceeding, you agree to our{' '}
                     <Text style={styles.privacyPolicyTextBold}>
-                        Terms
+                        Terms{' '}
                     </Text>
                     and that you have read our{' '}
                     <Text style={styles.privacyPolicyTextBold}>
