@@ -6,6 +6,7 @@ export const navigationStrings = {
     RESET_PASSWORD: "ResetPassword",
     VERIFY_EMAIL:"VerifyEmail",
     RESET_PASSWORD_SUCCESS: "ResetPasswordSuccess",
+    HOME : 'Home'
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"

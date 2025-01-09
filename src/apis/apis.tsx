@@ -1,40 +1,55 @@
 import axios from 'axios';
-
-import { ANDROID_API_URL,IOS_API_URL } from '@env';
+import { ANDROID_API_URL, IOS_API_URL } from '@env';
 import { Platform } from 'react-native';
-
+import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
-console.log("🚀 ~ endPoint:", endPoint)
+
 
 const apiConfig = (flag = false) => {
-	// if (localStorage.getItem('accessToken')) {
-	// 	return {
-	// 		headers: {
-	// 			Authorization: `bearer ${localStorage.getItem('accessToken')}`,
-	// 			'Content-Type': flag
-	// 				? 'multipart/form-data'
-	// 				: 'application/json',
-	// 		},
-	// 		method: 'PUT,DELETE,POST,GET,OPTION',
-	// 	};
-	// }
+	const getAccessToken = retrieveData('accessToken')
+	const getRefreshToken = retrieveData('accessToken')
+	const getDeviceId = retrieveData('accessToken')
+	
+	if (flag) {
+		if (getAccessToken && getRefreshToken && getDeviceId) {
+			return {
+				headers: {
+					Authorization: `bearer ${getAccessToken}`,
+					'x-refresh-token': `${getRefreshToken}`,
+					'x-device-id': `${getDeviceId}`,
+					'Content-Type': flag
+						? 'multipart/form-data'
+						: 'application/json',
+				},
+				method: 'PUT,DELETE,POST,GET,OPTION',
+			};
+		}
+	}
 	return { withCredentials: false };
 };
 
-// axios.interceptors.response.use(
-// 	(response) => response,
-// 	(error) => {
-// 		console.log('Error: ', error);
 
-// 		if (error.response && error.response.status === 401) {
-// 			// Logic for logging out the user
-// 			localStorage.removeItem('accessToken');
-// 			window.location.href = '/login'; // Redirect to login page
-// 		}
-// 		return Promise.reject(error);
-// 	}
-// );
+// Response Interceptor
+axios.interceptors.response.use(
+	(response) => {
+		// Check if the response contains the new access token in headers
+		const newAccessToken = response.headers['x-new-access-token'];
+		if (newAccessToken) {
+			console.log('New access token received:', newAccessToken);
+			storeData('accessToke', newAccessToken)
+		}
+		return response;
+	},
+	(error: any) => {
+		// Handle response errors
+		if (error.response && error.response.status === 401) {
+			console.error('Unauthorized: Invalid or expired token.');
+		}
+		return Promise.reject(error);
+	}
+);
+
 
 export const getApi = (url?: string, params?: any) => {
 	return axios.get(`${endPoint}${url}`, {
@@ -44,8 +59,6 @@ export const getApi = (url?: string, params?: any) => {
 };
 
 export const postApi = (url: string, apiData?: any, flag?: boolean) => {
-	console.log("🚀 ~ postApi ~ apiData:", apiData)
-	console.log("🚀 ~ postApi ~ ${endPoint}${url}:", `${endPoint}${url}`)
 	return axios.post(`${endPoint}${url}`, apiData, apiConfig(flag));
 };
 

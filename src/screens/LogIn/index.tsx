@@ -1,10 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import CryptoJS from "crypto-js";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
-import * as Yup from "yup";
-import CryptoJS from "crypto-js";
 import DeviceInfo from 'react-native-device-info';
+import * as Yup from "yup";
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
@@ -14,7 +14,7 @@ import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { CombinedStackParamList } from "../../Navigation/CombineStack";
 import styles from "./style";
 
 
@@ -43,9 +43,10 @@ const validationSchema = Yup.object().shape({
 
 });
 
-type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
+type LogInProps = NativeStackScreenProps<CombinedStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<LogInProps> = ({ navigation }) => {
+    console.log("🚀 ~ navigation:", navigation)
     const [isLoading, setIsLoading] = useState(false);
     const [deviceId, setDeviceId] = useState("");
 
@@ -64,8 +65,10 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 type: 'success'
             })
             storeData("accessToken", res?.data?.accessToken)
-            storeData("refreshToken", res?.data?.refreshToken)
+            // storeData("deviceIdentifier", res?.data?.)
 
+            //Testing
+            navigation?.navigate(navigationStrings?.HOME)
         }
         catch (error: any) {
             if (error?.response?.data?.error?.code === 103) {
