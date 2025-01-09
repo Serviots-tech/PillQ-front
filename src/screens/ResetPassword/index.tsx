@@ -6,6 +6,7 @@ import {
     SafeAreaView,
     ScrollView,
     Text,
+    TouchableOpacity,
     View,
 } from "react-native";
 import { Formik, FormikProps } from "formik";
@@ -120,6 +121,19 @@ const ResetPassword: React.FC = () => {
         };
     }, []);
 
+    const handleResend = async () => {
+        if (!isResendDisabled) {
+            setIsResendDisabled(true);
+            setTimer(180);
+        }
+        try {
+            await postApi('/auth/forgot-password', { email: email })
+
+        } catch (error) {
+            console.error("Error requesting OTP:", error);
+        }
+    };
+
     const handlePasswordReset = async (values: ResetPasswordFormValues) => {
         setIsLoading(true);
         try {
@@ -223,10 +237,21 @@ const ResetPassword: React.FC = () => {
                                             icon={<EmailIcon />}
                                             max={6}
                                         />
-                                        <Text style={styles.resendText}>
+                                        {/* <Text style={styles.resendText}>
                                             Don’t receive the OTP?{" "}
                                             <Text style={styles.resendLink}>Click to Resend</Text>
-                                        </Text>
+                                        </Text> */}
+
+                                        <View style={styles.footerContainer}>
+                                            <Text style={styles.footer}>Don't receive the OTP?</Text>
+                                            <TouchableOpacity onPress={handleResend} disabled={isResendDisabled}>
+                                                <Text style={isResendDisabled ? styles.disabledLink : styles.link}>{' '}
+                                                    {isResendDisabled ? `Resend in ${timer}s` : "Resend Now"}
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+
+
                                     </View>
                                     <View>
                                         <CustomButton
