@@ -42,9 +42,10 @@ axios.interceptors.response.use(
 		return response;
 	},
 	(error: any) => {
-		// Handle response errors
+		// console.log("🚀 ~ error:", error)
+		// // Handle response errors
 		if (error.response && error.response.status === 401) {
-			console.error('Unauthorized: Invalid or expired token.');
+			console.log('Unauthorized: Invalid or expired token.');
 		}
 		return Promise.reject(error);
 	}

@@ -70,9 +70,9 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
         transform: [{ scale: iconScaleAnimation.value }],
     }))
 
-    const animatedProgressBarStyles = useAnimatedStyle(() => ({
-        width: `${progressBarAnimation.value * 107.5}%`, // Dynamic width animation
-    }));
+    // const animatedProgressBarStyles = useAnimatedStyle(() => ({
+    //     width: `${progressBarAnimation.value * 107.5}%`, // Dynamic width animation
+    // }));
 
     const panGesture = Gesture.Pan()
         .onBegin(() => {
@@ -103,25 +103,25 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
         switch (toastConfig.type) {
             case 'success':
                 return {
-                    container: [style.toastContainer, style.successToastContainer, { borderBottomColor: '#44D688' }],
+                    container: [style.toastContainer, style.successToastContainer, ],
                     text: style.successToastText,
                     progressBar: style.successProgressBar
                 }
             case 'info':
                 return {
-                    container: [style.toastContainer, style.infoToastContainer, { borderBottomColor: Platform.OS === 'ios' ? '#5E9AE5' : '#001D40' }],
+                    container: [style.toastContainer, style.infoToastContainer, ],
                     text: style.infoToastText,
                     progressBar: style.infoProgressBar
                 }
             case 'error':
                 return {
-                    container: [style.toastContainer, style.errorToastContainer, { borderBottomColor: '#E06664' }],
+                    container: [style.toastContainer, style.errorToastContainer, ],
                     text: style.errorToastText,
                     progressBar: style.errorProgressBar
                 }
             case 'warning':
                 return {
-                    container: [style.toastContainer, style.warningToastContainer, { borderBottomColor: Platform.OS === 'ios' ? '#EDBD70' : '#382200' }],
+                    container: [style.toastContainer, style.warningToastContainer,],
                     text: style.infoToastText,
                     progressBar: style.infoProgressBar
                 }
@@ -141,7 +141,7 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
             <Animated.View style={[container, animatedTopStyles]}>
                 <Animated.Image
                     source={
-                        toastConfig.type === 'success' ? imagePaths?.chechked :
+                        toastConfig.type === 'success' ? imagePaths?.confirmation :
                             toastConfig.type === 'info' ? imagePaths?.info : toastConfig.type === 'warning' ? imagePaths?.warning :
                                 imagePaths?.error
                     }
@@ -156,7 +156,10 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
                         style={style.close}
                     />
                 </TouchableOpacity>
-                <Animated.View style={[style.progress_bar, progressBar, animatedProgressBarStyles]} />
+                <Animated.View style={[style.progress_bar, 
+                // progressBar, 
+                    // animatedProgressBarStyles
+                    ]} />
             </Animated.View>
         </GestureDetector> : null
     )
@@ -170,7 +173,7 @@ const style = StyleSheet.create({
         bottom: 10,
         width: '80%',
         padding: 12,
-        borderRadius: 4,
+        borderRadius: 50,
         borderWidth: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -183,8 +186,8 @@ const style = StyleSheet.create({
         },
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        borderBottomWidth: 4, // Thickness of the bottom border
-        borderBottomColor: '#1f8722',
+        // borderBottomWidth: 4, // Thickness of the bottom border
+        // borderBottomColor: '#1f8722',
     },
     toastText: {
         marginLeft: 14,
@@ -197,7 +200,7 @@ const style = StyleSheet.create({
         resizeMode: 'contain'
     },
     successToastContainer: {
-        backgroundColor: '#def1d7',
+        backgroundColor: '#E6E6E6',
         borderColor: '#BDF2D3'
     },
     infoToastContainer: {
@@ -205,11 +208,11 @@ const style = StyleSheet.create({
         borderColor: Platform.OS === 'ios' ? '#001D40' : '#5E9AE5'
     },
     warningToastContainer: {
-        backgroundColor: '#FFEED3',
+        backgroundColor: '#E6E6E6',
         borderColor: Platform.OS === 'ios' ? '#382200' : '#EDBD70'
     },
     errorToastContainer: {
-        backgroundColor: '#fae1db',
+        backgroundColor: '#E6E6E6',
         borderColor: '#FCC1C0'
     },
     successToastText: {
@@ -228,7 +231,7 @@ const style = StyleSheet.create({
         height: 4,
         backgroundColor: '#1f8722', // Default color for success
         width: 0,
-        borderRadius: 100 // Initial width
+        // borderRadius: 100 // Initial width
     },
     closeButton: {
         marginLeft: 10,

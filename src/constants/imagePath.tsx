@@ -1,18 +1,17 @@
 import FamImgAndroid from '../assets/images/FamImgAndroid.png'
 import FamImgAndroidIOS from '../assets/images/FamImgAndroidIOS.png'
-import chechked from '../assets/images/checked.png'
+import confirmation from '../assets/images/Confirmation.png'
+import info from '../assets/images/Info.png'
 import error from '../assets/images/error.png'
-import info from '../assets/images/info.png'
-import close from '../assets/images/close.png'
 import warning from '../assets/images/warning.png'
-
+import close from '../assets/images/close.png'
 
 export const imagePaths = {
     FamImgAndroid,
     FamImgAndroidIOS,
-    chechked,
-    error,
+    confirmation,
     info,
-    close,
-    warning
+    error,
+    warning,
+    close
 }

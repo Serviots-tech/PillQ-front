@@ -61,21 +61,22 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             const res = await postApi('/auth/login', { ...values, deviceId })
             showToast({
                 text: `${res?.data?.message}`,
-                duration: 2000,
+                duration: 12000,
                 type: 'success'
             })
             storeData("accessToken", res?.data?.accessToken)
             // storeData("deviceIdentifier", res?.data?.)
 
             //Testing
-            navigation?.navigate(navigationStrings?.HOME)
+            // navigation?.navigate(navigationStrings?.HOME)
         }
         catch (error: any) {
+            console.log("🚀 ~ loginUser ~ error:", error)
             if (error?.response?.data?.error?.code === 103) {
                 console.log("User not verified")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 3000,
+                    duration: 13000,
                     type: 'info'
                 })
                 navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
@@ -85,7 +86,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 console.log("Invalid Credentials")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 3000,
+                    duration: 13000,
                     type: 'error'
                 })
             }
@@ -93,7 +94,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 console.log("Buy subscription to move forward.")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 3000,
+                    duration: 13000,
                     type: 'warning'
                 })
             }
