@@ -4,6 +4,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { runOnJS, useAnimatedStyle, useSharedValue, withDelay, withSequence, withSpring, withTiming } from 'react-native-reanimated';
 import { imagePaths } from '../../constants/imagePath';
 import { Platform } from 'react-native';
+import { horizontalScale, moderateScale, verticalScale } from '../../styles';
 
 interface ToastProps { }
 
@@ -69,10 +70,6 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
     const animatedIconStyles = useAnimatedStyle(() => ({
         transform: [{ scale: iconScaleAnimation.value }],
     }))
-
-    // const animatedProgressBarStyles = useAnimatedStyle(() => ({
-    //     width: `${progressBarAnimation.value * 107.5}%`, // Dynamic width animation
-    // }));
 
     const panGesture = Gesture.Pan()
         .onBegin(() => {
@@ -148,18 +145,6 @@ const CustomToastTimer = forwardRef<ToastRef, ToastProps>(({ }, ref) => {
                     style={[style?.toastIcon, animatedIconStyles]}
                 />
                 <Text style={[style.toastText, text]}>{toastConfig.text}</Text>
-                <TouchableOpacity style={style.closeButton}
-                    onPress={() => setShowing(false)}
-                >
-                    <Image
-                        source={imagePaths.close}
-                        style={style.close}
-                    />
-                </TouchableOpacity>
-                <Animated.View style={[style.progress_bar, 
-                // progressBar, 
-                    // animatedProgressBarStyles
-                    ]} />
             </Animated.View>
         </GestureDetector> : null
     )
@@ -171,70 +156,66 @@ const style = StyleSheet.create({
     toastContainer: {
         position: 'absolute',
         bottom: 10,
-        width: '80%',
         padding: 12,
-        borderRadius: 50,
-        borderWidth: 1,
+        borderRadius: moderateScale(40),
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
         elevation: 5,
-        shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: verticalScale(2)
         },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        // borderBottomWidth: 4, // Thickness of the bottom border
-        // borderBottomColor: '#1f8722',
+        maxWidth: '80%',
+        minWidth: horizontalScale(196), 
     },
     toastText: {
-        marginLeft: 14,
-        fontSize: 16,
-        flex: 1,
+        marginLeft: horizontalScale(10),
+        fontSize: moderateScale(16),
+        flexShrink: 1,
+        flexGrow:1,
+        marginRight: horizontalScale(10)
     },
     toastIcon: {
-        width: 30,
-        height: 30,
-        resizeMode: 'contain'
+        marginLeft: horizontalScale(12),
+        width: 17,
+        height: verticalScale(17),
+        resizeMode: 'contain',
     },
     successToastContainer: {
         backgroundColor: '#E6E6E6',
-        borderColor: '#BDF2D3'
     },
     infoToastContainer: {
-        backgroundColor: '#D9EAFF',
-        borderColor: Platform.OS === 'ios' ? '#001D40' : '#5E9AE5'
+        backgroundColor: '#E6E6E6',
     },
     warningToastContainer: {
         backgroundColor: '#E6E6E6',
-        borderColor: Platform.OS === 'ios' ? '#382200' : '#EDBD70'
     },
     errorToastContainer: {
         backgroundColor: '#E6E6E6',
-        borderColor: '#FCC1C0'
     },
     successToastText: {
-        color: '#00381A'
+        color: '#333333',
+        fontFamily:'Nunito-Bold'
     },
     infoToastText: {
-        color: '#001D40'
+        color: '#333333',
+         fontFamily: 'Nunito-Bold'
     },
     errorToastText: {
-        color: '#580B0A'
+        color: '#333333',
+         fontFamily: 'Nunito-Bold'
     },
     progress_bar: {
         position: 'absolute',
         bottom: -4,
         left: 0.3,
         height: 4,
-        backgroundColor: '#1f8722', // Default color for success
+        backgroundColor: '#1f8722', 
         width: 0,
-        // borderRadius: 100 // Initial width
     },
     closeButton: {
-        marginLeft: 10,
+        marginLeft: horizontalScale(10),
         padding: 3
     },
     close: {

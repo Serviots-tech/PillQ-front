@@ -46,7 +46,6 @@ const validationSchema = Yup.object().shape({
 type LogInProps = NativeStackScreenProps<CombinedStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<LogInProps> = ({ navigation }) => {
-    console.log("🚀 ~ navigation:", navigation)
     const [isLoading, setIsLoading] = useState(false);
     const [deviceId, setDeviceId] = useState("");
 
@@ -61,8 +60,8 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             const res = await postApi('/auth/login', { ...values, deviceId })
             showToast({
                 text: `${res?.data?.message}`,
-                duration: 12000,
-                type: 'success'
+                duration: 120000,
+                type: 'warning'
             })
             storeData("accessToken", res?.data?.accessToken)
             // storeData("deviceIdentifier", res?.data?.)
@@ -71,7 +70,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             // navigation?.navigate(navigationStrings?.HOME)
         }
         catch (error: any) {
-            console.log("🚀 ~ loginUser ~ error:", error)
             if (error?.response?.data?.error?.code === 103) {
                 console.log("User not verified")
                 showToast({
