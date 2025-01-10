@@ -6,9 +6,7 @@ const Home = () => {
     return (
         <>
             <SafeAreaView />
-            <View>
-                <CustomDatepicker />
-            </View>
+            <CustomDatepicker />
         </>
     )
 }

@@ -16,7 +16,7 @@ export default function Routes() {
 
   return (
     <NavigationContainer >
-      {true ? <MainStack /> : <AuthStack />}
+      {false ? <MainStack /> : <AuthStack />}
 
 
     </NavigationContainer>
