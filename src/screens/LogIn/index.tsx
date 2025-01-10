@@ -9,7 +9,7 @@ import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
-import { showToast } from "../../components/customToastTimer/ToastManager";
+import { showToast } from "../../components/customToast/ToastManager";
 import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";

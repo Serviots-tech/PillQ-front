@@ -6,7 +6,7 @@ import Routes from './Navigation/Routes';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ToastProvider } from './components/customToastTimer/ToastManager';
+import { ToastProvider } from './components/customToast/ToastManager';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';

@@ -14,7 +14,7 @@ import { storeData } from "../../helpers/asyncStorageHelpers";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
 import { BackIcon, EmailIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
-import { showToast } from "../../components/customToastTimer/ToastManager";
+import { showToast } from "../../components/customToast/ToastManager";
 
 interface FormValues {
     name: string;
