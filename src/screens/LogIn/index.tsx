@@ -20,6 +20,7 @@ import styles from "./style";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setLoginStatus } from "../../redux/slices/isLoggedIn";
+import { getUserProfile } from "../../redux/actions/userAction";
 
 
 
@@ -72,10 +73,12 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             storeData("accessToken", res?.data?.accessToken)
             storeData("deviceId", getDeviceId)
 
+            // fetch profile
+            dispatch(getUserProfile())
+
             // changes in isloggedIn functionz 
             dispatch(setLoginStatus(true))
-            //Testing
-            // navigation?.navigate(navigationStrings?.HOME)
+           
         }
         catch (error: any) {
             if (error?.response?.data?.error?.code === 103) {

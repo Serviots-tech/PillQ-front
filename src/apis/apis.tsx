@@ -44,10 +44,11 @@ axios.interceptors.response.use(
 );
 
 
-export const getApi = (url?: string, params?: any) => {
+export const getApi =async (url?: string, params?: any) => {
+	const config = await apiConfig();
 	return axios.get(`${endPoint}${url}`, {
 		params: params,
-		...apiConfig(),
+		...config,
 	});
 };
 

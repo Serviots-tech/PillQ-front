@@ -6,7 +6,7 @@ export const getUserProfile = createAsyncThunk(
 	'user/profile',
 	async (_, { rejectWithValue }) => {
 		try {
-			const response = await getApi('/profile');
+			const response = await getApi('/user/profile');
 			return response.data;
 		} catch (error: any) {
 			if (!error.response) {
