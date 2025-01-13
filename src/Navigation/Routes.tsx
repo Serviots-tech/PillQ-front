@@ -1,24 +1,15 @@
-import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import AuthStack from './AuthStack';
 import MainStack from './MainStack';
-import { retrieveData } from '../helpers/asyncStorageHelpers';
 
 export default function Routes() {
-
-  const isLoggedIn = () => {
-    const getAccessToken = retrieveData('accessToken')
-    console.log("🚀 ~ isLoggedIn ~ getAccessToken:", getAccessToken)
-
-
-
-  }
-
-  return (
-    <NavigationContainer >
-      {false ? <MainStack /> : <AuthStack />}
-
-
-    </NavigationContainer>
-  );
+	const isLoggedIn = useSelector((data: any) => data?.isLoggedIn?.isLoggedIn)
+   
+	
+	return (
+		<NavigationContainer>
+			{isLoggedIn ? <MainStack /> : <AuthStack />}
+		</NavigationContainer>
+	);
 }

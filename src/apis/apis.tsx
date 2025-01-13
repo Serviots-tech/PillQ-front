@@ -6,25 +6,19 @@ import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 
-const apiConfig = (flag = false) => {
+const apiConfig = async(flag = false) => {
 	const getAccessToken = retrieveData('accessToken')
-	const getRefreshToken = retrieveData('accessToken')
-	const getDeviceId = retrieveData('accessToken')
-	
-	if (flag) {
-		if (getAccessToken && getRefreshToken && getDeviceId) {
-			return {
-				headers: {
-					Authorization: `bearer ${getAccessToken}`,
-					'x-refresh-token': `${getRefreshToken}`,
-					'x-device-id': `${getDeviceId}`,
-					'Content-Type': flag
-						? 'multipart/form-data'
-						: 'application/json',
-				},
-				method: 'PUT,DELETE,POST,GET,OPTION',
-			};
-		}
+
+	if (await getAccessToken) {
+		return {
+			headers: {
+				Authorization: `bearer ${getAccessToken}`,
+				'Content-Type': flag
+					? 'multipart/form-data'
+					: 'application/json',
+			},
+			method: 'PUT,DELETE,POST,GET,OPTION',
+		};
 	}
 	return { withCredentials: false };
 };
@@ -42,8 +36,6 @@ axios.interceptors.response.use(
 		return response;
 	},
 	(error: any) => {
-		// console.log("🚀 ~ error:", error)
-		// // Handle response errors
 		if (error.response && error.response.status === 401) {
 			console.log('Unauthorized: Invalid or expired token.');
 		}
@@ -59,26 +51,26 @@ export const getApi = (url?: string, params?: any) => {
 	});
 };
 
-export const postApi = (url: string, apiData?: any, flag?: boolean) => {
-	return axios.post(`${endPoint}${url}`, apiData, apiConfig(flag));
+export const postApi =async (url: string, apiData?: any, flag?: boolean) => {
+	return axios.post(`${endPoint}${url}`, apiData, await apiConfig(flag));
 };
 
-export const putApi = (url: string, apiData: any, flag?: boolean) => {
-	return axios.put(`${endPoint}${url}`, apiData, apiConfig(flag));
+export const putApi = async (url: string, apiData: any, flag?: boolean) => {
+	return axios.put(`${endPoint}${url}`, apiData, await apiConfig(flag));
 };
 
-export const deleteApi = (url: string) => {
-	return axios.delete(`${endPoint}${url}`, apiConfig());
+export const deleteApi = async (url: string) => {
+	return axios.delete(`${endPoint}${url}`, await apiConfig());
 };
 
-export const deleteApiWithData = (url: string, apiData?: any) => {
+export const deleteApiWithData = async (url: string, apiData?: any) => {
 	return axios.delete(`${endPoint}${url}`, {
 		data: apiData,
 		...apiConfig(),
 	});
 };
 
-export const putApiNoHeader = (url: string, apiData: any) => {
+export const putApiNoHeader = async (url: string, apiData: any) => {
 	if (localStorage.getItem('accessToken')) {
 		return axios.put(`${endPoint}${url}`, apiData, {
 			headers: {
