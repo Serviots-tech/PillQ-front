@@ -14,8 +14,12 @@ import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
+import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { CombinedStackParamList } from "../../Navigation/CombineStack";
 import styles from "./style";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 
 
 
@@ -48,6 +52,7 @@ type LogInProps = NativeStackScreenProps<CombinedStackParamList, 'LogIn'>;
 const LogIn: React.FC<LogInProps> = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [deviceId, setDeviceId] = useState("");
+    const dispatch = useDispatch<AppDispatch>()
 
     const initialValues: FormValues = {
         email: "",
@@ -60,12 +65,15 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             const res = await postApi('/auth/login', { ...values, deviceId })
             showToast({
                 text: `${res?.data?.message}`,
-                duration: 120000,
-                type: 'warning'
+                duration: 3000,
+                type: 'success'
             })
+            const getDeviceId = getValueFromAcessToken(res?.data?.accessToken)
             storeData("accessToken", res?.data?.accessToken)
-            // storeData("deviceIdentifier", res?.data?.)
+            storeData("deviceId", getDeviceId)
 
+            // changes in isloggedIn functionz 
+            dispatch(setLoginStatus(true))
             //Testing
             // navigation?.navigate(navigationStrings?.HOME)
         }
@@ -205,6 +213,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         </View>
                     )}
                 </Formik>
+               
             </KeyboardAvoidingView>
         </>
     );

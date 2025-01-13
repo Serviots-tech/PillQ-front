@@ -1,23 +1,21 @@
-// import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { deleteApiWithData, getApi, postApi, putApi } from '../../apis/apis';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { deleteApiWithData, getApi, postApi, putApi } from '../../apis/apis';
 
 
-// export const getUsersAction = createAsyncThunk(
-// 	'users/getUsers',
-// 	async (params: any = {}, { rejectWithValue }) => {
-// 		try {
-// 			const response = await getApi('/users', {
-// 				...params,
-// 			});
-// 			return response.data;
-// 		} catch (error: any) {
-// 			if (!error.response) {
-// 				throw error;
-// 			}
-// 			return rejectWithValue(error?.response?.data);
-// 		}
-// 	}
-// );
+export const getUserProfile = createAsyncThunk(
+	'user/profile',
+	async (_, { rejectWithValue }) => {
+		try {
+			const response = await getApi('/profile');
+			return response.data;
+		} catch (error: any) {
+			if (!error.response) {
+				throw error;
+			}
+			return rejectWithValue(error?.response?.data);
+		}
+	}
+);
 
 // export const paginateUserAction = createAsyncThunk(
 // 	'users/paginateUsers',
