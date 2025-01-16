@@ -6,8 +6,9 @@ import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 
-const apiConfig = async(flag = false) => {
-	const getAccessToken = retrieveData('accessToken')
+const apiConfig = async (flag = false) => {
+	const getAccessToken = await retrieveData('accessToken')
+	console.log("🚀 ~ apiConfig ~ getAccessToken:", getAccessToken)
 
 	if (await getAccessToken) {
 		return {
@@ -44,15 +45,16 @@ axios.interceptors.response.use(
 );
 
 
-export const getApi =async (url?: string, params?: any) => {
+export const getApi = async (url?: string, params?: any) => {
 	const config = await apiConfig();
+	console.log("🚀 ~ getApi ~ config:", config)
 	return axios.get(`${endPoint}${url}`, {
 		params: params,
 		...config,
 	});
 };
 
-export const postApi =async (url: string, apiData?: any, flag?: boolean) => {
+export const postApi = async (url: string, apiData?: any, flag?: boolean) => {
 	return axios.post(`${endPoint}${url}`, apiData, await apiConfig(flag));
 };
 

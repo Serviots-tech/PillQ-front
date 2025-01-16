@@ -4,7 +4,7 @@ import styles from './style';
 
 interface CustomInputFieldProps {
     fieldName: string;
-    label: string;
+    label?: string;
     value: string;
     onChangeText: any;
     onBlur: any;
@@ -36,7 +36,8 @@ export const CustomInputField: React.FC<CustomInputFieldProps> = ({
     max
 }) => (
     <View style={[styles.fieldContainer, style]}>
-        <Text style={styles.fieldTitle}>{label}</Text>
+        {/*  */}
+        {label && <Text style={styles.fieldTitle}>{label}</Text>}
         <View style={[styles.inputContainer, isDisable && styles.inputDisabled]}>
             {icon && <View style={styles.icon}>{icon}</View>}
             <TextInput

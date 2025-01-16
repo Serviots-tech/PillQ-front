@@ -73,7 +73,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             storeData("accessToken", res?.data?.accessToken)
             storeData("deviceId", getDeviceId)
 
-            // fetch profile
+            // fetch profile  issue here as i find that before settingt the jwt the fetch profile function ran
             dispatch(getUserProfile())
 
             // changes in isloggedIn functionz 

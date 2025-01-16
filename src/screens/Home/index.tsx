@@ -3,6 +3,7 @@ import React from 'react'
 import CustomDatepicker from '../../components/customDatepicker'
 import { removeData } from '../../helpers/asyncStorageHelpers'
 import ProgressBar from '../../components/progressBar'
+import LogInAsGuest from '../LogInAsGuest'
 
 const Home = () => {
 
@@ -25,6 +26,7 @@ const Home = () => {
                     <Text style={{ color: '#FFF', fontSize: 16 }}>Click</Text>
                 </TouchableOpacity>
             </View>
+            {/* <LogInAsGuest/> */}
         </>
     )
 }

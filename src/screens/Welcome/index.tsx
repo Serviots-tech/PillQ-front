@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import CustomImage from '../../components/customImage';
@@ -6,32 +6,10 @@ import DividerWithText from '../../components/dividerWithText';
 import { RootStackParamList } from '../../Navigation/AuthStack';
 import { styles } from './style';
 import { imagePaths } from '../../constants/imagePath';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
-import { setLoginStatus } from '../../redux/slices/isLoggedIn';
-import { getUserProfile } from '../../redux/actions/userAction';
 
 type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function Welcome({ navigation }: WelcomeProps) {
-    const dispatch = useDispatch<AppDispatch>()
-   
-    
-
-    useEffect(() => {
-        // fetch profile
-        dispatch(getUserProfile()).then((res:any) => {
-            console.log("🚀 ~ dispatch ~ res:", res)
-            if (res?.payload?.responseStatus === 200){
-                dispatch(setLoginStatus(true))
-            }
-        }).catch((err: any) => {
-            console.log("🚀 ~ dispatch ~ err:", err)
-        })
-
-    })
-
-
     return (
         <View style={styles.container}>
             <CustomImage
