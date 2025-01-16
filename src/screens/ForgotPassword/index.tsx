@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Platform, KeyboardAvoidingView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Formik, FormikProps } from "formik";
+import React, { useState } from "react";
+import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
+import * as Yup from "yup";
+import { postApi } from "../../apis/apis";
+import CustomButton from "../../components/customButton";
+import { CustomInputField } from "../../components/customInputField";
+import { navigationStrings } from "../../constants/navigationStrings";
+import { AndroidbackIcon, EmailIcon, IosbackIcon } from "../../constants/svgs";
+import { storeData } from "../../helpers/asyncStorageHelpers";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style"; // Ensure the styles match the provided UI
-import CustomButton from "../../components/customButton";
-import { navigationStrings } from "../../constants/navigationStrings";
-import { BackIcon, EmailIcon } from "../../constants/svgs";
-import { CustomInputField } from "../../components/customInputField";
-import * as Yup from "yup";
-import { Formik, FormikProps } from "formik";
-import { postApi } from "../../apis/apis";
-import { storeData } from "../../helpers/asyncStorageHelpers";
 
 interface FormValues {
     email: string;
@@ -20,6 +20,7 @@ interface FormValues {
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Please enter a valid email address").required("Please enter a valid email address"),
 });
+
 const ForgetPassword: React.FC = () => {
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const [isLoading, setIsLoading] = useState(false)
@@ -67,7 +68,11 @@ const ForgetPassword: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.goBack(); }} icon={<BackIcon />} />
+                                    <CustomButton 
+                                    label={"Back"} 
+                                    buttonTextStyle={styles.backBtn} 
+                                    onPress={() => { navigation.goBack(); }} 
+                                    icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
                                 </View>
                                 <Text style={styles.title}>Forget password?</Text>
                                 <Text style={styles.subtitle}>

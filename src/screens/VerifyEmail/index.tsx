@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView } from "react-native";
-import styles from "./style"; // Adjust the path as per your project structure
-import CustomButton from "../../components/customButton";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React, { useEffect, useRef, useState } from "react";
+import { Platform, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { RootStackParamList } from "../../Navigation/AuthStack";
-import { retrieveData } from "../../helpers/asyncStorageHelpers";
 import { postApi } from "../../apis/apis";
+import CustomButton from "../../components/customButton";
 import { navigationStrings } from "../../constants/navigationStrings";
-import { BackIcon } from "../../constants/svgs";
+import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
+import { retrieveData } from "../../helpers/asyncStorageHelpers";
+import styles from "./style"; // Adjust the path as per your project structure
 
 const VerifyEmail = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -118,7 +118,7 @@ const VerifyEmail = () => {
 			<View style={styles.container}>
 				<View>
 					<View style={styles.backicon}>
-						<CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => navigation.goBack()} icon={<BackIcon />} />
+						<CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => navigation.goBack()} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
 					</View>
 
 					<Text style={styles.title}>Check your email</Text>

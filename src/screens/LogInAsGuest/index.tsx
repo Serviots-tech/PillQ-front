@@ -1,22 +1,17 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import CryptoJS from "crypto-js";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native";
 import DeviceInfo from 'react-native-device-info';
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
-import { CustomPasswordInput } from "../../components/customPasswordField";
 import { showToast } from "../../components/customToast/ToastManager";
-import DividerWithText from "../../components/dividerWithText";
-import { navigationStrings } from "../../constants/navigationStrings";
-import { BackIcon, NameIcon, PasswordIcon } from "../../constants/svgs";
+import { NameIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
-import { CombinedStackParamList } from "../../Navigation/CombineStack";
 import { getUserProfile } from "../../redux/actions/userAction";
 import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { AppDispatch } from "../../redux/store";
@@ -140,7 +135,7 @@ const LogInAsGuest: React.FC= () => {
 										label={"Back"}
 										buttonTextStyle={styles.backBtn}
 										onPress={() => { navigation.navigate(navigationStrings.WELCOME); }}
-										icon={<BackIcon />} /> */}
+										icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} /> */}
 								</View>
 								{/* <View style={styles.titletext}>
 									<Text style={styles.title}>Log in to your account</Text>

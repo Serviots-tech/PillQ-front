@@ -12,7 +12,7 @@ const Home = () => {
             <SafeAreaView />
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
 
-                <ProgressBar percentage={64} />
+                <ProgressBar percentage={64} detailsText={'Let’s Get Started!'}/>
                 <CustomDatepicker />
                 <TouchableOpacity
                     onPress={() => removeData('accessToken')}

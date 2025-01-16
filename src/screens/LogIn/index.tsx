@@ -4,6 +4,7 @@ import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import DeviceInfo from 'react-native-device-info';
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
@@ -12,15 +13,14 @@ import { CustomPasswordInput } from "../../components/customPasswordField";
 import { showToast } from "../../components/customToast/ToastManager";
 import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
-import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
+import { AndroidbackIcon, EmailIcon, IosbackIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { CombinedStackParamList } from "../../Navigation/CombineStack";
-import styles from "./style";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { getUserProfile } from "../../redux/actions/userAction";
+import { setLoginStatus } from "../../redux/slices/isLoggedIn";
+import { AppDispatch } from "../../redux/store";
+import styles from "./style";
 
 
 
@@ -64,16 +64,12 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
         setIsLoading(true)
         try {
             const res = await postApi('/auth/login', { ...values, deviceId })
-            showToast({
-                text: `${res?.data?.message}`,
-                duration: 3000,
-                type: 'success'
-            })
+           
             const getDeviceId = getValueFromAcessToken(res?.data?.accessToken)
             storeData("accessToken", res?.data?.accessToken)
             storeData("deviceId", getDeviceId)
 
-            // fetch profile  issue here as i find that before settingt the jwt the fetch profile function ran
+            // fetch profile 
             dispatch(getUserProfile())
 
             // changes in isloggedIn functionz 
@@ -153,7 +149,11 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon />} />
+                                    <CustomButton 
+                                    label={"Back"} 
+                                    buttonTextStyle={styles.backBtn} 
+                                    onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} 
+                                    icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>

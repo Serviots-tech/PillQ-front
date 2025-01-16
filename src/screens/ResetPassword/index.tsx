@@ -1,3 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import {
     Keyboard,
@@ -9,19 +12,16 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import { Formik, FormikProps } from "formik";
 import * as Yup from "yup";
-import CustomButton from "../../components/customButton";
-import { BackIcon, EmailIcon, PasswordIcon } from "../../constants/svgs";
-import styles from "./style";
-import { CustomInputField } from "../../components/customInputField";
-import { CustomPasswordInput } from "../../components/customPasswordField";
-import { retrieveData } from "../../helpers/asyncStorageHelpers";
-import { navigationStrings } from "../../constants/navigationStrings";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../Navigation/AuthStack";
 import { postApi } from "../../apis/apis";
+import CustomButton from "../../components/customButton";
+import { CustomInputField } from "../../components/customInputField";
+import { CustomPasswordInput } from "../../components/customPasswordField";
+import { navigationStrings } from "../../constants/navigationStrings";
+import { AndroidbackIcon, EmailIcon, IosbackIcon, PasswordIcon } from "../../constants/svgs";
+import { retrieveData } from "../../helpers/asyncStorageHelpers";
+import styles from "./style";
 
 interface ResetPasswordFormValues {
     email: string;
@@ -178,7 +178,7 @@ const ResetPassword: React.FC = () => {
                                                 label="Back"
                                                 onPress={() => console.log("Back pressed")}
                                                 buttonTextStyle={styles.backBtn}
-                                                icon={<BackIcon />}
+                                                icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />}
                                             />
                                         </View>
                                         <Text style={styles.title}>Reset your password</Text>

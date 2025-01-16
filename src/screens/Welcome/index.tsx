@@ -10,6 +10,8 @@ import { imagePaths } from '../../constants/imagePath';
 type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function Welcome({ navigation }: WelcomeProps) {
+    
+
     return (
         <View style={styles.container}>
             <CustomImage

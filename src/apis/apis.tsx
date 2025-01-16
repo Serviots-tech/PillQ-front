@@ -8,8 +8,6 @@ const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 const apiConfig = async (flag = false) => {
 	const getAccessToken = await retrieveData('accessToken')
-	console.log("🚀 ~ apiConfig ~ getAccessToken:", getAccessToken)
-
 	if (await getAccessToken) {
 		return {
 			headers: {
@@ -47,7 +45,6 @@ axios.interceptors.response.use(
 
 export const getApi = async (url?: string, params?: any) => {
 	const config = await apiConfig();
-	console.log("🚀 ~ getApi ~ config:", config)
 	return axios.get(`${endPoint}${url}`, {
 		params: params,
 		...config,

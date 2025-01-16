@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Keyboard, TouchableOpacity } from "react-native";
-import { Formik, FormikProps } from "formik";
-import * as Yup from "yup";
-import CustomButton from "../../components/customButton";
-import styles from "./style";
 import { useNavigation } from '@react-navigation/native';
-import { postApi } from "../../apis/apis";
-import { RootStackParamList } from "../../Navigation/AuthStack";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import DividerWithText from "../../components/dividerWithText";
-import { navigationStrings } from "../../constants/navigationStrings";
-import { storeData } from "../../helpers/asyncStorageHelpers";
+import { Formik, FormikProps } from "formik";
+import React, { useEffect, useState } from "react";
+import { Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, Text, View } from "react-native";
+import * as Yup from "yup";
+import { postApi } from "../../apis/apis";
+import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
-import { BackIcon, EmailIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
 import { showToast } from "../../components/customToast/ToastManager";
+import DividerWithText from "../../components/dividerWithText";
+import { navigationStrings } from "../../constants/navigationStrings";
+import { AndroidbackIcon, EmailIcon, IosbackIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
+import { storeData } from "../../helpers/asyncStorageHelpers";
+import { RootStackParamList } from "../../Navigation/AuthStack";
+import styles from "./style";
 
 interface FormValues {
     name: string;
@@ -125,7 +125,7 @@ const SignUp: React.FC = () => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={<BackIcon />} />
+                                    <CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Create an account</Text>
