@@ -1,13 +1,14 @@
 export const navigationStrings = {
-    SPLASH_SCREEN:"SplashScreen",
+    SPLASH_SCREEN: "SplashScreen",
     WELCOME: "Welcome",
     SIGN_UP: "SignUp",
     LOGIN: "LogIn",
+    LOGIN_AS_GUEST: "LogInAsGuest",
     FORGOT_PASSWORD: "ForgotPassword",
     RESET_PASSWORD: "ResetPassword",
-    VERIFY_EMAIL:"VerifyEmail",
+    VERIFY_EMAIL: "VerifyEmail",
     RESET_PASSWORD_SUCCESS: "ResetPasswordSuccess",
-    HOME : 'Home',
+    HOME: 'Home',
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"

@@ -12,60 +12,18 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     backicon: {
-        marginBottom: 12
+        marginBottom: 0
     },
     backBtn: {
-        fontSize: 17
+        fontSize: moderateScale(17)
     },
     titletext: {
-        marginBottom: 10
+        marginBottom: 8
     },
     title: {
-        fontSize: 34,
+        fontSize: moderateScale(20),
         marginBottom: 8,
         fontFamily: "Nunito-Bold",
-    },
-    forgotPassword: {
-        textAlign: 'right',
-        fontSize: 14,
-        color: "#00bfa5",
-        fontFamily: "Nunito-Bold",
-        marginBottom: 12,
-    },
-    subtitle: {
-        fontSize: 18,
-        fontWeight: 500,
-        marginBottom: 2,
-        color: "#6b6b6b",
-        fontFamily: "Nunito-SemiBold",
-    },
-    fieldContainer: {
-        marginBottom: 10,
-    },
-    fieldTitle: {
-        fontSize: 16,
-        fontWeight: "500",
-        marginBottom: 5,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderRadius: 4,
-        padding: 10,
-        marginBottom: 10,
-    },
-    inputPassword: {
-        flex: 1,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        borderRadius: 4,
-        padding: 10,
-        marginBottom: 10,
-    },
-    error: {
-        color: "red",
-        fontSize: 12,
-        marginBottom: 10,
     },
     button: {
         width: horizontalScale(332),
@@ -81,34 +39,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#ffff'
     },
-    footer: {
-        marginTop: 10,
-        textAlign: "center",
-        color: "#6b6b6b",
-        fontFamily: "Nunito-SemiBold",
-    },
-    link: {
-        color: "#00bfa5",
-        fontFamily: "Nunito-Bold",
-    },
-    dividertext: {
-        marginVertical: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    passwordContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        position: 'relative',
-    },
-    eyeIcon: {
-        position: 'absolute',
-        right: 10,
-        top: 12,
-    },
-    inputError: {
-        borderColor: "red",
-    }
 });
 
 export default styles;

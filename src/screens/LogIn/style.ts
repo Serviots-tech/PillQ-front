@@ -91,24 +91,6 @@ const styles = StyleSheet.create({
         color: "#00bfa5",
         fontFamily: "Nunito-Bold",
     },
-    dividertext: {
-        marginVertical: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    passwordContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        position: 'relative',
-    },
-    eyeIcon: {
-        position: 'absolute',
-        right: 10,
-        top: 12,
-    },
-    inputError: {
-        borderColor: "red",
-    }
 });
 
 export default styles;

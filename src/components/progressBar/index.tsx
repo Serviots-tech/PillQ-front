@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { horizontalScale, moderateScale } from '../../styles';
+import { horizontalScale, moderateScale, verticalScale } from '../../styles';
 
 // Props interface
 interface ProgressBarProps {
@@ -26,7 +26,8 @@ const ProgressBar = ({ percentage = 0, height = 4, backgroundColor = '#A5FBFB', 
 
 const styles = StyleSheet.create({
     outerContainer: {
-        marginHorizontal: horizontalScale(18),
+        height: verticalScale(66),
+        justifyContent:'center'
     },
     inlineTextContainer: {
         flexDirection: 'row', // Arrange text elements in a row

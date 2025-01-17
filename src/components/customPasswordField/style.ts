@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   eyeIcon: {
     position: 'absolute',
     right: 10,
-    top: 12,
+    top: 15,
   },
   inputError: {
     borderColor: "red",

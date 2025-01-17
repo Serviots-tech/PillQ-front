@@ -6,11 +6,12 @@ import {
     Home
 } from '../screens';
 
-export type RootStackParamList = {
+export type MainStackParamList = {
     Home: undefined,
+    
 }
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<MainStackParamList>();
 
 export default function MainStack() {
     return (
