@@ -8,6 +8,7 @@ export const navigationStrings = {
     VERIFY_EMAIL:"VerifyEmail",
     RESET_PASSWORD_SUCCESS: "ResetPasswordSuccess",
     HOME : 'Home',
+    GENDER_SELECTION:'GenderSelection'
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"

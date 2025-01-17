@@ -63,13 +63,13 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
             }
             else {
                 setTimeout(() => {
-                    navigation?.navigate("LogIn")
+                    navigation?.navigate("Welcome")
                 }, 3000);
             }
 
         }).catch((err) => {
             setTimeout(() => {
-                navigation?.navigate("LogIn")
+                navigation?.navigate("Welcome")
             }, 3000);
         })
     })
