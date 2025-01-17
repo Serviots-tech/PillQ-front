@@ -12,7 +12,7 @@ interface ProgressBarProps {
 }
 const ProgressBar = ({ percentage = 0, height = 4, backgroundColor = '#A5FBFB', fillColor = '#00A8A8', detailsText }: ProgressBarProps) => {
     return (
-        <View style={[styles.outerContainer]}>
+        <View>
             <View style={styles?.inlineTextContainer}>
                 {detailsText && <Text style={styles.detailsText}>{detailsText}</Text>}
                 <Text style={styles.percentageText}>{`${Math.round(percentage)}%`}</Text>
