@@ -13,7 +13,7 @@ import DividerWithText from "../../components/dividerWithText";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, EmailIcon, IosbackIcon, NameIcon, PasswordIcon, PhoneIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { AuthStackParamList } from "../../Navigation/AuthStack";
 import styles from "./style";
 
 interface FormValues {
@@ -51,7 +51,7 @@ const validationSchema = Yup.object().shape({
 
 const SignUp: React.FC = () => {
 
-    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
     const [isLoading, setIsLoading] = useState(false)
     const [keyboardVisible, setKeyboardVisible] = useState(false);
 

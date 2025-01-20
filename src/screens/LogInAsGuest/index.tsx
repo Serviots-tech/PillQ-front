@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native";
+import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import DeviceInfo from 'react-native-device-info';
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -9,13 +9,17 @@ import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
 import { showToast } from "../../components/customToast/ToastManager";
-import { NameIcon } from "../../constants/svgs";
+import { AndroidbackIcon, IosbackIcon, NameIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { getUserProfile } from "../../redux/actions/userAction";
 import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { AppDispatch } from "../../redux/store";
 import styles from "./style";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { AuthStackParamList } from "../../Navigation/AuthStack";
+import { navigationStrings } from "../../constants/navigationStrings";
+import ProgressBar from "../../components/progressBar";
 
 
 interface FormValues {
@@ -27,9 +31,9 @@ const validationSchema = Yup.object().shape({
 
 });
 
-// type LogInProps = NativeStackScreenProps<CombinedStackParamList, 'LogIn'>;
+type LogInAsGuestProps = NativeStackScreenProps<AuthStackParamList, 'LogInAsGuest'>;
 
-const LogInAsGuest: React.FC= () => {
+const LogInAsGuest: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [deviceId, setDeviceId] = useState("");
 	const dispatch = useDispatch<AppDispatch>()
@@ -66,7 +70,7 @@ const LogInAsGuest: React.FC= () => {
 					duration: 13000,
 					type: 'info'
 				})
-				// navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
+				navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
 
 			}
 			if (error?.response?.data?.error?.code === 104) {
@@ -131,16 +135,17 @@ const LogInAsGuest: React.FC= () => {
 						<View style={styles.container}>
 							<View>
 								<View style={styles.backicon}>
-									{/* <CustomButton
+									<CustomButton
 										label={"Back"}
 										buttonTextStyle={styles.backBtn}
-										onPress={() => { navigation.navigate(navigationStrings.WELCOME); }}
-										icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} /> */}
+										onPress={() => { navigation.goBack(); }}
+										icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
 								</View>
-								{/* <View style={styles.titletext}>
-									<Text style={styles.title}>Log in to your account</Text>
-									<Text style={styles.subtitle}>Welcome! Please enter your details</Text>
-								</View> */}
+								<ProgressBar percentage={25} detailsText={'Let’s Get Started!'} />
+								<View style={styles.titletext}>
+									<Text style={styles.title}>Let’s start with your name!</Text>
+									
+								</View>
 
 								<CustomInputField
 									fieldName="name"
@@ -152,7 +157,7 @@ const LogInAsGuest: React.FC= () => {
 									placeholder="Enter your name"
 									icon={<NameIcon />}
 								/>
-								
+
 							</View>
 
 

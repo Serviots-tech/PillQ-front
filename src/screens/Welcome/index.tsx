@@ -1,16 +1,16 @@
-import React from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React from 'react';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import CustomImage from '../../components/customImage';
 import DividerWithText from '../../components/dividerWithText';
-import { RootStackParamList } from '../../Navigation/AuthStack';
-import { styles } from './style';
 import { imagePaths } from '../../constants/imagePath';
+import { AuthStackParamList } from '../../Navigation/AuthStack';
+import { styles } from './style';
 
-type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
+type WelcomeProps = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
 
 export default function Welcome({ navigation }: WelcomeProps) {
-    
+
 
     return (
         <View style={styles.container}>
@@ -41,7 +41,9 @@ export default function Welcome({ navigation }: WelcomeProps) {
 
                 <DividerWithText />
 
-                <Text style={styles.logInasGuesttextBold}>
+                <Text
+                    style={styles.logInasGuesttextBold}
+                    onPress={() => navigation.navigate('LogInAsGuest')}>
                     Log in as a Guest
                 </Text>
                 <Text style={styles.haveAnAcc}>
