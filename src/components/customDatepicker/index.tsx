@@ -1,89 +1,76 @@
-import dayjs from 'dayjs';
-import 'dayjs/locale/en';
 import React, { useState } from 'react';
-import {
-	SafeAreaView,
-	StyleSheet,
-	Text,
-	View
-} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal } from 'react-native';
 import DateTimePicker, { DateType } from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
+import styles from './style';
+import { CalenderIcon } from '../../constants/svgs';
 
-const theme = { mainColor: '#CCF6E4', activeTextColor: '#00864E' };
+interface CustomDateInputProps {
+	label: string;
+	date: DateType | undefined;
+	setDate: (date: DateType | undefined) => void;
+	errormsg: string |null
+}
 
-export default function CustomDatePicker() {
-	const [date, setDate] = useState<DateType | undefined>(dayjs());
+const CustomDateInput = ({ label, date, setDate, errormsg }: CustomDateInputProps) => {
+	const [isPickerVisible, setPickerVisible] = useState(false);
 
-	const onChange = (params: any) => {
+	const handleDateChange = (params: { date: DateType | undefined }) => {
 		setDate(params.date);
+		setPickerVisible(false);
 	};
 
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.body}>
-				<View style={styles.datePickerContainer}>
-					<DateTimePicker
-						mode="single"
-						date={date}
-						locale="en"
-						timePicker={false}
-						onChange={onChange}
-						headerButtonColor={theme.mainColor}
-						selectedItemColor={theme.mainColor}
-						selectedTextStyle={{
-							fontWeight: 'bold',
-							color: theme.activeTextColor,
-						}}
-						todayContainerStyle={{
-							borderWidth: 1,
-						}}
-					/>
-				</View>
-				<View style={styles.footer}>
-					<Text style={styles.selectedDateText}>
-						{date
-							? dayjs(date).locale('en').format('MMMM DD, YYYY')
-							: 'Select a date'}
-					</Text>
-				</View>
-			</View>
-		</SafeAreaView>
-	);
-}
+		<View style={styles.container}>
+			<Text style={styles.label}>{label}</Text>
+			<TouchableOpacity onPress={() => setPickerVisible(true)} style={styles.inputWrapper}>
+				<TextInput
+					style={styles.input}
+					editable={false}
+					value={date ? dayjs(date).format('DD/MM/YYYY') : 'DD/MM/YYYY'}
+				/>
+				<Text style={styles.icon}>
+					<CalenderIcon />
+				</Text>
+			</TouchableOpacity>
+			{errormsg && <Text style={styles.errormsg}>{errormsg}</Text>}
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#F5FCFF',
-	},
-	body: {
-		flex: 1,
-		backgroundColor: '#F5FCFF',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginBottom: 20,
-	},
-	datePickerContainer: {
-		width: 330,
-		backgroundColor: '#fff',
-		padding: 15,
-		borderRadius: 15,
-		shadowRadius: 20,
-		shadowColor: '#000',
-		shadowOpacity: 0.1,
-		shadowOffset: { width: 0, height: 0 },
-	},
-	footer: {
-		marginTop: 20,
-		alignItems: 'center',
-	},
-	selectedDateText: {
-		fontSize: 16,
-		fontWeight: 'bold',
-		color: '#333',
-	},
-});
+			{/* Modal for Date Picker */}
+			<Modal visible={isPickerVisible} transparent={true} animationType="fade">
+				<View style={styles.modalBackground}>
+					<View style={[styles.modalContainer, { justifyContent: 'flex-start' }]}>
+						<DateTimePicker
+							mode="single"
+							date={date}
+							locale="en"
+							timePicker={false}
+							onChange={handleDateChange}
+							headerButtonColor="#00A8A8"
+							selectedItemColor="#00A8A8"
+							selectedTextStyle={{
+								fontWeight: 'bold',
+								color: '#FFFF',
+							}}
+							todayContainerStyle={{
+								borderWidth: 1,
+								borderColor: '#00A8A8',
+								shadowColor: '#00A8A8',
+								borderRadius: 50,
+								width: 40,
+								height: 40,
+							}}
+						/>
+						<TouchableOpacity
+							onPress={() => setPickerVisible(false)}
+							style={[styles.closeButton]}
+						>
+							<Text style={styles.closeButtonText}>Cancel</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+			</Modal>
+		</View>
+	);
+};
+
+export default CustomDateInput;
