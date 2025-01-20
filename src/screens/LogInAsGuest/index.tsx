@@ -1,25 +1,18 @@
-import CryptoJS from "crypto-js";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
-import DeviceInfo from 'react-native-device-info';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
-import { showToast } from "../../components/customToast/ToastManager";
 import { AndroidbackIcon, IosbackIcon, NameIcon } from "../../constants/svgs";
-import { storeData } from "../../helpers/asyncStorageHelpers";
-import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
-import { getUserProfile } from "../../redux/actions/userAction";
-import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { AppDispatch } from "../../redux/store";
 import styles from "./style";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthStackParamList } from "../../Navigation/AuthStack";
 import { navigationStrings } from "../../constants/navigationStrings";
 import ProgressBar from "../../components/progressBar";
+import { clearGuestUserData, setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
 
 
 interface FormValues {
@@ -35,82 +28,24 @@ type LogInAsGuestProps = NativeStackScreenProps<AuthStackParamList, 'LogInAsGues
 
 const LogInAsGuest: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [deviceId, setDeviceId] = useState("");
 	const dispatch = useDispatch<AppDispatch>()
 
+	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
+
+
 	const initialValues: FormValues = {
-		name: "",
+		name: userData?.name || "",
 	};
 
-	const loginUser = async (values: FormValues) => {
+	const addName = async (values: FormValues) => {
 		setIsLoading(true)
-		try {
-			const res = await postApi('/auth/login', { ...values, deviceId })
-			showToast({
-				text: `${res?.data?.message}`,
-				duration: 3000,
-				type: 'success'
-			})
-			const getDeviceId = getValueFromAcessToken(res?.data?.accessToken)
-			storeData("accessToken", res?.data?.accessToken)
-			storeData("deviceId", getDeviceId)
-
-			// fetch profile
-			dispatch(getUserProfile())
-
-			// changes in isloggedIn functionz 
-			dispatch(setLoginStatus(true))
-
-		}
-		catch (error: any) {
-			if (error?.response?.data?.error?.code === 103) {
-				console.log("User not verified")
-				showToast({
-					text: `${error?.response?.data?.error?.errorDescription}`,
-					duration: 13000,
-					type: 'info'
-				})
-				navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
-
-			}
-			if (error?.response?.data?.error?.code === 104) {
-				console.log("Invalid Credentials")
-				showToast({
-					text: `${error?.response?.data?.error?.errorDescription}`,
-					duration: 13000,
-					type: 'error'
-				})
-			}
-			if (error?.response?.data?.error?.code === 105) {
-				console.log("Buy subscription to move forward.")
-				showToast({
-					text: `${error?.response?.data?.error?.errorDescription}`,
-					duration: 13000,
-					type: 'warning'
-				})
-			}
-		}
-		finally {
-			setIsLoading(false)
-		}
+		dispatch(setRegisterAsGuest({name:values.name}))
+		
+		setIsLoading(false)
+		navigation.navigate(navigationStrings.GENDER_SELECTION)
 	}
 
 
-	useEffect(() => {
-		const fetchDeviceId = async () => {
-			const deviceId = await DeviceInfo.getUniqueId();
-			console.log('Device ID:', deviceId);
-			try {
-				const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
-				console.log("Hashed Message:", hashedMessage);
-				setDeviceId(hashedMessage)
-			} catch (error) {
-				console.error("Error hashing message:", error);
-			}
-		};
-
-		fetchDeviceId();
-	}, []);
 
 	return (
 		<>
@@ -120,7 +55,7 @@ const LogInAsGuest: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 					initialValues={initialValues}
 					validationSchema={validationSchema}
 					onSubmit={(values: any) => {
-						// loginUser(values)
+						addName(values)
 					}}
 				>
 					{({
@@ -138,10 +73,12 @@ const LogInAsGuest: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 									<CustomButton
 										label={"Back"}
 										buttonTextStyle={styles.backBtn}
-										onPress={() => { navigation.goBack(); }}
+										onPress={() => {dispatch(clearGuestUserData()); navigation.navigate(navigationStrings.WELCOME) }}
 										icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
 								</View>
+								<View style={styles.progressbarview}>
 								<ProgressBar percentage={25} detailsText={'Let’s Get Started!'} />
+								</View>
 								<View style={styles.titletext}>
 									<Text style={styles.title}>Let’s start with your name!</Text>
 									

@@ -53,13 +53,23 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
     }, [showText]);
 
     useEffect(() => {
+        fetchProfile()
         
-        // fetch profile 
-        dispatch(getUserProfile()).then((res) => {
+    })
+
+    const fetchProfile=async ()=>{
+
+        await dispatch(getUserProfile()).then((res) => {
             if (res?.payload?.responseStatus === 200) {
-                setTimeout(() => {
+                if (!res?.payload?.data?.birthday || !res?.payload?.data?.gender){
+                    // navigation.navigate(navigationStrings.GENDER_SELECTION)
                     dispatch(setLoginStatus(true))
-                }, 3000);
+                }
+                else{
+                // setTimeout(() => {
+                    dispatch(setLoginStatus(true))
+                // }, 3000);
+            }
             }
             else {
                 setTimeout(() => {
@@ -72,7 +82,7 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
                 navigation?.navigate("Welcome")
             }, 3000);
         })
-    })
+    }
 
 
     return (

@@ -4,12 +4,11 @@ import AuthStack from './AuthStack';
 import MainStack from './MainStack';
 
 export default function Routes() {
-	const isLoggedIn = useSelector((data: any) => data?.isLoggedIn?.isLoggedIn)
-   
-	
+	const isLoggedIn = useSelector((data: any) => data?.isLoggedIn?.isLoggedIn);
+
 	return (
 		<NavigationContainer>
-			{isLoggedIn ? <MainStack /> : <AuthStack />}
+			{isLoggedIn? <MainStack /> : <AuthStack />}
 		</NavigationContainer>
 	);
 }

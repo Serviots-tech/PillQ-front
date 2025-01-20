@@ -1,21 +1,46 @@
 import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
-import CustomDatepicker from '../../components/customDatepicker'
 import { removeData } from '../../helpers/asyncStorageHelpers'
-import ProgressBar from '../../components/progressBar'
-import LogInAsGuest from '../LogInAsGuest'
+import { postApi } from '../../apis/apis'
+import { setLoginStatus } from '../../redux/slices/isLoggedIn'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-const Home = () => {
+import { CombinedStackParamList } from '../../Navigation/CombineStack'
+import { navigationStrings } from '../../constants/navigationStrings'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../redux/store'
 
+type LogInAsGuestProps = NativeStackScreenProps<CombinedStackParamList, 'Home'>;
+
+
+const Home: React.FC<LogInAsGuestProps> = ({navigation}) => {
+    const dispatch = useDispatch<AppDispatch>()
+
+    const logoutUser = async () => {
+        try {
+            const res = await postApi('/auth/logout')
+            console.log("🚀 ~ logoutUser ~ res:", res)
+            await removeData('accessToken')
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'LogIn' }],
+            });
+            dispatch(setLoginStatus(false))
+
+        }
+        catch (error: any) {
+        console.log("🚀 ~ logoutUser ~ error:", JSON.stringify(error))
+        }
+
+    }
     return (
         <>
             <SafeAreaView />
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
+                <Text> Home Screen</Text>
 
-               
-                <CustomDatepicker />
                 <TouchableOpacity
-                    onPress={() => removeData('accessToken')}
+                    onPress={() => { logoutUser() }}
                     style={{
                         backgroundColor: '#007BFF',
                         padding: 10,

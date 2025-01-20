@@ -51,6 +51,7 @@ const CustomDateInput = ({ label, date, setDate, errormsg }: CustomDateInputProp
 								fontWeight: 'bold',
 								color: '#FFFF',
 							}}
+							maxDate={new Date()}
 							todayContainerStyle={{
 								borderWidth: 1,
 								borderColor: '#00A8A8',

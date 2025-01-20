@@ -6,11 +6,16 @@ import DividerWithText from '../../components/dividerWithText';
 import { imagePaths } from '../../constants/imagePath';
 import { AuthStackParamList } from '../../Navigation/AuthStack';
 import { styles } from './style';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../redux/store';
+import { setGuestUser } from '../../redux/slices/registerAsGuest';
 
 type WelcomeProps = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
 
 export default function Welcome({ navigation }: WelcomeProps) {
 
+    const dispatch = useDispatch<AppDispatch>()
+   
 
     return (
         <View style={styles.container}>
@@ -43,7 +48,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
 
                 <Text
                     style={styles.logInasGuesttextBold}
-                    onPress={() => navigation.navigate('LogInAsGuest')}>
+                    onPress={() => { dispatch(setGuestUser(true)); navigation.navigate('LogInAsGuest')}}>
                     Log in as a Guest
                 </Text>
                 <Text style={styles.haveAnAcc}>

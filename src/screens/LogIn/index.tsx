@@ -21,6 +21,7 @@ import { getUserProfile } from "../../redux/actions/userAction";
 import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { AppDispatch } from "../../redux/store";
 import styles from "./style";
+import { setGuestUser } from "../../redux/slices/registerAsGuest";
 
 
 
@@ -64,17 +65,31 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
         setIsLoading(true)
         try {
             const res = await postApi('/auth/login', { ...values, deviceId })
-           
+
             const getDeviceId = getValueFromAcessToken(res?.data?.accessToken)
             storeData("accessToken", res?.data?.accessToken)
             storeData("deviceId", getDeviceId)
 
-            // fetch profile 
-            dispatch(getUserProfile())
+            // // fetch profile 
+            // dispatch(getUserProfile())
 
-            // changes in isloggedIn functionz 
-            dispatch(setLoginStatus(true))
-           
+            // // changes in isloggedIn functionz 
+            // dispatch(setLoginStatus(true))
+
+            await dispatch(getUserProfile())
+                .then(() => {
+                    if (res?.data?.firstLogin) {
+                        dispatch(setGuestUser(false))
+                        navigation.navigate(navigationStrings.GENDER_SELECTION)
+                    }
+                    else {
+                        dispatch(setLoginStatus(true));
+                    }
+                })
+                .catch((error) => {
+                    console.error("Failed to fetch user profile:", error);
+                    dispatch(setLoginStatus(false));
+                });
         }
         catch (error: any) {
             if (error?.response?.data?.error?.code === 103) {
@@ -149,11 +164,11 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         <View style={styles.container}>
                             <View>
                                 <View style={styles.backicon}>
-                                    <CustomButton 
-                                    label={"Back"} 
-                                    buttonTextStyle={styles.backBtn} 
-                                    onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} 
-                                    icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
+                                    <CustomButton
+                                        label={"Back"}
+                                        buttonTextStyle={styles.backBtn}
+                                        onPress={() => { navigation.navigate(navigationStrings.WELCOME); }}
+                                        icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
                                 </View>
                                 <View style={styles.titletext}>
                                     <Text style={styles.title}>Log in to your account</Text>
@@ -216,7 +231,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         </View>
                     )}
                 </Formik>
-               
+
             </KeyboardAvoidingView>
         </>
     );

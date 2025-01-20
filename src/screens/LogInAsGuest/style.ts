@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     backicon: {
-        marginBottom: 0
+        marginBottom: 12
     },
     backBtn: {
         fontSize: moderateScale(17)
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         marginBottom: 8
     },
     title: {
-        fontSize: moderateScale(20),
+        fontSize: moderateScale(22),
         marginBottom: 8,
         fontFamily: "Nunito-Bold",
     },
@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#ffff'
     },
+    progressbarview: {
+        marginBottom: verticalScale(20)
+    }
 });
 
 export default styles;

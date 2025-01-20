@@ -1,29 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native";
 import CustomButton from "../../components/customButton";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { AuthStackParamList } from "../../Navigation/AuthStack";
 import CustomRadioButton from "../../components/customRadioButton";
 import { genderOptions } from "../../constants/constantData";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, CheckmarkIcon, IosbackIcon } from "../../constants/svgs";
 import ProgressBar from "../../components/progressBar";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
 
 
 
 const GenderSelection: React.FC = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedGender, setSelectedGender] = useState<string | null>(null);
-	const [isSubmitClick,setIsSubmitClick]=useState<boolean>(false)
+	const [isSubmitClick, setIsSubmitClick] = useState<boolean>(false)
 
+	const dispatch = useDispatch<AppDispatch>()
 
-	const handleSubmit = () => {
-		console.log("object")
+	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
+
+	const handleSubmit = async () => {
 		setIsSubmitClick(true)
+		setIsLoading(true)
+		if (selectedGender) {
+			dispatch(setRegisterAsGuest({ gender: selectedGender }))
+
+			navigation.navigate(navigationStrings.BIRTHDAY_SELECTION)
+		}
+		setIsLoading(false)
 	}
+
+	useEffect(() => {
+		if (userData?.gender) {
+			setSelectedGender(userData?.gender)
+		}
+	}, [])
+
+	useEffect(()=>{
+		dispatch(setRegisterAsGuest({ gender: selectedGender }))
+	}, [selectedGender])
+
 
 	return (
 		<>
@@ -31,16 +54,16 @@ const GenderSelection: React.FC = () => {
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
 					<View>
-						<View style={styles.backicon}>
-							<CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.WELCOME); }} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
-						</View>
+						{isGuestUser && <View style={styles.backicon}>
+							<CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.LOGIN_AS_GUEST); }} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
+						</View>}
 						<View style={styles.progressbarview}>
-						<ProgressBar percentage={25} detailsText={"Getting to Know You"}/>
+							<ProgressBar percentage={isGuestUser ? 50 : 30} detailsText={"Getting to Know You"} />
 						</View>
 						<View>
-						<CustomRadioButton options={genderOptions} selectedOption={selectedGender} onSelect={setSelectedGender}
+							<CustomRadioButton options={genderOptions} selectedOption={selectedGender} onSelect={setSelectedGender}
 								label={"How do you prefer to identify yourself?"} selectedIcon={<CheckmarkIcon />}
-							error={isSubmitClick && selectedGender === null ? "Please select a gender to continue" : null}/>
+								error={isSubmitClick && selectedGender === null ? "Please select a gender to continue" : null} />
 						</View>
 					</View>
 					<View>
@@ -52,7 +75,7 @@ const GenderSelection: React.FC = () => {
 							isLoading={isLoading}
 						/>
 					</View>
-					
+
 				</View>
 			</KeyboardAvoidingView>
 		</>

@@ -9,7 +9,9 @@ export const navigationStrings = {
     VERIFY_EMAIL: "VerifyEmail",
     RESET_PASSWORD_SUCCESS: "ResetPasswordSuccess",
     HOME: 'Home',
-    GENDER_SELECTION:'GenderSelection'
+    GENDER_SELECTION:'GenderSelection',
+    BIRTHDAY_SELECTION:'BirthdaySelection',
+    APP_USAGE_SELECTION:'AppUsageSelection'
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"
