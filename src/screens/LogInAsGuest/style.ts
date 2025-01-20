@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     backicon: {
-        marginBottom: 12
+        marginBottom: moderateScale(12)
     },
     backBtn: {
         fontSize: moderateScale(17)
