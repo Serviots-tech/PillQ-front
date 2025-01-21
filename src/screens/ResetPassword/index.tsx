@@ -13,7 +13,7 @@ import {
     View,
 } from "react-native";
 import * as Yup from "yup";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
@@ -140,7 +140,6 @@ const ResetPassword: React.FC = () => {
             const { confirmPassword, ...rest } = values
             await postApi('/auth/reset-password', { ...rest })
             navigation.navigate(navigationStrings.LOGIN)
-            console.log("Success")
         } catch (error) {
             console.error("Error:", error);
         } finally {
@@ -176,7 +175,7 @@ const ResetPassword: React.FC = () => {
                                         <View style={styles.backIcon}>
                                             <CustomButton
                                                 label="Back"
-                                                onPress={() => console.log("Back pressed")}
+                                                onPress={()=>{}}
                                                 buttonTextStyle={styles.backBtn}
                                                 icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />}
                                             />

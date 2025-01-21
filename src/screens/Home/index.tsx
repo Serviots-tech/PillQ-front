@@ -2,30 +2,23 @@ import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { removeData } from '../../helpers/asyncStorageHelpers'
 import { postApi } from '../../apis/apis'
-import { setLoginStatus } from '../../redux/slices/isLoggedIn'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
-import { CombinedStackParamList } from '../../Navigation/CombineStack'
-import { navigationStrings } from '../../constants/navigationStrings'
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '../../redux/store'
+import { RootStackParamList } from '../../Navigation/Routes'
 
-type LogInAsGuestProps = NativeStackScreenProps<CombinedStackParamList, 'Home'>;
+import { useAuth } from '../../components/authContext'
+
+type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 
 const Home: React.FC<LogInAsGuestProps> = ({navigation}) => {
-    const dispatch = useDispatch<AppDispatch>()
+        const { logout } = useAuth();
 
     const logoutUser = async () => {
         try {
             const res = await postApi('/auth/logout')
-            console.log("🚀 ~ logoutUser ~ res:", res)
             await removeData('accessToken')
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'LogIn' }],
-            });
-            dispatch(setLoginStatus(false))
+            logout()
 
         }
         catch (error: any) {

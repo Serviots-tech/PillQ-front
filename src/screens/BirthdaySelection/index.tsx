@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native
 import CustomButton from "../../components/customButton";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AuthStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
 import ProgressBar from "../../components/progressBar";
@@ -17,7 +17,7 @@ import { AppDispatch } from "../../redux/store";
 import dayjs from "dayjs";
 
 const BirthdaySelection: React.FC = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [isSubmitClick, setIsSubmitClick] = useState<boolean>(false)
 	const [birthdate, setBirthday] = useState<DateType | undefined>()

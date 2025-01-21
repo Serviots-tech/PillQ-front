@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { ToastProvider } from './components/customToast/ToastManager';
+import { AuthProvider } from './components/authContext';
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,9 +22,11 @@ function App(): React.JSX.Element {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ToastProvider>
           <Provider store={store}>
+      <AuthProvider>
             <View style={{ flex: 1 }}>
               <Routes />
             </View>
+      </AuthProvider>
           </Provider>
         </ToastProvider>
       </GestureHandlerRootView>

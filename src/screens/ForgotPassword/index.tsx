@@ -10,7 +10,7 @@ import { CustomInputField } from "../../components/customInputField";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, EmailIcon, IosbackIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import styles from "./style"; // Ensure the styles match the provided UI
 
 interface FormValues {

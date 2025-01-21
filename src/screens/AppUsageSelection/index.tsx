@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, Platform, SafeAreaView, View } from "react-native
 import CustomButton from "../../components/customButton";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { CombinedStackParamList } from "../../Navigation/CombineStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { appUsageOptions } from "../../constants/constantData";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, CheckmarkIcon, IosbackIcon } from "../../constants/svgs";
@@ -18,18 +18,19 @@ import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import DeviceInfo from "react-native-device-info";
 import CryptoJS from "crypto-js";
-import { setLoginStatus } from "../../redux/slices/isLoggedIn";
+import { useAuth } from "../../components/authContext";
 
 
 
 const AppUsageSelection: React.FC = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<CombinedStackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 	const [isSubmitClick, setIsSubmitClick] = useState<boolean>(false)
 	const [deviceId, setDeviceId] = useState("");
 
 	const dispatch = useDispatch<AppDispatch>()
+	 const { login } = useAuth();
 
 	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
 
@@ -50,21 +51,21 @@ const AppUsageSelection: React.FC = () => {
 					storeData("deviceId", getDeviceId)
 
 					dispatch(clearGuestUserData())
-					dispatch(setLoginStatus(true))
+					login()
 				}
 				else {
 
 					const updateUserData = {
 						birthdate: userData.birthdate,
 						gender: userData.gender,
-						deviceId: deviceId,
 						appUsages: selectedOptions
 					}
 
 					const res = await putApi('/user/update-user', updateUserData)
-					console.log("🚀 ~ handleSubmit ~ res:", res)
+					dispatch(clearGuestUserData())
+					login()
 
-					dispatch(setLoginStatus(true))
+					
 				}
 
 
@@ -99,7 +100,6 @@ const AppUsageSelection: React.FC = () => {
 	useEffect(() => {
 		const fetchDeviceId = async () => {
 			const deviceId = await DeviceInfo.getUniqueId();
-			console.log('Device ID:', deviceId);
 			try {
 				const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
 				setDeviceId(hashedMessage)

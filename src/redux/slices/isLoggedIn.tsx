@@ -9,7 +9,6 @@ export const isLoggedInSlice = createSlice({
     initialState,
     reducers: {
         setLoginStatus: (state, action) => {
-            console.log("🚀 ~ action:", action)
             state.isLoggedIn = action.payload;
         },
       

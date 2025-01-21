@@ -1,21 +1,30 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import CustomImage from '../../components/customImage';
 import DividerWithText from '../../components/dividerWithText';
 import { imagePaths } from '../../constants/imagePath';
-import { AuthStackParamList } from '../../Navigation/AuthStack';
+import { RootStackParamList } from '../../Navigation/Routes';
 import { styles } from './style';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../redux/store';
 import { setGuestUser } from '../../redux/slices/registerAsGuest';
+import { useAuth } from '../../components/authContext';
 
-type WelcomeProps = NativeStackScreenProps<AuthStackParamList, 'Welcome'>;
+type WelcomeProps = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 export default function Welcome({ navigation }: WelcomeProps) {
 
     const dispatch = useDispatch<AppDispatch>()
-   
+    const { isLoggedout, setLogoutFalse } = useAuth();
+
+    useEffect(() => {
+        if (isLoggedout) {
+            setLogoutFalse()
+        }
+
+    }, [isLoggedout])
+
 
     return (
         <View style={styles.container}>
@@ -48,7 +57,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
 
                 <Text
                     style={styles.logInasGuesttextBold}
-                    onPress={() => { dispatch(setGuestUser(true)); navigation.navigate('LogInAsGuest')}}>
+                    onPress={() => { dispatch(setGuestUser(true)); navigation.navigate('LogInAsGuest') }}>
                     Log in as a Guest
                 </Text>
                 <Text style={styles.haveAnAcc}>

@@ -2,24 +2,23 @@ import React, { useRef, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { PillQLSvg } from '../../constants/svgs';
 import { horizontalScale, moderateScale } from '../../styles';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
-import { getUserProfile } from '../../redux/actions/userAction';
-import { setLoginStatus } from '../../redux/slices/isLoggedIn';
-import { CombinedStackParamList } from '../../Navigation/CombineStack';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAuth } from '../../components/authContext';
+import { navigationStrings } from '../../constants/navigationStrings';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../Navigation/Routes';
 
-type SplashScreenProps = NativeStackScreenProps<CombinedStackParamList, 'SplashScreen'>;
-
-export default function SplashScreen({ navigation }: SplashScreenProps) {
+export default function SplashScreen() {
     const logoOpacity = useRef(new Animated.Value(0)).current;
     const logoScale = useRef(new Animated.Value(3)).current;
     const [showText, setShowText] = useState(false);
     const [displayedText, setDisplayedText] = useState('');
     const fullText = "Pill";
-    const dispatch = useDispatch<AppDispatch>()
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { isAuthenticated, isFetchProfileLoading } = useAuth();
 
     useEffect(() => {
+
         // Animate the logo
         Animated.sequence([
             Animated.timing(logoOpacity, {
@@ -37,9 +36,11 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
             // After logo animation, start the text animation
             setShowText(true);
         });
+
     }, []);
 
     useEffect(() => {
+       
         if (showText && fullText.length > 0) {
             let index = 0;
             const interval = setInterval(() => {
@@ -47,42 +48,23 @@ export default function SplashScreen({ navigation }: SplashScreenProps) {
                     return prev + fullText[index - 1];
                 });
                 index++;
-                if (index >= fullText.length) clearInterval(interval);
+                if (index >= fullText.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        if (!isAuthenticated && !isFetchProfileLoading) {
+                            navigation.navigate(navigationStrings.WELCOME);
+                        }
+                        if (isAuthenticated && !isFetchProfileLoading) {
+                            navigation.navigate(navigationStrings.HOME);
+                        }
+                    }, 1000); // 2 seconds timeout
+                }
+
             }, 80);
         }
+
     }, [showText]);
 
-    useEffect(() => {
-        fetchProfile()
-        
-    })
-
-    const fetchProfile=async ()=>{
-
-        await dispatch(getUserProfile()).then((res) => {
-            if (res?.payload?.responseStatus === 200) {
-                if (!res?.payload?.data?.birthday || !res?.payload?.data?.gender){
-                    // navigation.navigate(navigationStrings.GENDER_SELECTION)
-                    dispatch(setLoginStatus(true))
-                }
-                else{
-                // setTimeout(() => {
-                    dispatch(setLoginStatus(true))
-                // }, 3000);
-            }
-            }
-            else {
-                setTimeout(() => {
-                    navigation?.navigate("Welcome")
-                }, 3000);
-            }
-
-        }).catch((err) => {
-            setTimeout(() => {
-                navigation?.navigate("Welcome")
-            }, 3000);
-        })
-    }
 
 
     return (

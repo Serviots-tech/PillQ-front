@@ -29,7 +29,6 @@ axios.interceptors.response.use(
 		// Check if the response contains the new access token in headers
 		const newAccessToken = response.headers['x-new-access-token'];
 		if (newAccessToken) {
-			console.log('New access token received:', newAccessToken);
 			storeData('accessToke', newAccessToken)
 		}
 		return response;

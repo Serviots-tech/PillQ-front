@@ -4,7 +4,7 @@ import CustomButton from "../../components/customButton";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { AuthStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import CustomRadioButton from "../../components/customRadioButton";
 import { genderOptions } from "../../constants/constantData";
 import { navigationStrings } from "../../constants/navigationStrings";
@@ -13,16 +13,19 @@ import ProgressBar from "../../components/progressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
+import { useAuth } from "../../components/authContext";
 
 
 
 const GenderSelection: React.FC = () => {
-	const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedGender, setSelectedGender] = useState<string | null>(null);
 	const [isSubmitClick, setIsSubmitClick] = useState<boolean>(false)
 
 	const dispatch = useDispatch<AppDispatch>()
+
+	const { setAdditionalDataPendingFalse }= useAuth();
 
 	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
 
@@ -38,6 +41,7 @@ const GenderSelection: React.FC = () => {
 	}
 
 	useEffect(() => {
+		setAdditionalDataPendingFalse()
 		if (userData?.gender) {
 			setSelectedGender(userData?.gender)
 		}

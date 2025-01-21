@@ -16,12 +16,13 @@ import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, EmailIcon, IosbackIcon, PasswordIcon } from "../../constants/svgs";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
-import { CombinedStackParamList } from "../../Navigation/CombineStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { getUserProfile } from "../../redux/actions/userAction";
 import { setLoginStatus } from "../../redux/slices/isLoggedIn";
 import { AppDispatch } from "../../redux/store";
 import styles from "./style";
 import { setGuestUser } from "../../redux/slices/registerAsGuest";
+import { useAuth } from "../../components/authContext";
 
 
 
@@ -49,12 +50,14 @@ const validationSchema = Yup.object().shape({
 
 });
 
-type LogInProps = NativeStackScreenProps<CombinedStackParamList, 'LogIn'>;
+type LogInProps = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<LogInProps> = ({ navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [deviceId, setDeviceId] = useState("");
     const dispatch = useDispatch<AppDispatch>()
+    const { login } = useAuth();
+
 
     const initialValues: FormValues = {
         email: "",
@@ -83,7 +86,8 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                         navigation.navigate(navigationStrings.GENDER_SELECTION)
                     }
                     else {
-                        dispatch(setLoginStatus(true));
+                        login()
+                        // dispatch(setLoginStatus(true));
                     }
                 })
                 .catch((error) => {
@@ -131,7 +135,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             console.log('Device ID:', deviceId);
             try {
                 const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
-                console.log("Hashed Message:", hashedMessage);
                 setDeviceId(hashedMessage)
             } catch (error) {
                 console.error("Error hashing message:", error);

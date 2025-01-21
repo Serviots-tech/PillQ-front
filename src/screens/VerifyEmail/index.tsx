@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useRef, useState } from "react";
 import { Platform, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { postApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { navigationStrings } from "../../constants/navigationStrings";

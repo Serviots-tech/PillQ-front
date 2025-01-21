@@ -11,7 +11,7 @@ export const navigationStrings = {
     HOME: 'Home',
     GENDER_SELECTION:'GenderSelection',
     BIRTHDAY_SELECTION:'BirthdaySelection',
-    APP_USAGE_SELECTION:'AppUsageSelection'
+    APP_USAGE_SELECTION:'AppUsageSelection',
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"

@@ -24,7 +24,6 @@ export const retrieveData = async (key: string) => {
 export const removeData = async (key:string) => {
     try {
         await AsyncStorage.removeItem(key);
-        console.log(`Data with key "${key}" removed.`);
     } catch (error) {
         console.error("Error removing data:", error);
     }
