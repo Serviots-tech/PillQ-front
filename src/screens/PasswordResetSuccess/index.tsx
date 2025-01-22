@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../Navigation/AuthStack";
+import { RootStackParamList } from "../../Navigation/Routes";
 import { navigationStrings } from "../../constants/navigationStrings";
 import styles from "./style";
 import CustomButton from "../../components/customButton";

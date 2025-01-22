@@ -31,7 +31,7 @@ export const BouncingCircles = () => {
           Animated.timing(cy2, {
             toValue: 135,
             duration: 1000,
-            delay: 200, // Delay for the second circle
+            delay: 100, // Delay for the second circle
             useNativeDriver: false,
           }),
           Animated.timing(cy2, {
@@ -47,7 +47,7 @@ export const BouncingCircles = () => {
           Animated.timing(cy3, {
             toValue: 135,
             duration: 1000,
-            delay: 400, // Delay for the third circle
+            delay: 200, // Delay for the third circle
             useNativeDriver: false,
           }),
           Animated.timing(cy3, {

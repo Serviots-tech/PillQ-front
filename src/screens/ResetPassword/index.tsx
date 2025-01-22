@@ -22,6 +22,7 @@ import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, EmailIcon, IosbackIcon, PasswordIcon } from "../../constants/svgs";
 import { retrieveData } from "../../helpers/asyncStorageHelpers";
 import styles from "./style";
+import { showToast } from "../../components/customToast/ToastManager";
 
 interface ResetPasswordFormValues {
     email: string;
@@ -139,9 +140,18 @@ const ResetPassword: React.FC = () => {
         try {
             const { confirmPassword, ...rest } = values
             await postApi('/auth/reset-password', { ...rest })
-            navigation.navigate(navigationStrings.LOGIN)
-        } catch (error) {
-            console.error("Error:", error);
+            navigation.navigate(navigationStrings.RESET_PASSWORD_SUCCESS)
+        } catch (error: any) {
+            showToast({
+                text: `${error?.response?.data?.error?.errorDescription}` || "Something went wrong",
+                duration: 3000,
+                type: 'error'
+            })
+            setInitialValues({
+                ...initialValues, newPassword: "",
+                confirmPassword: "",
+                otp: "",
+            })
         } finally {
             setIsLoading(false);
         }
@@ -175,7 +185,7 @@ const ResetPassword: React.FC = () => {
                                         <View style={styles.backIcon}>
                                             <CustomButton
                                                 label="Back"
-                                                onPress={()=>{}}
+                                                onPress={() => { navigation.navigate(navigationStrings.FORGOT_PASSWORD)}}
                                                 buttonTextStyle={styles.backBtn}
                                                 icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />}
                                             />

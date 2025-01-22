@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { Platform, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, BackHandler, Platform, Text, TouchableOpacity, View } from 'react-native';
 import CustomImage from '../../components/customImage';
 import DividerWithText from '../../components/dividerWithText';
 import { imagePaths } from '../../constants/imagePath';
@@ -24,6 +24,30 @@ export default function Welcome({ navigation }: WelcomeProps) {
         }
 
     }, [isLoggedout])
+
+    useEffect(() => {
+        const backAction = () => {
+            Alert.alert('Exit App', 'Are you sure you want to exit?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {
+                    text: 'Yes',
+                    onPress: () => BackHandler.exitApp(),
+                },
+            ]);
+            return true; // Prevent default back button behavior
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove(); // Cleanup on unmount
+    }, []);
 
 
     return (

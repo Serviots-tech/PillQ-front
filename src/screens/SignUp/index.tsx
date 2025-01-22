@@ -73,7 +73,6 @@ const SignUp: React.FC = () => {
             navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
-            console.log("🚀 ~ registerUser ~ error:", JSON.stringify(error))
             if (error?.response?.data?.error?.code === 109) {
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,

@@ -9,6 +9,7 @@ import { navigationStrings } from "../../constants/navigationStrings";
 import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
 import { retrieveData } from "../../helpers/asyncStorageHelpers";
 import styles from "./style"; // Adjust the path as per your project structure
+import { showToast } from "../../components/customToast/ToastManager";
 
 const VerifyEmail = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -92,13 +93,14 @@ const VerifyEmail = () => {
 			await postApi("/auth/resend-otp", { email: email })
 			//display toast message
 		} catch (error: any) {
+		console.log("🚀 ~ handleResend ~ error:", error)
+
 		}
 	};
 
 	const handleVerify = async () => {
 		const otpString = otp.join("");
 		if (otpString.length !== 6 || !/^\d{6}$/.test(otpString)) {
-			// display error message
 			return;
 		}
 
@@ -107,6 +109,15 @@ const VerifyEmail = () => {
 			await postApi("/auth/registration-otp-verification", { otp: otpString, email: email });
 			navigation.navigate(navigationStrings.LOGIN)
 		} catch (error: any) {
+			showToast({
+				text: `${error?.response?.data?.error?.errorDescription}` || "Something went wrong",
+				duration: 3000,
+				type: 'error'
+			})
+			setOtp(["", "", "", "", "", ""])
+			inputRefs.current[0]?.focus()
+
+
 		} finally {
 			setIsLoading(false);
 		}

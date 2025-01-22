@@ -92,33 +92,30 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 })
                 .catch((error) => {
                     console.error("Failed to fetch user profile:", error);
-                    dispatch(setLoginStatus(false));
+                    navigation.navigate(navigationStrings.WELCOME)
                 });
         }
         catch (error: any) {
             if (error?.response?.data?.error?.code === 103) {
-                console.log("User not verified")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 13000,
+                    duration: 3000,
                     type: 'info'
                 })
                 navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
 
             }
             if (error?.response?.data?.error?.code === 104) {
-                console.log("Invalid Credentials")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 13000,
+                    duration: 3000,
                     type: 'error'
                 })
             }
             if (error?.response?.data?.error?.code === 105) {
-                console.log("Buy subscription to move forward.")
                 showToast({
                     text: `${error?.response?.data?.error?.errorDescription}`,
-                    duration: 13000,
+                    duration: 3000,
                     type: 'warning'
                 })
             }
