@@ -11,50 +11,54 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     backicon: {
-        marginBottom: 12,
+        marginBottom: moderateScale(12),
     },
     backBtn: {
-        fontSize: 17
+        fontSize: moderateScale(17)
     },
     titletext: {
-        marginBottom: 10,
+        marginBottom: moderateScale(10),
     },
     title: {
-        fontSize: 34,
-        marginBottom: 8,
+        fontSize: moderateScale(34),
+        marginBottom: moderateScale(8),
         fontFamily: "Nunito-Bold",
     },
     subtitle: {
-        fontSize: 17,
-        marginBottom: 2,
-        fontWeight:500,
+        fontSize: moderateScale(17),
+        marginBottom: moderateScale(1),
+        fontWeight: 500,
         color: "#6b6b6b",
         fontFamily: "Nunito-SemiBold",
+        
     },
     fieldContainer: {
-        marginBottom: 10,
-        marginTop:'5%'
+        marginBottom: moderateScale(10),
+        marginTop: '3%',
+        
     },
-    fieldTitle: {
-        fontSize: 20,
-        fontWeight: "500",
-        marginBottom: 5,
+    otpContainer: {
+        flexDirection: "row", 
+        justifyContent: "space-between",
+        gap: horizontalScale(10),
     },
     input: {
         borderWidth: 1,
         borderColor: "#333333",
         borderRadius: 8,
         padding: 10,
-        marginBottom: 10,
-        marginTop:'5%',
-        color:'#00A8A8',
+        marginBottom: moderateScale(10),
+        marginTop: '5%',
+        color: '#00A8A8',
         fontWeight: 'bold',
-        fontSize:24
+        fontSize: moderateScale(24),
+        width: horizontalScale(45),
+        textAlign: "center"
     },
     error: {
         color: "red",
-        fontSize: 12,
-        marginBottom: 10,
+        fontSize: moderateScale(12),
+        marginBottom: moderateScale(10),
     },
     button: {
         width: horizontalScale(332),
@@ -73,25 +77,25 @@ const styles = StyleSheet.create({
     footer: {
         marginTop: '5%',
         textAlign: "center",
-        fontSize:18,
+        fontSize: moderateScale(18),
         color: "#333333",
-        marginBottom:'1.5%',
+        marginBottom: '1.5%',
         fontFamily: "Nunito-SemiBold",
     },
     link: {
         color: "#00bfa5",
         fontWeight: "bold",
         textAlign: "center",
-        fontSize: 18,
+        fontSize: moderateScale(18),
         fontFamily: "Nunito-Bold",
-        
+
     },
-      disabledLink: {
+    disabledLink: {
         color: "#9FA2A4",
         fontWeight: "600",
         textAlign: "center",
-        fontSize: 18,
-      },
+        fontSize: moderateScale(18),
+    },
 });
 
 export default styles;

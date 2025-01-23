@@ -5,7 +5,7 @@ import info from '../assets/images/info.png'
 import error from '../assets/images/error.png'
 import warning from '../assets/images/warning.png'
 import close from '../assets/images/close.png'
-import splashImage from '../assets/images/splashGif.gif'
+import splashImage from '../assets/gifs/splashGif.gif'
 
 export const imagePaths = {
     FamImgAndroid,

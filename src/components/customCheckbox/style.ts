@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     title: {
         fontSize: moderateScale(22),
         marginBottom: verticalScale(16),
-        color:'#000',
-        height:verticalScale(60),
+        color: '#000',
+        height: verticalScale(60),
         fontFamily: "Nunito-Bold",
     },
     button: {
@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
         padding: horizontalScale(12), // Horizontal scale for padding
         marginBottom: verticalScale(10), // Vertical scale for margin
         alignItems: 'flex-start',
-        justifyContent:'center',
-        height:verticalScale(50)
+        justifyContent: 'center',
+        height: verticalScale(54)
     },
     selectedButton: {
         borderColor: "#00A8A8", // Darker border color for selected button
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         height: verticalScale(24),
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight:horizontalScale(5)
+        marginRight: horizontalScale(5)
     },
     selectedIconContainer: {
         position: 'absolute',
@@ -57,9 +57,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: '100%',
     },
-    errormsg:{
-        color:'red',
-        height:verticalScale(16)
+    errormsg: {
+        color: 'red',
+        height: verticalScale(16)
     }
 });
 

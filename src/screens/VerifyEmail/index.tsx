@@ -136,13 +136,12 @@ const VerifyEmail = () => {
 					<Text style={styles.subtitle}>We have sent an OTP to {email}</Text>
 
 					<View style={styles.fieldContainer}>
-						{/* <Text style={styles.fieldTitle}>Enter OTP:</Text> */}
-						<View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10 }}>
+						<View style={styles.otpContainer}>
 							{otp.map((value, index) => (
 								<TextInput
 									key={index}
 									ref={(ref) => (inputRefs.current[index] = ref!)}
-									style={[styles.input, { width: 50, textAlign: "center" }]}
+									style={[styles.input]}
 									keyboardType="numeric"
 									value={value}
 									maxLength={index === 0 ? 6 : 1}
