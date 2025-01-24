@@ -1,6 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import { BouncingCircles } from '../../constants/svgs';
+import CustomImage from '../customImage';
+import { imagePaths } from '../../constants/imagePath';
+import { horizontalScale, moderateScale } from '../../styles';
 
 export default function CustomButton({
   viewStyle,
@@ -25,14 +27,18 @@ export default function CustomButton({
       style={[
         viewStyle,
         {
-          opacity: isDisabled ? 0.5 : 1, 
+          opacity: isDisabled ? 0.5 : 1,
         },
       ]}
-      disabled={isDisabled} 
+      disabled={isDisabled}
     >
       {isLoading ? (
-        <View style={{ alignItems: 'center' , marginStart : -20}}>
-          <BouncingCircles />
+        <View style={{ alignItems: 'center',
+        justifyContent:'center'}}>
+          <CustomImage imageUrl={imagePaths?.loader} style={{
+            width: horizontalScale(50),
+            height: moderateScale(50),
+          }} />
         </View>
       ) : (
         <View

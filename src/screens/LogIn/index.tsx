@@ -102,6 +102,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                     duration: 3000,
                     type: 'info'
                 })
+                await storeData('email', values?.email?.toLowerCase())
                 navigation?.navigate(navigationStrings?.VERIFY_EMAIL)
 
             }
