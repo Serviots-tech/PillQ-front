@@ -71,7 +71,7 @@ const ForgetPassword: React.FC = () => {
                                     <CustomButton 
                                     label={"Back"} 
                                     buttonTextStyle={styles.backBtn} 
-                                    onPress={() => { navigation.goBack(); }} 
+                                    onPress={() => { navigation.navigate(navigationStrings.LOGIN); }} 
                                     icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
                                 </View>
                                 <Text style={styles.title}>Forget password?</Text>
