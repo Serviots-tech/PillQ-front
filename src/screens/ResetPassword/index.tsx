@@ -84,7 +84,7 @@ const ResetPassword: React.FC = () => {
                     }));
                 }
             } catch (error) {
-                console.error("Error fetching email from AsyncStorage:", error);
+                console.log("🚀 ~ getEmail ~ error:", error)
             }
         };
 
@@ -131,7 +131,7 @@ const ResetPassword: React.FC = () => {
             await postApi('/auth/forgot-password', { email: email })
 
         } catch (error) {
-            console.error("Error requesting OTP:", error);
+            console.log("🚀 ~ handleResend ~ error:", error)
         }
     };
 

@@ -48,7 +48,7 @@ const VerifyEmail = () => {
 					setEmail(email.toString());
 				}
 			} catch (error) {
-				console.error("Error fetching email from AsyncStorage:", error);
+				console.log("🚀 ~ getEmail ~ error:", error)
 			}
 		};
 

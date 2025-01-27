@@ -4,7 +4,7 @@ export const storeData = async (key: string, value: any) => {
     try {
         await AsyncStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-        console.error('Error saving data:', error);
+        console.log("🚀 ~ storeData ~ error:", error)
     }
 };
 
@@ -17,7 +17,7 @@ export const retrieveData = async (key: string) => {
             return null;
         }
     } catch (error) {
-        console.error('Error retrieving data:', error);
+        console.log("🚀 ~ retrieveData ~ error:", error)
     }
 };
 
@@ -25,6 +25,6 @@ export const removeData = async (key:string) => {
     try {
         await AsyncStorage.removeItem(key);
     } catch (error) {
-        console.error("Error removing data:", error);
+        console.log("🚀 ~ removeData ~ error:", error)
     }
 };

@@ -27,6 +27,7 @@ import ForgetPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
 import ResetPasswordSuccess from '../screens/PasswordResetSuccess'
 
+
 export type RootStackParamList = {
 	SplashScreen: undefined,
 	Welcome: undefined,
@@ -59,8 +60,6 @@ export default function Routes() {
 								{isAdditionalDataPending ? <Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} /> :
 									<>
 										<Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} />
-
-										{/* <Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} /> */}
 										<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
 										<Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
 										<Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />

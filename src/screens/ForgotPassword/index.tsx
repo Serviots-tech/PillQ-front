@@ -38,7 +38,7 @@ const ForgetPassword: React.FC = () => {
             navigation.navigate(navigationStrings.RESET_PASSWORD);
 
         } catch (error) {
-            console.error("Error requesting OTP:", error);
+            console.log("🚀 ~ handleRequestOtp ~ error:", error)
         }
         finally {
             setIsLoading(false)

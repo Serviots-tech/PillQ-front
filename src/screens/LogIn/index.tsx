@@ -91,7 +91,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                     }
                 })
                 .catch((error) => {
-                    console.error("Failed to fetch user profile:", error);
+                    console.log("🚀 ~ loginUser ~ error:", error)
                     navigation.navigate(navigationStrings.WELCOME)
                 });
         }
@@ -134,7 +134,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
                 setDeviceId(hashedMessage)
             } catch (error) {
-                console.error("Error hashing message:", error);
+                console.log("🚀 ~ fetchDeviceId ~ error:", error)
             }
         };
 
