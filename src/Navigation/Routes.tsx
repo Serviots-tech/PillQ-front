@@ -56,7 +56,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false }}>
-				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> */}
+				
 				{!isAuthenticated ? (
 					<>
 						{isLoggedout ?
@@ -77,6 +77,7 @@ export default function Routes() {
 										<Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} />
 										<Stack.Screen name={navigationStrings?.BIRTHDAY_SELECTION} component={BirthdaySelection} />
 										<Stack.Screen name={navigationStrings?.APP_USAGE_SELECTION} component={AppUsageSelection} />
+										<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 									</>
 								}
 

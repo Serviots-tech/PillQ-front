@@ -54,7 +54,7 @@ const SearchMed: React.FC = () => {
 						<CustomButton
 							label={"Back"}
 							buttonTextStyle={styles.backBtn}
-							onPress={() => { navigation.navigate(navigationStrings.WELCOME); }}
+							onPress={() => { navigation.navigate(navigationStrings.HOME); }}
 							icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
 					</View>
 					<ProgressBar percentage={15} detailsText={' '}/>
