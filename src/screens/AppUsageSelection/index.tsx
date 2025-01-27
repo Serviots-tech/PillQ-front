@@ -99,7 +99,7 @@ const AppUsageSelection: React.FC = () => {
 				const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
 				setDeviceId(hashedMessage)
 			} catch (error) {
-				console.error("Error hashing message:", error);
+				console.log("🚀 ~ fetchDeviceId ~ error:", error)
 			}
 		};
 
