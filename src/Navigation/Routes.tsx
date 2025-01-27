@@ -26,6 +26,8 @@ import BirthdaySelection from '../screens/BirthdaySelection';
 import ForgetPassword from '../screens/ForgotPassword';
 import ResetPassword from '../screens/ResetPassword';
 import ResetPasswordSuccess from '../screens/PasswordResetSuccess'
+import OnboardSuccessScreen from '../screens/OnboSuccess';
+import SearchMed from '../screens/SearchMed';
 
 export type RootStackParamList = {
 	SplashScreen: undefined,
@@ -41,6 +43,9 @@ export type RootStackParamList = {
 	BirthdaySelection: undefined,
 	AppUsageSelection: undefined,
 	Home: undefined,
+	OnboardSuccess: undefined,
+	SearchMed: undefined
+
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -51,6 +56,7 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false }}>
+				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> */}
 				{!isAuthenticated ? (
 					<>
 						{isLoggedout ?
@@ -59,8 +65,7 @@ export default function Routes() {
 								{isAdditionalDataPending ? <Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} /> :
 									<>
 										<Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} />
-
-										{/* <Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} /> */}
+										<Stack.Screen name={navigationStrings?.ONBOARD_SUCCESS} component={OnboardSuccessScreen} />
 										<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
 										<Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
 										<Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />

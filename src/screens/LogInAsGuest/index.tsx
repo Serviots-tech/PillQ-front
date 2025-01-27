@@ -1,5 +1,5 @@
 import { Formik, FormikProps } from "formik";
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
@@ -9,10 +9,10 @@ import { AndroidbackIcon, IosbackIcon, NameIcon } from "../../constants/svgs";
 import { AppDispatch } from "../../redux/store";
 import styles from "./style";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { AuthStackParamList } from "../../Navigation/AuthStack";
 import { navigationStrings } from "../../constants/navigationStrings";
 import ProgressBar from "../../components/progressBar";
 import { clearGuestUserData, setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
+import { RootStackParamList } from "../../Navigation/Routes";
 
 
 interface FormValues {
@@ -24,7 +24,7 @@ const validationSchema = Yup.object().shape({
 
 });
 
-type LogInAsGuestProps = NativeStackScreenProps<AuthStackParamList, 'LogInAsGuest'>;
+type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'LogInAsGuest'>;
 
 const LogInAsGuest: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 	const [isLoading, setIsLoading] = useState(false);

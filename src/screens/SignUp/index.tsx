@@ -163,6 +163,7 @@ const SignUp: React.FC = () => {
                                     onBlur={handleBlur}
                                     touched={touched.phone}
                                     errors={errors.phone}
+                                    keyboardType='numeric'
                                     placeholder="Enter your phone number"
                                     icon={<PhoneIcon />}
                                 />

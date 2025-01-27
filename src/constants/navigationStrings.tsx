@@ -12,6 +12,8 @@ export const navigationStrings = {
     GENDER_SELECTION:'GenderSelection',
     BIRTHDAY_SELECTION:'BirthdaySelection',
     APP_USAGE_SELECTION:'AppUsageSelection',
+    ONBOARD_SUCCESS:'OnboardSuccess',
+    SEARCH_MED:'SearchMed'
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"

@@ -46,7 +46,7 @@ const BirthdaySelection: React.FC = () => {
 	useEffect(() => {
 		if (userData?.birthdate && !isBirthdateSet) {
 			setBirthday(userData.birthdate);
-			setIsBirthdateSet(true); // Mark the birthdate as set
+			setIsBirthdateSet(true); 
 		}
 	}, [userData, isBirthdateSet]);
 
@@ -66,7 +66,7 @@ const BirthdaySelection: React.FC = () => {
 				<View style={styles.container}>
 					<View>
 						<View style={styles.backicon}>
-							<CustomButton label={"Back"} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.GENDER_SELECTION); }} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
+							<CustomButton label={""} buttonTextStyle={styles.backBtn} onPress={() => { navigation.navigate(navigationStrings.GENDER_SELECTION); }} icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
 						</View>
 						<View style={styles.progressbarview}>
 							<ProgressBar percentage={isGuestUser ? 75 : 60} detailsText={"Just a Few More Details"} />

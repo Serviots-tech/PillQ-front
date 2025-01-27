@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, BackHandler, Platform, Text, TouchableOpacity, View } from 'react-native';
 import CustomImage from '../../components/customImage';
 import DividerWithText from '../../components/dividerWithText';
@@ -17,6 +17,19 @@ export default function Welcome({ navigation }: WelcomeProps) {
 
     const dispatch = useDispatch<AppDispatch>()
     const { isLoggedout, setLogoutFalse } = useAuth();
+    const [text, setText] = useState('');
+
+    const medicines = [
+        'Car',
+        'Carac',
+        'Carafate',
+        'Carbatrol',
+        'Cardene IV',
+        'Cardizem',
+        'Cardizem CD',
+        'Cardura',
+    ];
+
 
     useEffect(() => {
         if (isLoggedout) {
@@ -49,6 +62,11 @@ export default function Welcome({ navigation }: WelcomeProps) {
         return () => backHandler.remove(); // Cleanup on unmount
     }, []);
 
+    const handleSelection = (item:string) => {
+        console.log('Selected:', item);
+        setText(item);
+    };
+
 
     return (
         <View style={styles.container}>
@@ -62,6 +80,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
             />
 
             <View style={styles.contentView}>
+                
                 <Text style={styles.textBold}>
                     Discover how easy
                 </Text>
@@ -103,6 +122,7 @@ export default function Welcome({ navigation }: WelcomeProps) {
                         Privacy Policy
                     </Text>
                 </Text>
+                
             </View>
         </View>
     );

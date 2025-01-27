@@ -43,7 +43,7 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({
     return (
         <View style={[styles.container, containerStyle]}>
             {label && <Text style={styles.title}>{label}</Text>}
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
                 <TouchableOpacity
                     key={index}
                     style={[

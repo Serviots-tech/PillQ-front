@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, useColorScheme } from 'react-native';
+import { View, useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Routes from './Navigation/Routes';
@@ -22,11 +22,11 @@ function App(): React.JSX.Element {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ToastProvider>
           <Provider store={store}>
-      <AuthProvider>
-            <View style={{ flex: 1 }}>
-              <Routes />
-            </View>
-      </AuthProvider>
+            <AuthProvider>
+              <View style={{ flex: 1 }}>
+                <Routes />
+              </View>
+            </AuthProvider>
           </Provider>
         </ToastProvider>
       </GestureHandlerRootView>

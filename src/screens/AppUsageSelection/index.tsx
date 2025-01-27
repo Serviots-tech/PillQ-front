@@ -10,7 +10,7 @@ import { AndroidbackIcon, CheckmarkIcon, IosbackIcon } from "../../constants/svg
 import ProgressBar from "../../components/progressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { clearGuestUserData, setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
+import { setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
 import CustomCheckbox from "../../components/customCheckbox";
 import styles from "./style";
 import { postApi, putApi } from "../../apis/apis";
@@ -18,7 +18,6 @@ import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import DeviceInfo from "react-native-device-info";
 import CryptoJS from "crypto-js";
-import { useAuth } from "../../components/authContext";
 
 
 
@@ -30,7 +29,7 @@ const AppUsageSelection: React.FC = () => {
 	const [deviceId, setDeviceId] = useState("");
 
 	const dispatch = useDispatch<AppDispatch>()
-	 const { login } = useAuth();
+
 
 	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
 
@@ -50,11 +49,9 @@ const AppUsageSelection: React.FC = () => {
 					storeData("accessToken", res?.data?.accessToken)
 					storeData("deviceId", getDeviceId)
 
-					dispatch(clearGuestUserData())
-					login()
+					navigation.navigate(navigationStrings.ONBOARD_SUCCESS)
 				}
 				else {
-
 					const updateUserData = {
 						birthdate: userData.birthdate,
 						gender: userData.gender,
@@ -62,10 +59,8 @@ const AppUsageSelection: React.FC = () => {
 					}
 
 					const res = await putApi('/user/update-user', updateUserData)
-					dispatch(clearGuestUserData())
-					login()
+					navigation.navigate(navigationStrings.ONBOARD_SUCCESS)
 
-					
 				}
 
 
