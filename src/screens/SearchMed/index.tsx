@@ -11,6 +11,7 @@ import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
 import ProgressBar from "../../components/progressBar";
 import axios from "axios";
 import { useDebouncedValue } from "../../helpers/debounce";
+import { MedApi } from "../../apis/apis";
 
 const SearchMed: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -29,16 +30,23 @@ const SearchMed: React.FC = () => {
 		if (!debouncedSearchTerm.trim()) return; // Avoid API call for empty strings
 		const apicaller = async () => {
 			try {
-				const result = await axios.get(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${debouncedSearchTerm}&maxEntries=10`);
+				const result = await MedApi(`/approximateTerm.json?term=${debouncedSearchTerm}&maxEntries=100`)
+
 				const names = result?.data?.approximateGroup?.candidate?.map((item: any) => item.name);
+
 				const filteredMedicine = names?.filter((name: string) => name !== undefined);
-				const uniqueMedicine = Array.from(
-					new Set(filteredMedicine?.map((name: string) => name.toLowerCase()))
-				).map((uniqueName) =>
-					// Return the original case for the first occurrence of each unique name
-					filteredMedicine.find((name: string) => name.toLowerCase() === uniqueName)
-				);
-				setMedicine(uniqueMedicine || []);
+
+				if (!filteredMedicine || filteredMedicine === undefined){
+					setMedicine([`${debouncedSearchTerm}`])
+				}else{
+					const uniqueMedicine = Array.from(
+						new Set(filteredMedicine?.map((name: string) => name.toLowerCase()))
+					).map((uniqueName) =>
+						// Return the original case for the first occurrence of each unique name
+						filteredMedicine.find((name: string) => name.toLowerCase() === uniqueName)
+					);
+					setMedicine(uniqueMedicine || []);
+				}
 			} catch (error) {
 				console.error("Error fetching data:", error);
 			}

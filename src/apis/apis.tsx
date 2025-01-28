@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ANDROID_API_URL, IOS_API_URL } from '@env';
+import { ANDROID_API_URL, IOS_API_URL, MED_API_URL } from '@env';
 import { Platform } from 'react-native';
 import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 
@@ -108,3 +108,8 @@ export const getApiCSV = async (url?: string, params?: any) => {
 		...configData,
 	});
 };
+
+
+export const MedApi = (url?: string, params?: any)=>{
+	return  axios.get(`${MED_API_URL}${url}`);
+}
