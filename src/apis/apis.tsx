@@ -4,6 +4,9 @@ import { Platform } from 'react-native';
 import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
+console.log("🚀 ~ endPoint:", endPoint)
+console.log("🚀 ~ ANDROID_API_URL:", ANDROID_API_URL)
+console.log("🚀 ~ IOS_API_URL:", IOS_API_URL)
 
 
 const apiConfig = async (flag = false) => {
@@ -51,6 +54,7 @@ export const getApi = async (url?: string, params?: any) => {
 };
 
 export const postApi = async (url: string, apiData?: any, flag?: boolean) => {
+	console.log("🚀 ~ postApi ~ `${endPoint}${url}`:", `${endPoint}${url}`)
 	return axios.post(`${endPoint}${url}`, apiData, await apiConfig(flag));
 };
 
