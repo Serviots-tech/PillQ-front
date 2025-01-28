@@ -126,7 +126,7 @@ export const FemaleIcon = ({ color = "#00A8A8" }) => (
   </Svg>
 );
 
-export const OtherIcon = ({ color="#0000" }) => (
+export const OtherIcon = ({ color="#000" }) => (
   <Svg width={5} height={17} viewBox="0 0 5 17" fill={color}>
     <Circle cx={2.16187} cy={2.16187} r={2.16187} fill={color} />
     <Circle cx={2.16187} cy={8.21509} r={2.16187} fill={color} />

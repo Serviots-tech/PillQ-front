@@ -36,12 +36,11 @@ const SearchMed: React.FC = () => {
 		setMedicine(results);
 	};
 	useEffect(() => {
-		// Focus the input field when the component mounts
 		const timeout = setTimeout(() => {
-			inputRef.current?.focus(); // Delay focus slightly for iOS to ensure the component is fully mounted
+			inputRef.current?.focus(); 
 		}, 100);
 
-		return () => clearTimeout(timeout); // Cleanup timeout
+		return () => clearTimeout(timeout); 
 	}, []);
 
 	return (

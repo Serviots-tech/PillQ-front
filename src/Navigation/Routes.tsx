@@ -1,22 +1,5 @@
-// import { NavigationContainer } from '@react-navigation/native';
-// import { useSelector } from 'react-redux';
-// import AuthStack from './AuthStack';
-// import MainStack from './MainStack';
-
-// export default function Routes() {
-// 	const isLoggedIn = useSelector((data: any) => data?.isLoggedIn?.isLoggedIn);
-
-// 	return (
-// 		<NavigationContainer>
-// 			{isLoggedIn? <MainStack /> : <AuthStack />}
-// 		</NavigationContainer>
-// 	);
-// }
-
-
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../components/authContext';
 import { Home, LogIn, LogInAsGuest, SignUp, SplashScreen, VerifyEmail, Welcome } from '../screens';
 import { navigationStrings } from '../constants/navigationStrings';
@@ -28,6 +11,9 @@ import ResetPassword from '../screens/ResetPassword';
 import ResetPasswordSuccess from '../screens/PasswordResetSuccess'
 import OnboardSuccessScreen from '../screens/OnboSuccess';
 import SearchMed from '../screens/SearchMed';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+
+
 
 export type RootStackParamList = {
 	SplashScreen: undefined,
@@ -48,14 +34,14 @@ export type RootStackParamList = {
 
 };
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function Routes() {
 	const { isAuthenticated, isLoggedout, isAdditionalDataPending } = useAuth();
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false }}>
+			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid}}>
 				
 				{!isAuthenticated ? (
 					<>
