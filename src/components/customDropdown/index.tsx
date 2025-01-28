@@ -30,17 +30,17 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
     showFooter = true,
     inputRef
 }) => {
-    const [filteredData, setFilteredData] = React.useState<string[]>(dropdownList || []);
+    // const [filteredData, setFilteredData] = React.useState<string[]>(dropdownList || []);
     const [activeItem, setActiveItem] = useState<any>(null);
     const handlePressIn = (item: any) => setActiveItem(item);
     const handlePressOut = () => setActiveItem(null);
 
     const handleSearch = (text: string) => {
         onChange(text);
-        const results = dropdownList.filter((item) =>
-            item.toLowerCase().startsWith(text.toLowerCase())
-        );
-        setFilteredData(results);
+        // const results = dropdownList.filter((item) =>
+        //     item.toLowerCase().startsWith(text.toLowerCase())
+        // );
+        // setFilteredData(results);
     };
 
     return (
@@ -57,7 +57,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 />
             </View>
             <FlatList
-                data={filteredData}
+                data={dropdownList}
                 keyExtractor={(item, index) => index?.toString()}
                 renderItem={({ item }) => (
                     <TouchableOpacity
@@ -73,7 +73,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     </TouchableOpacity>
                 )}
                 ListFooterComponent={
-                    showFooter && value.length > 0 && filteredData.length === 0 ? (
+                    showFooter && value.length > 0 && dropdownList.length === 0 ? (
                         <Text style={styles.footerText}>{footerText}</Text>
                     ) : null
                 }

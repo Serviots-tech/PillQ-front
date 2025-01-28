@@ -80,34 +80,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#ffff'
     },
-    footer: {
-        marginTop: 10,
-        textAlign: "center",
-        color: "#6b6b6b",
-        fontFamily: "Nunito-SemiBold",
-    },
-    link: {
-        color: "#00bfa5",
-        fontFamily: "Nunito-Bold",
-    },
-    dividertext: {
-        marginVertical: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    passwordContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        position: 'relative',
-    },
-    eyeIcon: {
-        position: 'absolute',
-        right: 10,
-        top: 12,
-    },
-    inputError: {
-        borderColor: "red",
-    },
     progressbarview:{
         marginBottom:verticalScale(20)
     }
