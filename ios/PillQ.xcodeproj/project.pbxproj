@@ -59,6 +59,25 @@
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-PillQ-PillQTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PillQ-PillQTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A766E29C8C9489FA2A2AA9A /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-ExtraBold.ttf"; path = "../src/assets/fonts/Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		23CABEEC6D364D5AAE9AAB2E /* Nunito-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-LightItalic.ttf"; path = "../src/assets/fonts/Nunito-LightItalic.ttf"; sourceTree = "<group>"; };
+		306E5AF32D4902F7002CCAB9 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		306E5AF42D4902F7002CCAB9 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		306E5AF52D4902F7002CCAB9 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		306E5AF62D4902F7002CCAB9 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		306E5AF72D4902F7002CCAB9 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		306E5AF82D4902F7002CCAB9 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		306E5AF92D4902F7002CCAB9 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		306E5AFA2D4902F7002CCAB9 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		306E5AFB2D4902F7002CCAB9 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
+		306E5AFC2D4902F7002CCAB9 /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Regular.ttf; sourceTree = "<group>"; };
+		306E5AFD2D4902F7002CCAB9 /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Solid.ttf; sourceTree = "<group>"; };
+		306E5AFE2D4902F7002CCAB9 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		306E5AFF2D4902F7002CCAB9 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		306E5B002D4902F7002CCAB9 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		306E5B012D4902F7002CCAB9 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		306E5B022D4902F7002CCAB9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		306E5B032D4902F7002CCAB9 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		306E5B042D4902F7002CCAB9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		306E5B052D4902F7002CCAB9 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		38AB870AD9E24C81B8B81741 /* Nunito-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Nunito-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PillQ.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PillQ.debug.xcconfig"; path = "Target Support Files/Pods-PillQ/Pods-PillQ.debug.xcconfig"; sourceTree = "<group>"; };
 		47E381FDF6BD4959BF13C092 /* Nunito-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Nunito-Italic.ttf"; path = "../src/assets/fonts/Nunito-Italic.ttf"; sourceTree = "<group>"; };
@@ -142,6 +161,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		306E5B062D4902F7002CCAB9 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				306E5AF32D4902F7002CCAB9 /* AntDesign.ttf */,
+				306E5AF42D4902F7002CCAB9 /* Entypo.ttf */,
+				306E5AF52D4902F7002CCAB9 /* EvilIcons.ttf */,
+				306E5AF62D4902F7002CCAB9 /* Feather.ttf */,
+				306E5AF72D4902F7002CCAB9 /* FontAwesome.ttf */,
+				306E5AF82D4902F7002CCAB9 /* FontAwesome5_Brands.ttf */,
+				306E5AF92D4902F7002CCAB9 /* FontAwesome5_Regular.ttf */,
+				306E5AFA2D4902F7002CCAB9 /* FontAwesome5_Solid.ttf */,
+				306E5AFB2D4902F7002CCAB9 /* FontAwesome6_Brands.ttf */,
+				306E5AFC2D4902F7002CCAB9 /* FontAwesome6_Regular.ttf */,
+				306E5AFD2D4902F7002CCAB9 /* FontAwesome6_Solid.ttf */,
+				306E5AFE2D4902F7002CCAB9 /* Fontisto.ttf */,
+				306E5AFF2D4902F7002CCAB9 /* Foundation.ttf */,
+				306E5B002D4902F7002CCAB9 /* Ionicons.ttf */,
+				306E5B012D4902F7002CCAB9 /* MaterialCommunityIcons.ttf */,
+				306E5B022D4902F7002CCAB9 /* MaterialIcons.ttf */,
+				306E5B032D4902F7002CCAB9 /* Octicons.ttf */,
+				306E5B042D4902F7002CCAB9 /* SimpleLineIcons.ttf */,
+				306E5B052D4902F7002CCAB9 /* Zocial.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +204,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
 				C5BA64B3F87C4AD18392E051 /* Resources */,
+				306E5B062D4902F7002CCAB9 /* Fonts */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

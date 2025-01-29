@@ -181,3 +181,4 @@ export const SearchIcon = () => (
     />
   </Svg>
 );
+

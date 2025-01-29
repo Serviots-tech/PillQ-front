@@ -8,39 +8,42 @@ import {
 } from 'react-native';
 import styles from './style';
 import { ForwardIcon, SearchIcon } from '../../constants/svgs';
+import Icon from 'react-native-vector-icons/AntDesign';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 interface CustomDropdownProps {
     value: string;
-    onChange: (value: string) => void;
+    onChangeText: (value: string) => void;
     dropdownList: string[];
     placeholder?: string;
     title?: string;
     footerText?: string;
     showFooter?: boolean;
     inputRef?:any
+    onDropdownChange: (value: string) => void;
+    isLoading:boolean
+    setText:any
 }
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
     value,
-    onChange,
+    onChangeText,
     dropdownList,
     placeholder = 'Search...',
     title = 'Select an item',
     footerText = 'Refine your search for more results',
     showFooter = true,
-    inputRef
+    inputRef,
+    onDropdownChange,
+    isLoading=false,
+    setText
 }) => {
-    // const [filteredData, setFilteredData] = React.useState<string[]>(dropdownList || []);
     const [activeItem, setActiveItem] = useState<any>(null);
     const handlePressIn = (item: any) => setActiveItem(item);
     const handlePressOut = () => setActiveItem(null);
 
     const handleSearch = (text: string) => {
-        onChange(text);
-        // const results = dropdownList.filter((item) =>
-        //     item.toLowerCase().startsWith(text.toLowerCase())
-        // );
-        // setFilteredData(results);
+        onChangeText(text);
     };
 
     return (
@@ -55,20 +58,21 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     value={value}
                     onChangeText={handleSearch}
                 />
+                {value && <View style={styles.suffixIcon}> <TouchableOpacity onPress={() => { setText('') }}>{isLoading ? <FontAwesomeIcon name="spinner" size={20} color="#000" /> : <Icon name="close" size={20} color="#000" />}</TouchableOpacity></View>}
             </View>
             <FlatList
                 data={dropdownList}
                 keyExtractor={(item, index) => index?.toString()}
+                contentContainerStyle={styles.listContentContainer}
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={[styles.item, activeItem === item && styles.itemActive]}
-                        onPress={() => onChange(item)}
-                        onPressIn={() => handlePressIn(item)}  // Pass the item directly here
+                            onPress={() => onDropdownChange(item)}
+                        onPressIn={() => handlePressIn(item)}  
                         onPressOut={handlePressOut}
                         activeOpacity={1}
+                        
                     >
-                        {/* <Text style={styles.itemText}>{item}</Text>
-                        <ForwardIcon color='#7E8183' /> */}
                         {highlightText(item, value)}
                     </TouchableOpacity>
                 )}
@@ -77,6 +81,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         <Text style={styles.footerText}>{footerText}</Text>
                     ) : null
                 }
+                showsVerticalScrollIndicator={false}
             />
         </View>
     );

@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
         height: verticalScale(50),
         borderRadius: moderateScale(8),
         paddingHorizontal: horizontalScale(10),
+        flex: 1,
     },
     item: {
         padding: verticalScale(12),
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     },
     itemActive: {
         backgroundColor: '#E4E4E4',
-        borderRadius:5 
+        borderRadius: 5
     },
     itemText: {
         fontSize: moderateScale(16),
@@ -45,10 +46,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     itemPressed: {
-        backgroundColor: '#f0f0f0',  
+        backgroundColor: '#f0f0f0',
     },
     icon: {
         marginRight: horizontalScale(5),
+    },
+    suffixIcon: {
+        marginLeft: horizontalScale(10),
     },
     inputContainer: {
         flexDirection: 'row',
@@ -58,14 +62,17 @@ const styles = StyleSheet.create({
         borderRadius: 4,
         paddingRight: horizontalScale(20),
         paddingLeft: horizontalScale(10),
-        paddingVertical:verticalScale(10),
-        height: 50
+        paddingVertical: verticalScale(10),
+        height: verticalScale(50)
     },
-    filteredItem:{
+    filteredItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    }
+    },
+    listContentContainer: {
+        paddingBottom: verticalScale(20),
+    },
 });
 
 export default styles;

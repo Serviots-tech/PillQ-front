@@ -3,6 +3,7 @@ import { ANDROID_API_URL, IOS_API_URL, MED_API_URL } from '@env';
 import { Platform } from 'react-native';
 import { retrieveData, storeData } from '../helpers/asyncStorageHelpers';
 
+console.log("🚀 ~ MED_API_URL:", MED_API_URL)
 const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 

@@ -19,16 +19,23 @@ const SearchMed: React.FC = () => {
 	const [text, setText] = useState<string>("")
 	const [medicine, setMedicine] = useState<string[]>([])
 	const debouncedSearchTerm = useDebouncedValue(text, 800);
+	const [isLoading,setIsLoading]=useState<boolean>(false)
 
-	// Handle the search input change
 	const handleSearch = (inputText: string) => {
-		setText(inputText); // Simply set the text on user input
+		setText(inputText); 
+	};
+
+
+	const handleSelect = (inputText: string) => {
+
+		//Navigate to next screen
 	};
 
 	// Call API when debounced search term changes
 	useEffect(() => {
 		if (!debouncedSearchTerm.trim()) return; // Avoid API call for empty strings
 		const apicaller = async () => {
+			setIsLoading(true)
 			try {
 				const result = await MedApi(`/approximateTerm.json?term=${debouncedSearchTerm}&maxEntries=100`)
 
@@ -48,17 +55,20 @@ const SearchMed: React.FC = () => {
 					setMedicine(uniqueMedicine || []);
 				}
 			} catch (error) {
-				console.error("Error fetching data:", error);
+				console.error("Error fetching data:", JSON.stringify(error));
+			}
+			finally{
+				setIsLoading(false)
 			}
 		};
 		apicaller();
 	}, [debouncedSearchTerm]);
 
-	// Focus the input field when the component mounts
-	useEffect(() => {
-		const timeout = setTimeout(() => inputRef.current?.focus(), 100);
-		return () => clearTimeout(timeout); // Cleanup timeout on unmount
-	}, []);
+
+	// useEffect(() => {
+	// 	const timeout = setTimeout(() => inputRef.current?.focus(), 100);
+	// 	return () => clearTimeout(timeout); // Cleanup timeout on unmount
+	// }, []);
 
 	return (
 		<>
@@ -75,12 +85,17 @@ const SearchMed: React.FC = () => {
 					<ProgressBar percentage={15} detailsText={' '} />
 					<CustomDropdown
 						value={text}
-						onChange={handleSearch}
+						onChangeText={handleSearch}
+						onDropdownChange={handleSelect}
 						dropdownList={medicine}
 						placeholder="Search your medication name"
 						title="What med would you like to add?"
 						footerText="Refine your search for more results"
 						inputRef={inputRef}
+						isLoading={isLoading}
+						setText={setText}
+						
+
 					/>
 				</View>
 			</KeyboardAvoidingView>
