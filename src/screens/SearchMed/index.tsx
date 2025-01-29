@@ -19,10 +19,10 @@ const SearchMed: React.FC = () => {
 	const [text, setText] = useState<string>("")
 	const [medicine, setMedicine] = useState<string[]>([])
 	const debouncedSearchTerm = useDebouncedValue(text, 800);
-	const [isLoading,setIsLoading]=useState<boolean>(false)
+	const [isLoading, setIsLoading] = useState<boolean>(false)
 
 	const handleSearch = (inputText: string) => {
-		setText(inputText); 
+		setText(inputText);
 	};
 
 
@@ -31,33 +31,38 @@ const SearchMed: React.FC = () => {
 		//Navigate to next screen
 	};
 
-	// Call API when debounced search term changes
+
 	useEffect(() => {
-		if (!debouncedSearchTerm.trim()) return; // Avoid API call for empty strings
+		if (!debouncedSearchTerm.trim()) return; 
 		const apicaller = async () => {
 			setIsLoading(true)
 			try {
-				const result = await MedApi(`/approximateTerm.json?term=${debouncedSearchTerm}&maxEntries=100`)
+				if (text=='') {
+					setMedicine([])
+				}
+				else {
+					const result = await MedApi(`/approximateTerm.json?term=${debouncedSearchTerm}&maxEntries=100`)
 
-				const names = result?.data?.approximateGroup?.candidate?.map((item: any) => item.name);
+					const names = result?.data?.approximateGroup?.candidate?.map((item: any) => item.name);
 
-				const filteredMedicine = names?.filter((name: string) => name !== undefined);
+					const filteredMedicine = names?.filter((name: string) => name !== undefined);
 
-				if (!filteredMedicine || filteredMedicine === undefined){
-					setMedicine([`${debouncedSearchTerm}`])
-				}else{
-					const uniqueMedicine = Array.from(
-						new Set(filteredMedicine?.map((name: string) => name.toLowerCase()))
-					).map((uniqueName) =>
-						// Return the original case for the first occurrence of each unique name
-						filteredMedicine.find((name: string) => name.toLowerCase() === uniqueName)
-					);
-					setMedicine(uniqueMedicine || []);
+					if (!filteredMedicine || filteredMedicine === undefined) {
+						setMedicine([`${debouncedSearchTerm}`])
+					} else {
+						const uniqueMedicine = Array.from(
+							new Set(filteredMedicine?.map((name: string) => name.toLowerCase()))
+						).map((uniqueName) =>
+							// Return the original case for the first occurrence of each unique name
+							filteredMedicine.find((name: string) => name.toLowerCase() === uniqueName)
+						);
+						setMedicine(uniqueMedicine || []);
+					}
 				}
 			} catch (error) {
 				console.error("Error fetching data:", JSON.stringify(error));
 			}
-			finally{
+			finally {
 				setIsLoading(false)
 			}
 		};
@@ -94,8 +99,6 @@ const SearchMed: React.FC = () => {
 						inputRef={inputRef}
 						isLoading={isLoading}
 						setText={setText}
-						
-
 					/>
 				</View>
 			</KeyboardAvoidingView>

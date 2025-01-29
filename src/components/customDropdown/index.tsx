@@ -19,10 +19,10 @@ interface CustomDropdownProps {
     title?: string;
     footerText?: string;
     showFooter?: boolean;
-    inputRef?:any
+    inputRef?: any
     onDropdownChange: (value: string) => void;
-    isLoading:boolean
-    setText:any
+    isLoading: boolean
+    setText: any
 }
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
@@ -32,10 +32,10 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
     placeholder = 'Search...',
     title = 'Select an item',
     footerText = 'Refine your search for more results',
-    showFooter = true,
+    showFooter = false,
     inputRef,
     onDropdownChange,
-    isLoading=false,
+    isLoading = false,
     setText
 }) => {
     const [activeItem, setActiveItem] = useState<any>(null);
@@ -50,7 +50,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
         <View style={styles.container}>
             {title && <Text style={styles.title}>{title}</Text>}
             <View style={styles.inputContainer}>
-                <View style={styles.icon}>{<SearchIcon />}</View>
+                <Text style={styles.icon}>
+                    <SearchIcon /> {/* Removed the <Text> wrapper */}
+                </Text>
                 <TextInput
                     ref={inputRef}
                     style={styles.input}
@@ -58,28 +60,36 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     value={value}
                     onChangeText={handleSearch}
                 />
-                {value && <View style={styles.suffixIcon}> <TouchableOpacity onPress={() => { setText('') }}>{isLoading ? <FontAwesomeIcon name="spinner" size={20} color="#000" /> : <Icon name="close" size={20} color="#000" />}</TouchableOpacity></View>}
+                {value && (
+                    <TouchableOpacity onPress={() => setText('')}>
+                        {isLoading ? (
+                            <FontAwesomeIcon name="spinner" size={20} color="#000" />
+                        ) : (
+                            <Icon name="close" size={20} color="#000" />
+                        )}
+                    </TouchableOpacity>
+                )}
             </View>
             <FlatList
-                data={dropdownList}
+                data={value !== "" ? dropdownList : []}
                 keyExtractor={(item, index) => index?.toString()}
                 contentContainerStyle={styles.listContentContainer}
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={[styles.item, activeItem === item && styles.itemActive]}
-                            onPress={() => onDropdownChange(item)}
-                        onPressIn={() => handlePressIn(item)}  
+                        onPress={() => onDropdownChange(item)}
+                        onPressIn={() => handlePressIn(item)}
                         onPressOut={handlePressOut}
                         activeOpacity={1}
-                        
+
                     >
-                        {highlightText(item, value)}
+                            {highlightText(item, value)}
                     </TouchableOpacity>
                 )}
                 ListFooterComponent={
                     showFooter && value.length > 0 && dropdownList.length === 0 ? (
                         <Text style={styles.footerText}>{footerText}</Text>
-                    ) : null
+                    ) : <></>
                 }
                 showsVerticalScrollIndicator={false}
             />
