@@ -41,40 +41,40 @@ export default function Routes() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid}}>
-				<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
+			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
 				{!isAuthenticated ? (
-					// <>
-					// 	{isLoggedout ?
-					// 		<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} /> :
-					// 		<>
-					// 			{isAdditionalDataPending ? <Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} /> :
-					// 				<>
-					// 					<Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} />
-					// 					<Stack.Screen name={navigationStrings?.ONBOARD_SUCCESS} component={OnboardSuccessScreen} />
-					// 					<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
-					// 					<Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
-					// 					<Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
-					// 					<Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
-					// 					<Stack.Screen name={navigationStrings?.LOGIN_AS_GUEST} component={LogInAsGuest} />
-					// 					<Stack.Screen name={navigationStrings?.FORGOT_PASSWORD} component={ForgetPassword} />
-					// 					<Stack.Screen name={navigationStrings?.RESET_PASSWORD} component={ResetPassword} />
-					// 					<Stack.Screen name={navigationStrings?.RESET_PASSWORD_SUCCESS} component={ResetPasswordSuccess} />
-					// 					<Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} />
-					// 					<Stack.Screen name={navigationStrings?.BIRTHDAY_SELECTION} component={BirthdaySelection} />
-					// 					<Stack.Screen name={navigationStrings?.APP_USAGE_SELECTION} component={AppUsageSelection} />
-										
-					// 				</>
-					// 			}
+					<>
+						{isLoggedout ?
+							<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} /> :
+							<>
+								{isAdditionalDataPending ? <Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} /> :
+									<>
+										<Stack.Screen name={navigationStrings?.SPLASH_SCREEN} component={SplashScreen} />
+										<Stack.Screen name={navigationStrings?.ONBOARD_SUCCESS} component={OnboardSuccessScreen} />
+										<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} />
+										<Stack.Screen name={navigationStrings?.SIGN_UP} component={SignUp} />
+										<Stack.Screen name={navigationStrings?.VERIFY_EMAIL} component={VerifyEmail} />
+										<Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} />
+										<Stack.Screen name={navigationStrings?.LOGIN_AS_GUEST} component={LogInAsGuest} />
+										<Stack.Screen name={navigationStrings?.FORGOT_PASSWORD} component={ForgetPassword} />
+										<Stack.Screen name={navigationStrings?.RESET_PASSWORD} component={ResetPassword} />
+										<Stack.Screen name={navigationStrings?.RESET_PASSWORD_SUCCESS} component={ResetPasswordSuccess} />
+										<Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} />
+										<Stack.Screen name={navigationStrings?.BIRTHDAY_SELECTION} component={BirthdaySelection} />
+										<Stack.Screen name={navigationStrings?.APP_USAGE_SELECTION} component={AppUsageSelection} />
 
-					// 		</>
-					// 	}
-					// </>
+									</>
+								}
 
-					<></>
+							</>
+						}
+					</>
+
+					// <></>
 				) : (
 					<>
-						{/* <Stack.Screen name={navigationStrings?.HOME} component={Home} /> */}
+						<Stack.Screen name={navigationStrings?.HOME} component={Home} />
+						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 					</>
 				)}
 			</Stack.Navigator>
