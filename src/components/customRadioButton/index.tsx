@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './style'; // Import styles from the separate CSS file
 
 interface CustomRadioButtonProps {
-    options: { label: string; value: string; icon: JSX.Element }[]; // Added `icon` as JSX.Element
+    options: { label: string; value: string; icon?: JSX.Element }[]; // Added `icon` as JSX.Element
     selectedOption: string | null;
     onSelect: (option: string) => void;
     label: string;
@@ -14,7 +14,7 @@ interface CustomRadioButtonProps {
     selectedButtonTextStyle?: object;
     iconStyle?: object; // Optional icon styling
     selectedIcon?: JSX.Element; // Add `selectedIcon` for the right side icon,
-    error?:string | null
+    error?: string | null
 }
 
 const CustomRadioButton: React.FC<CustomRadioButtonProps> = ({
@@ -28,19 +28,19 @@ const CustomRadioButton: React.FC<CustomRadioButtonProps> = ({
     selectedButtonStyle,
     selectedButtonTextStyle,
     iconStyle,
-    selectedIcon, 
+    selectedIcon,
     error
 }) => {
     return (
         <View style={[styles.container, containerStyle]}>
             {label && <Text style={styles.title}>{label}</Text>}
-            <Text
+            {/* <Text
                 style={[
                     styles.buttonText,
                     buttonTextStyle]}
             >
                 {label}
-            </Text>
+            </Text> */}
             {options.map((option, index) => (
                 <TouchableOpacity
                     key={index}

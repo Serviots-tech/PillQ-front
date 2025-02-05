@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding:moderateScale(10)
+        paddingVertical: moderateScale(10)
     },
     backBtn: {
         fontSize: moderateScale(16),
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'Nunito-Bold',
         // color:'#00A8A8',
-        marginLeft:moderateScale(-40),
+        marginLeft: moderateScale(-40),
         fontSize: moderateScale(16),
     },
 });

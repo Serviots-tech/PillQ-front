@@ -3,14 +3,15 @@ import { moderateScale, verticalScale, horizontalScale } from '../../styles';
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: '#FFFFFF',
     },
     title: {
         fontSize: moderateScale(22),
         fontFamily: 'Nunito-Bold',
         color: '#000000',
-        marginBottom: verticalScale(8),
+        marginBottom: verticalScale(20),
+        flexShrink: 1
     },
     input: {
         height: verticalScale(50),
