@@ -10,7 +10,7 @@
 		0C2403A255554DB0AD58C26A /* loader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0402EB0232DC4C61AEF2C3EF /* loader.gif */; };
 		0C80B921A6F3F58F76C31292 /* libPods-PillQ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PillQ.a */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		735598AFD8504AF4B6DC752D /* splashGif.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D20B53A3247FF8EB5BF98 /* splashGif.gif */; };
+		735598AFD8504AF4B6DC752D /* splash.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8D6D20B53A3247FF8EB5BF98 /* splash.gif */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C3EF6F61F639DC3BAE779C4D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
@@ -27,7 +27,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-PillQ.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PillQ.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PillQ/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PillQ/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8D6D20B53A3247FF8EB5BF98 /* splashGif.gif */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = splashGif.gif; path = ../src/assets/gifs/splashGif.gif; sourceTree = "<group>"; };
+		8D6D20B53A3247FF8EB5BF98 /* splash.gif */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = splash.gif; path = ../src/assets/gifs/splash.gif; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -68,7 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				0402EB0232DC4C61AEF2C3EF /* loader.gif */,
-				8D6D20B53A3247FF8EB5BF98 /* splashGif.gif */,
+				8D6D20B53A3247FF8EB5BF98 /* splash.gif */,
 			);
 			name = Resources;
 			path = "";
@@ -177,7 +177,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C3EF6F61F639DC3BAE779C4D /* PrivacyInfo.xcprivacy in Resources */,
 				0C2403A255554DB0AD58C26A /* loader.gif in Resources */,
-				735598AFD8504AF4B6DC752D /* splashGif.gif in Resources */,
+				735598AFD8504AF4B6DC752D /* splash.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
