@@ -5,13 +5,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../Navigation/Routes";
 import styles from "./style";
 import CustomDropdown from "../../components/customDropdown";
-import CustomButton from "../../components/customButton";
 import { navigationStrings } from "../../constants/navigationStrings";
-import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
 import ProgressBar from "../../components/progressBar";
-import axios from "axios";
 import { useDebouncedValue } from "../../helpers/debounce";
 import { MedApi } from "../../apis/apis";
+import BackButtonComponent from "../../components/backButton";
 
 const SearchMed: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -28,16 +26,16 @@ const SearchMed: React.FC = () => {
 
 	const handleSelect = (inputText: string) => {
 
-		//Navigate to next screen
+		navigation.navigate(navigationStrings.MED_FORM)
 	};
 
 
 	useEffect(() => {
-		if (!debouncedSearchTerm.trim()) return; 
+		if (!debouncedSearchTerm.trim()) return;
 		const apicaller = async () => {
 			setIsLoading(true)
 			try {
-				if (text=='') {
+				if (text == '') {
 					setMedicine([])
 				}
 				else {
@@ -80,26 +78,32 @@ const SearchMed: React.FC = () => {
 			<SafeAreaView />
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
-					<View style={styles.backicon}>
+					{/* <View style={styles.backicon}>
 						<CustomButton
 							label={"Back"}
 							buttonTextStyle={styles.backBtn}
 							onPress={() => { navigation.navigate(navigationStrings.HOME); }}
 							icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
+					</View> */}
+					<View>
+						<BackButtonComponent centerText="" />
+						<View style={styles.progressbarview}>
+							{/* <ProgressBar percentage={30} detailsText={"Getting to Know You"} /> */}
+							<ProgressBar percentage={15} detailsText={' '} />
+						</View>
+						<CustomDropdown
+							value={text}
+							onChangeText={handleSearch}
+							onDropdownChange={handleSelect}
+							dropdownList={medicine}
+							placeholder="Search your medication name"
+							title="What med would you like to add?"
+							footerText="Refine your search for more results"
+							inputRef={inputRef}
+							isLoading={isLoading}
+							setText={setText}
+						/>
 					</View>
-					<ProgressBar percentage={15} detailsText={' '} />
-					<CustomDropdown
-						value={text}
-						onChangeText={handleSearch}
-						onDropdownChange={handleSelect}
-						dropdownList={medicine}
-						placeholder="Search your medication name"
-						title="What med would you like to add?"
-						footerText="Refine your search for more results"
-						inputRef={inputRef}
-						isLoading={isLoading}
-						setText={setText}
-					/>
 				</View>
 			</KeyboardAvoidingView>
 		</>
