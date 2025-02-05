@@ -10,12 +10,20 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../Navigation/Routes";
 import { navigationStrings } from "../../constants/navigationStrings";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setAddMedicine } from "../../redux/slices/addMedicine";
 
 const HowOften: React.FC = () => {
 
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+	const dispatch = useDispatch<AppDispatch>()
+
+	const { data: addMedData } = useSelector((data: any) => data?.addMedicine)
+
 	const handleSelect = (option: string) => {
+		dispatch(setAddMedicine({ timingSetup: option }))
 		navigation.navigate(navigationStrings.HOW_OFTEN_EVERY_DAY)
 	}
 	return (
@@ -24,7 +32,7 @@ const HowOften: React.FC = () => {
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
 					<View>
-						<BackButtonComponent centerText="Med" />
+						<BackButtonComponent centerText={`${addMedData?.name.toLowerCase()},${addMedData?.medicineForm.toLowerCase()}`} />
 						<View style={styles.progressbarview}>
 							<ProgressBar percentage={30} detailsText={"Getting to Know You"} />
 						</View>

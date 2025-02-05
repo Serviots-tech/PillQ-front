@@ -24,7 +24,7 @@ const BirthdaySelection: React.FC = () => {
 	const [isBirthdateSet, setIsBirthdateSet] = useState<boolean>(false);
 
 
-	const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
+const { data: userData, isGuestUser } = useSelector((data: any) => data?.guestUser)
 
 	const dispatch = useDispatch<AppDispatch>()
 
@@ -96,3 +96,4 @@ const BirthdaySelection: React.FC = () => {
 };
 
 export default BirthdaySelection;
+	

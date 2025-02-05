@@ -10,6 +10,9 @@ import ProgressBar from "../../components/progressBar";
 import { useDebouncedValue } from "../../helpers/debounce";
 import { MedApi } from "../../apis/apis";
 import BackButtonComponent from "../../components/backButton";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { setAddMedicine } from "../../redux/slices/addMedicine";
 
 const SearchMed: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -18,13 +21,16 @@ const SearchMed: React.FC = () => {
 	const [medicine, setMedicine] = useState<string[]>([])
 	const debouncedSearchTerm = useDebouncedValue(text, 800);
 	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const dispatch = useDispatch<AppDispatch>()
 
 	const handleSearch = (inputText: string) => {
 		setText(inputText);
 	};
 
 
-	const handleSelect = (inputText: string) => {
+	const handleSelect = (selectedMed: string) => {
+
+		dispatch(setAddMedicine({ name: selectedMed }))
 
 		navigation.navigate(navigationStrings.MED_FORM)
 	};
