@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 0,
     fontFamily: "Nunito-SemiBold",
-    height:50
+    height:50,
+    color:'#000000'
   },
   eyeIcon: {
     position: 'absolute',
