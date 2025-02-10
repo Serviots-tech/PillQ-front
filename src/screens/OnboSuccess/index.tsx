@@ -10,6 +10,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../Navigation/Routes";
 import { useNavigation } from "@react-navigation/native";
 import { navigationStrings } from "../../constants/navigationStrings";
+import { imagePaths } from "../../constants/imagePath";
+import CustomImage from "../../components/customImage";
 
 const OnboardSuccessScreen = () => {
 	const { login } = useAuth();
@@ -21,7 +23,8 @@ const OnboardSuccessScreen = () => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<View style={styles.contentContainer}>
-				<View style={styles.imagePlaceholder} />
+				{/* <View style={styles.imagePlaceholder} /> */}
+				<CustomImage imageUrl={imagePaths?.docAnimatedImg} style={styles?.docImg}/>
 				<Text style={styles.title}>Welcome aboard, {userData?.name}</Text>
 				<Text style={styles.subtitle}>
 					You've completed your *APP* profile. Now, let's add your medication to create your very first reminder.

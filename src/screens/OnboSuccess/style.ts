@@ -63,6 +63,10 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(16),
         color: "#6B6B6B", //6B6B6B
     },
+    docImg:{
+    width: horizontalScale(300),
+    height: moderateScale(300),
+},
 });
 
 export default styles;

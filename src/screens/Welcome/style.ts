@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import  SCALE, { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
+import { horizontalScale, isSmallDevice, moderateScale, verticalScale } from "../../styles";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
