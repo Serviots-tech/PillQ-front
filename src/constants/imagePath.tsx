@@ -7,6 +7,9 @@ import warning from '../assets/images/warning.png'
 import close from '../assets/images/close.png'
 import splashImage from '../assets/gifs/splash.gif'
 import loader from '../assets/gifs/loader.gif'
+import docAnimatedImg from "../assets/gifs/doc.gif"
+// import docAnimatedImg from "../assets/webp/doc.webp"
+
 
 export const imagePaths = {
     FamImgAndroid,
@@ -17,5 +20,6 @@ export const imagePaths = {
     warning,
     close,
     splashImage,
-    loader
+    loader,
+    docAnimatedImg
 }

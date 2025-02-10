@@ -57,7 +57,7 @@ export default function Routes() {
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} />
 				<Stack.Screen name={navigationStrings?.PILL_PLANNER} component={PillPlanner} />
 
-				{/* {!isAuthenticated ? (
+				{!isAuthenticated ? (
 					<>
 						{isLoggedout ?
 							<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} /> :
@@ -91,7 +91,7 @@ export default function Routes() {
 						<Stack.Screen name={navigationStrings?.HOME} component={Home} />
 						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 					</>
-				)} */}
+				)}
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

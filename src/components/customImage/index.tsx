@@ -1,11 +1,14 @@
 import React, { PropsWithChildren } from 'react';
-import { ImageBackground, ImageSourcePropType, ImageStyle, StyleProp, View } from 'react-native';
+import { StyleProp, View } from 'react-native';
+// import FastImage from 'react-native-fast-image';
+import FastImage, { ImageStyle as FastImageStyle,Source } from 'react-native-fast-image';
 
 type ImageProps = PropsWithChildren<{
-    imageUrl: ImageSourcePropType,
-    style?: StyleProp<ImageStyle>;
+    imageUrl: number | Source,
+    style?: StyleProp<FastImageStyle>; 
    
 }>
+
 
 export default function CustomImage({
     imageUrl,
@@ -13,8 +16,10 @@ export default function CustomImage({
      }: ImageProps) {
     return (
         <View>
-            <ImageBackground style={style} source={imageUrl} >
-            </ImageBackground>
+            <FastImage
+                style={style}
+                source={imageUrl}
+            />
         </View>
     )
 }

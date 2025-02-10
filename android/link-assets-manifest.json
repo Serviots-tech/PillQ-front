@@ -34,10 +34,6 @@
       "sha1": "5fa8b333a480476105b142c034c7376ed3fb4d2d"
     },
     {
-      "path": "src/assets/fonts/Nunito-Italic-VariableFont_wght.ttf",
-      "sha1": "0b4c3a612cf31e069014ede3a502381c034fc736"
-    },
-    {
       "path": "src/assets/fonts/Nunito-Italic.ttf",
       "sha1": "8bd20205f1cfac7715f5f0f945cbd745c2709c80"
     },
@@ -68,10 +64,6 @@
     {
       "path": "src/assets/fonts/Nunito-SemiBoldItalic.ttf",
       "sha1": "d930314ed16c54fd734f85d3d45f17d988254578"
-    },
-    {
-      "path": "src/assets/fonts/Nunito-VariableFont_wght.ttf",
-      "sha1": "c2adb9c3bcb684afc16cab5e70e8da3d3700a91e"
     },
     {
       "path": "src/assets/gifs/loader.gif",

@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#00A8A8',
+        color: '#ffffff'
     },
     gif: {
         width: horizontalScale(300),
