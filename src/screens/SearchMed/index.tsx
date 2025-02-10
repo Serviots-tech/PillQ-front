@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, TextInput, View } from "react-native";
+import { Button, KeyboardAvoidingView, Platform, SafeAreaView, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../Navigation/Routes";
@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setAddMedicine } from "../../redux/slices/addMedicine";
 
+
+
 const SearchMed: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const inputRef = useRef<TextInput>(null);
@@ -22,6 +24,8 @@ const SearchMed: React.FC = () => {
 	const debouncedSearchTerm = useDebouncedValue(text, 800);
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const dispatch = useDispatch<AppDispatch>()
+
+	
 
 	const handleSearch = (inputText: string) => {
 		setText(inputText);
@@ -109,6 +113,7 @@ const SearchMed: React.FC = () => {
 							isLoading={isLoading}
 							setText={setText}
 						/>
+
 					</View>
 				</View>
 			</KeyboardAvoidingView>

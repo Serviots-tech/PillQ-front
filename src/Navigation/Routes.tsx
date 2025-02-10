@@ -15,7 +15,7 @@ import MedForm from '../screens/MedForm';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import HowOften from '../screens/HowOften';
 import HowOftenEveryDay from '../screens/HowOftenEveryDay';
-
+import PillPlanner from '../screens/PillPlanner';
 
 
 export type RootStackParamList = {
@@ -36,7 +36,8 @@ export type RootStackParamList = {
 	SearchMed: undefined,
 	MedForm: undefined,
 	HowOften: undefined,
-	HowOftenEveryDay: undefined
+	HowOftenEveryDay: undefined,
+	PillPlanner:undefined
 
 };
 
@@ -48,10 +49,13 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
+				
+
 				<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} />
+				<Stack.Screen name={navigationStrings?.PILL_PLANNER} component={PillPlanner} />
 
 				{/* {!isAuthenticated ? (
 					<>
