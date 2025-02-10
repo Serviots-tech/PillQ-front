@@ -11,6 +11,7 @@ type BackButtonProps = {
     buttonTextStyle?: TextStyle;
     backIconStyle?: ViewStyle;
     onPress?: (event: GestureResponderEvent) => void;
+    centerText: string
 };
 
 const BackButtonComponent: React.FC<BackButtonProps> = ({
@@ -19,6 +20,7 @@ const BackButtonComponent: React.FC<BackButtonProps> = ({
     buttonTextStyle,
     backIconStyle,
     onPress,
+    centerText
 }) => {
     const navigation = useNavigation();
 
@@ -43,7 +45,7 @@ const BackButtonComponent: React.FC<BackButtonProps> = ({
                 />
             </View>
             <Text style={styles.centerText}>
-                scfsddfgdsgdfrgef
+                {centerText}
             </Text>
         </View>
     );

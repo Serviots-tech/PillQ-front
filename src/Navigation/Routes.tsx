@@ -11,7 +11,10 @@ import ResetPassword from '../screens/ResetPassword';
 import ResetPasswordSuccess from '../screens/PasswordResetSuccess'
 import OnboardSuccessScreen from '../screens/OnboSuccess';
 import SearchMed from '../screens/SearchMed';
+import MedForm from '../screens/MedForm';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import HowOften from '../screens/HowOften';
+import HowOftenEveryDay from '../screens/HowOftenEveryDay';
 
 
 
@@ -30,7 +33,10 @@ export type RootStackParamList = {
 	AppUsageSelection: undefined,
 	Home: undefined,
 	OnboardSuccess: undefined,
-	SearchMed: undefined
+	SearchMed: undefined,
+	MedForm: undefined,
+	HowOften: undefined,
+	HowOftenEveryDay: undefined
 
 };
 
@@ -42,6 +48,11 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
+				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
+				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
+				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
+				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} /> */}
+
 				{!isAuthenticated ? (
 					<>
 						{isLoggedout ?
@@ -62,7 +73,7 @@ export default function Routes() {
 										<Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} />
 										<Stack.Screen name={navigationStrings?.BIRTHDAY_SELECTION} component={BirthdaySelection} />
 										<Stack.Screen name={navigationStrings?.APP_USAGE_SELECTION} component={AppUsageSelection} />
-
+										<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 									</>
 								}
 
