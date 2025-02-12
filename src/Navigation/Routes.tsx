@@ -53,7 +53,7 @@ export default function Routes() {
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} /> */}
 
-				{!isAuthenticated ? (
+				{/* {!isAuthenticated ? (
 					<>
 						{isLoggedout ?
 							<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} /> :
@@ -87,7 +87,9 @@ export default function Routes() {
 						<Stack.Screen name={navigationStrings?.HOME} component={Home} />
 						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 					</>
-				)}
+				)} */}
+				<Stack.Screen name={navigationStrings?.HOME} component={Home} />
+				
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

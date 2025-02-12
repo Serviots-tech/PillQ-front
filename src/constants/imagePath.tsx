@@ -8,7 +8,8 @@ import close from '../assets/images/close.png'
 import splashImage from '../assets/gifs/splash.gif'
 import loader from '../assets/gifs/loader.gif'
 import docAnimatedImg from "../assets/gifs/doc.gif"
-// import docAnimatedImg from "../assets/webp/doc.webp"
+import leftArrow from "../assets/images/leftArrow.png"
+import rigthArrow from "../assets/images/rigthArrow.png"
 
 
 export const imagePaths = {
@@ -21,5 +22,7 @@ export const imagePaths = {
     close,
     splashImage,
     loader,
-    docAnimatedImg
+    docAnimatedImg,
+    rigthArrow,
+    leftArrow
 }
