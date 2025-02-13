@@ -7,6 +7,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../Navigation/Routes'
 
 import { useAuth } from '../../components/authContext'
+import CustomCalender from '../../components/customCalender'
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -43,6 +44,8 @@ const Home: React.FC<LogInAsGuestProps> = ({navigation}) => {
                 >
                     <Text style={{ color: '#FFF', fontSize: 16 }}>Click</Text>
                 </TouchableOpacity>
+
+                <CustomCalender/>
             </View>
             {/* <LogInAsGuest/> */}
         </>
