@@ -82,7 +82,12 @@ export default function Routes() {
 				) : (
 					<>{isLoginAndAddMed ? <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> :
 						<>
-							<Stack.Screen name={navigationStrings?.HOME} component={Home} />
+							<Stack.Screen name={navigationStrings?.HOME} component={Home}
+								options={{
+									headerShown: true,
+									header: () => <CustomProfileHeader />
+								}}
+							/>
 							<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 							<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 							<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
