@@ -26,14 +26,15 @@ import { RootStackParamList } from "../../Navigation/Routes";
 import { navigationStrings } from "../../constants/navigationStrings";
 import { PermissionsAndroid } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import { showToast } from "../../components/customToast/ToastManager";
 
 const PillPlanner: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const dispatch = useDispatch<AppDispatch>();
 	const { data: addMedData } = useSelector((state: any) => state?.addMedicine);
 	const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-	const [selectedTime, setSelectedTime] = useState("08:00"); 
-	const [isLoading,setIsLoading]= useState(false)
+	const [selectedTime, setSelectedTime] = useState("08:00");
+	const [isLoading, setIsLoading] = useState(false)
 
 	const showDatePicker = () => setDatePickerVisibility(true);
 	const hideDatePicker = () => setDatePickerVisibility(false);
@@ -53,7 +54,7 @@ const PillPlanner: React.FC = () => {
 		try {
 			const data = await postApi('/medicine/create', { medicineName: addMedData.name, medicineForm: addMedData.medicineForm, timingSetup: addMedData?.timingSetup, dosePerDay: addMedData?.dosePerDay, startTime: selectedTime })
 
-			if (!data?.data?.data?.deviceToken){
+			if (!data?.data?.data?.deviceToken) {
 				const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 				if (granted === PermissionsAndroid.RESULTS.GRANTED) {
 					const fcmToken = await messaging().getToken();
@@ -66,9 +67,13 @@ const PillPlanner: React.FC = () => {
 
 		} catch (error: any) {
 			console.log("🚀 ~ handleSubmit ~ error:", error)
-
+			showToast({
+				text: `${error?.response?.data?.error?.errorDescription ?? "Some thing went Wrong"}`,
+				duration: 3000,
+				type: 'error'
+			})
 		}
-		finally{
+		finally {
 			setIsLoading(false)
 		}
 
