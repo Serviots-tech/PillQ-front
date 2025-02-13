@@ -16,6 +16,7 @@ import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/
 import HowOften from '../screens/HowOften';
 import HowOftenEveryDay from '../screens/HowOftenEveryDay';
 import PillPlanner from '../screens/PillPlanner';
+import CustomProfileHeader from '../components/customProfileHeader';
 
 
 export type RootStackParamList = {
@@ -50,7 +51,7 @@ export default function Routes() {
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
 
-
+				{/* 
 				<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
@@ -92,8 +93,18 @@ export default function Routes() {
 						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 					</>
 				)} */}
-				<Stack.Screen name={navigationStrings?.HOME} component={Home} options={{headerShown: true , }}/>
+
+				{/* <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} /> */}
+
 				
+				<Stack.Screen
+					name={navigationStrings?.HOME}
+					component={Home}
+					options={{
+						headerShown: true,
+						header: () => <CustomProfileHeader/>
+					}} />
+
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

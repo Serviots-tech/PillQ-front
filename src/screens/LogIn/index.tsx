@@ -73,21 +73,16 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
             storeData("accessToken", res?.data?.accessToken)
             storeData("deviceId", getDeviceId)
 
-            // // fetch profile 
-            // dispatch(getUserProfile())
-
-            // // changes in isloggedIn functionz 
-            // dispatch(setLoginStatus(true))
 
             await dispatch(getUserProfile())
-                .then(() => {
+                .then((res:any) => {
+                    console.log("🚀 ~ .then ~ res:", res)
                     if (res?.data?.firstLogin) {
                         dispatch(setGuestUser(false))
                         navigation.navigate(navigationStrings.GENDER_SELECTION)
                     }
                     else {
                         login()
-                        // dispatch(setLoginStatus(true));
                     }
                 })
                 .catch((error) => {

@@ -1,0 +1,33 @@
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchCostCenterAction } from '../actions/costCenterAction';
+import { getUserMedicines } from '../actions/medicinesAction';
+
+const initialState: any = {
+    data: null,
+    isLoading: true,
+    error: null,
+};
+
+export const getMedicneSlice = createSlice({
+    name: 'getMedicine',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(getUserMedicines.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        });
+        builder.addCase(getUserMedicines.fulfilled, (state: any, action: any) => {
+            state.isLoading = false;
+            state.data = action?.payload?.data;
+        });
+        builder.addCase(
+            getUserMedicines.rejected,
+            (state, action: any) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            }
+        );
+    },
+});
+
