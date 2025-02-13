@@ -9,14 +9,20 @@ import styles from "./style";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setAddMedicine } from "../../redux/slices/addMedicine";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../Navigation/Routes";
+import { navigationStrings } from "../../constants/navigationStrings";
 
 const HowOftenEveryDay: React.FC = () => {
 	
+	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	const dispatch = useDispatch<AppDispatch>()
 	const { data: addMedData } = useSelector((data: any) => data?.addMedicine)
 
 	const handleSelect = (option: string) => {
 		dispatch(setAddMedicine({ timingSetup: option }))
+		navigation.navigate(navigationStrings.PILL_PLANNER)
 	}
 	return (
 		<>

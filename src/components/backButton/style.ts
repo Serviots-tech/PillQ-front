@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        padding:moderateScale(10)
+        paddingVertical:moderateScale(10)
     },
     backBtn: {
         fontSize: moderateScale(16),
