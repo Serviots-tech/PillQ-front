@@ -21,7 +21,7 @@ const HowOftenEveryDay: React.FC = () => {
 	const { data: addMedData } = useSelector((data: any) => data?.addMedicine)
 
 	const handleSelect = (option: string) => {
-		dispatch(setAddMedicine({ timingSetup: option }))
+		dispatch(setAddMedicine({ dosePerDay: option }))
 		navigation.navigate(navigationStrings.PILL_PLANNER)
 	}
 	return (

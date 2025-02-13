@@ -45,20 +45,14 @@ export type RootStackParamList = {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default function Routes() {
-	const { isAuthenticated, isLoggedout, isAdditionalDataPending } = useAuth();
+	const { isAuthenticated, isLoggedout, isAdditionalDataPending, isLoginAndAddMed } = useAuth();
 
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
 
-				{/* 
-				<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
-				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
-				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
-				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} />
-				<Stack.Screen name={navigationStrings?.PILL_PLANNER} component={PillPlanner} />
 
-				{/* {!isAuthenticated ? (
+				{!isAuthenticated ? (
 					<>
 						{isLoggedout ?
 							<Stack.Screen name={navigationStrings?.WELCOME} component={Welcome} /> :
@@ -78,32 +72,25 @@ export default function Routes() {
 										<Stack.Screen name={navigationStrings?.GENDER_SELECTION} component={GenderSelection} />
 										<Stack.Screen name={navigationStrings?.BIRTHDAY_SELECTION} component={BirthdaySelection} />
 										<Stack.Screen name={navigationStrings?.APP_USAGE_SELECTION} component={AppUsageSelection} />
-										
+
 									</>
 								}
 
 							</>
 						}
 					</>
-
-					// <></>
 				) : (
-					<>
-						<Stack.Screen name={navigationStrings?.HOME} component={Home} />
-						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
+					<>{isLoginAndAddMed ? <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> :
+						<>
+							<Stack.Screen name={navigationStrings?.HOME} component={Home} />
+							<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
+							<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
+							<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
+							<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} />
+							<Stack.Screen name={navigationStrings?.PILL_PLANNER} component={PillPlanner} />
+						</>}
 					</>
-				)} */}
-
-				{/* <Stack.Screen name={navigationStrings?.LOGIN} component={LogIn} /> */}
-
-				
-				<Stack.Screen
-					name={navigationStrings?.HOME}
-					component={Home}
-					options={{
-						headerShown: true,
-						header: () => <CustomProfileHeader/>
-					}} />
+				)}
 
 			</Stack.Navigator>
 		</NavigationContainer>

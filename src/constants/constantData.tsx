@@ -21,33 +21,33 @@ export const appUsageOptions = [
 
 
 export const medFormOptions = [
-    { label: "Pill", value: "PILL", icon: <MaleIcon /> },
-    { label: "Injection", value: "INJECTION", icon: <FemaleIcon /> },
-    { label: "Solution (liquid)", value: "SOLUTION", icon: <NonBinaryIcon /> },
-    { label: "Drops", value: "DROPS", icon: <OtherIcon /> },
-    { label: "Inhaler", value: "INHALER", icon: <MaleIcon /> },
-    { label: "Powder", value: "POWDER", icon: <MaleIcon /> },
-    { label: "Other", value: "OTHER", icon: <MaleIcon /> },
+    { label: "Pill", value: "PILL", },
+    { label: "Injection", value: "INJECTION" },
+    { label: "Solution (liquid)", value: "SOLUTION"},
+    { label: "Drops", value: "DROPS"},
+    { label: "Inhaler", value: "INHALER" },
+    { label: "Powder", value: "POWDER"},
+    { label: "Other", value: "OTHER"},
 ];
 
 export const howOftenOptions = [
     { label: "Every day", value: "EVERY_DAY" },
     { label: "Every other day", value: "EVERY_OTHER_DAY" },
-    { label: "Specific days of the week", value: "SPECIFIC_DAYS" },
-    { label: "On a recurring cycle", value: "RECURRING_CYCLE" },
+    // { label: "Specific days of the week", value: "SPECIFIC_DAYS" },
+    // { label: "On a recurring cycle", value: "RECURRING_CYCLE" },
     { label: "Every X days", value: "EVERY_X_DAYS" },
     { label: "Every X weeks", value: "EVERY_X_WEEKS" },
     { label: "Every X months", value: "EVERY_X_MONTHS" },
-    { label: "Only as needed", value: "AS_NEEDED" },
+    { label: "Only as needed", value: "ONLY_AS_NEEDED" },
 ];
 
 export const howOftenEveryDayOptions = [
-    { label: "Once a day", value: "ONCE_A_DAY" },
-    { label: "Twice a day", value: "TWICE_A_DAY" },
+    { label: "Once a day", value: "ONCE" },
+    { label: "Twice a day", value: "TWICE" },
     { label: "3 Times a day", value: "THREE_TIMES_A_DAY" },
     { label: "More than 3 times a day", value: "MORE_THAN_THREE_TIMES" },
     { label: "Every X hours", value: "EVERY_X_HOURS" },
-    { label: "On a recurring cycle", value: "RECURRING_CYCLE" },
-    { label: "Only as needed", value: "AS_NEEDED" },
+    // { label: "On a recurring cycle", value: "RECURRING_CYCLE" },
+    // { label: "Only as needed", value: "AS_NEEDED" },
 ];
 

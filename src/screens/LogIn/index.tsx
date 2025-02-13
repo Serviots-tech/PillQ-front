@@ -2,11 +2,11 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import CryptoJS from "crypto-js";
 import { Formik, FormikProps } from "formik";
 import React, { useEffect, useState } from "react";
-import { KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
+import { Alert, KeyboardAvoidingView, Platform, SafeAreaView, Text, View } from "react-native";
 import DeviceInfo from 'react-native-device-info';
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { postApi } from "../../apis/apis";
+import { postApi, putApi } from "../../apis/apis";
 import CustomButton from "../../components/customButton";
 import { CustomInputField } from "../../components/customInputField";
 import { CustomPasswordInput } from "../../components/customPasswordField";
@@ -23,6 +23,8 @@ import { AppDispatch } from "../../redux/store";
 import styles from "./style";
 import { setGuestUser } from "../../redux/slices/registerAsGuest";
 import { useAuth } from "../../components/authContext";
+import { PermissionsAndroid } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 
 
 
@@ -75,8 +77,14 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
 
 
             await dispatch(getUserProfile())
-                .then((res:any) => {
-                    console.log("🚀 ~ .then ~ res:", res)
+                .then(async () => {
+                    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                        const fcmToken = await messaging().getToken()
+                        await putApi('/user/update-firebase-token', { firebaseToken : fcmToken})
+                    }
+
+
                     if (res?.data?.firstLogin) {
                         dispatch(setGuestUser(false))
                         navigation.navigate(navigationStrings.GENDER_SELECTION)
