@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import moment, { Moment } from 'moment';
@@ -6,7 +6,11 @@ import { horizontalScale, moderateScale, verticalScale } from '../../styles';
 import { imagePaths } from '../../constants/imagePath';
 import { DoubleArrowIcon } from '../../constants/svgs';
 
-const CustomCalendar = () => {
+const CustomCalendar = ({
+    getDateFromCalender,
+}: {
+    getDateFromCalender: (date: Moment) => void;
+}) => {
     const [selectedDate, setSelectedDate] = useState<Moment>(moment());
     const minDate = moment().subtract(30, 'days'); 
     const maxDate = moment().add(30, 'days');
@@ -14,7 +18,13 @@ const CustomCalendar = () => {
     const goToToday = () => {
         const today = moment();
         setSelectedDate(today);
+        getDateFromCalender(today); 
     }
+
+    useEffect(() => {
+        getDateFromCalender(selectedDate); // Notify the parent whenever the selected date changes
+    }, [selectedDate]);
+
 
     return (
         <View style={styles.container}>
@@ -108,15 +118,11 @@ const CustomCalendar = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: verticalScale(65),
-        marginStart: horizontalScale(10),
-        marginEnd: horizontalScale(10),
     },
     selectedDateText: {
         fontSize: moderateScale(16),
         fontFamily: "Nunito-SemiBold",
         color: '#333',
-        marginStart: horizontalScale(8)
     },
     dayContainer: {
         height: verticalScale(50),
@@ -131,12 +137,12 @@ const styles = StyleSheet.create({
         fontFamily: "Nunito-SemiBold",
     },
     todayButton: {
-        marginEnd: horizontalScale(8)
+        // marginEnd: horizontalScale(8)
     },
     goTodayView: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',  // Place items at opposite ends of the container
+        justifyContent: 'space-between',  
         marginBottom: verticalScale(10),
     }
 });

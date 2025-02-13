@@ -14,6 +14,7 @@ export default function CustomImage({
     imageUrl,
     style,
      }: ImageProps) {
+    console.log("🚀 ~ imageUrl:", imageUrl)
     return (
         <View>
             <FastImage
