@@ -38,7 +38,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const res = await dispatch(getUserProfile());
             console.log("🚀 ~ fetchProfile ~ res:", res)
             if (res?.payload?.responseStatus === 200) {
-                
                 if (!res?.payload?.data?.birthday || !res?.payload?.data?.gender) {
                     setIsAdditionalDataPending(true)
                 } else {

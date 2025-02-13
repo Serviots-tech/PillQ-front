@@ -8,6 +8,7 @@ import { horizontalScale, moderateScale, verticalScale } from '../../styles';
 import { NotificationIcon } from '../../constants/svgs';
 import ProgressBarWithDivision from '../../components/progresBarWithDivision';
 import moment, { Moment } from 'moment';
+import CustomProfileHeader from '../../components/customProfileHeader';
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -44,6 +45,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                 </View>
 
                 <View style={styles.brView} />
+                <CustomProfileHeader/>
             </View>
 
         </>
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     },
     progressView:{
         marginHorizontal: horizontalScale(12),
-        marginBottom:verticalScale(14)
+        marginBottom:verticalScale(8)
     },
     brView: {
         width: '100%',

@@ -18,6 +18,7 @@ export const userProfileSlice = createSlice({
             state.error = null;
         });
         builder.addCase(getUserProfile.fulfilled, (state: any, action: any) => {
+            console.log("🚀 ~ builder.addCase ~ action:", action)
             state.isLoading = false;
             state.data = action?.payload?.data;
         });

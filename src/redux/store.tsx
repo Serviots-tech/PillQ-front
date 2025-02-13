@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import AuthSlice from './slices/costCenterSlice'
+import { addMedicine } from './slices/addMedicine';
 import { isLoggedInSlice } from './slices/isLoggedIn';
 import { registerAsGuest } from './slices/registerAsGuest';
-import { addMedicine } from './slices/addMedicine';
+import { userProfileSlice } from './slices/userSlice';
 
 const store = configureStore({
 	reducer: {
-		userProfile: AuthSlice.reducer,
+		userProfile: userProfileSlice.reducer,
 		isLoggedIn: isLoggedInSlice.reducer,
 		guestUser: registerAsGuest.reducer,
 		addMedicine: addMedicine.reducer

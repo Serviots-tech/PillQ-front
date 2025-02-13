@@ -88,7 +88,7 @@ export default function Routes() {
 						<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 					</>
 				)} */}
-				<Stack.Screen name={navigationStrings?.HOME} component={Home} />
+				<Stack.Screen name={navigationStrings?.HOME} component={Home} options={{headerShown: true , }}/>
 				
 			</Stack.Navigator>
 		</NavigationContainer>
