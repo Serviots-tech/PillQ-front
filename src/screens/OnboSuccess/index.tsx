@@ -14,7 +14,7 @@ import { imagePaths } from "../../constants/imagePath";
 import CustomImage from "../../components/customImage";
 
 const OnboardSuccessScreen = () => {
-	const { login } = useAuth();
+	const { login, handleLoginAndAddMed } = useAuth();
 	const dispatch = useDispatch<AppDispatch>()
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 	
@@ -34,7 +34,7 @@ const OnboardSuccessScreen = () => {
 			<View style={styles.buttonContainer}>
 				<CustomButton
 					label="Add my med"
-					onPress={() => { dispatch(clearGuestUserData()); navigation.navigate(navigationStrings.SEARCH_MED) }}
+					onPress={() => { dispatch(clearGuestUserData()); handleLoginAndAddMed(); }}
 					viewStyle={styles.primaryButton}
 					buttonTextStyle={styles.primaryButtonText}
 				/>

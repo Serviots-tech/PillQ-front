@@ -19,33 +19,6 @@ function App(): React.JSX.Element {
     flex: 1,
   };
 
-  useEffect(() => {
-    requestPermissionAndroid()
-  }, [])
-
-  const requestPermissionAndroid = async () => {
-    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      // Alert.alert("Permission granted")
-      getTokens()
-    } else {
-      Alert.alert("Permission not granted")
-    }
-  }
-
-  useEffect(() => {
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-      Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-    });
-
-    return unsubscribe;
-  }, []);
-
-  const getTokens = async () => {
-    const fcmToken = await messaging().getToken();
-    console.log("🚀 ~ getTokens ~ fcmToken:", fcmToken)
-  }
-
   return (
     <SafeAreaProvider style={backgroundStyle}>
       <GestureHandlerRootView style={{ flex: 1 }}>

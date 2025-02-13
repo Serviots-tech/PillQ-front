@@ -12,6 +12,9 @@ type AuthContextType = {
     setLogoutFalse: () => void;
     isAdditionalDataPending:boolean;
     setAdditionalDataPendingFalse:()=> void;
+    handleLoginAndAddMed:any;
+    isLoginAndAddMed:boolean;
+    setIsLoginAndAddMedFalse:any
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,6 +24,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isFetchProfileLoading, setIsFetchProfileLoading] = useState<boolean>(false);
     const [isLoggedout, setIsLoggedout] = useState<boolean>(false);
     const [isAdditionalDataPending, setIsAdditionalDataPending] = useState<boolean>(false);
+    const [isLoginAndAddMed, setIsLoginAndAddMed] = useState<boolean>(false);
     const dispatch = useDispatch<AppDispatch>();
 
 
@@ -30,13 +34,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setIsAuthenticated(false);
         setIsLoggedout(true);
     };
+    const handleLoginAndAddMed = () => { setIsAuthenticated(true); setIsLoggedout(false); setIsLoginAndAddMed(true) }
+    const setIsLoginAndAddMedFalse = () => { setIsLoginAndAddMed(false) }
     const setAdditionalDataPendingFalse= () => { setIsAdditionalDataPending(false); }
 
     const fetchProfile = useCallback(async () => {
         setIsFetchProfileLoading(true);
         try {
             const res = await dispatch(getUserProfile());
-            console.log("🚀 ~ fetchProfile ~ res:", res)
             if (res?.payload?.responseStatus === 200) {
                 if (!res?.payload?.data?.birthday || !res?.payload?.data?.gender) {
                     setIsAdditionalDataPending(true)
@@ -59,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     return (
         <AuthContext.Provider
-            value={{ isAuthenticated, login, logout, isFetchProfileLoading, isLoggedout, setLogoutFalse, isAdditionalDataPending, setAdditionalDataPendingFalse }}
+            value={{ isAuthenticated, setIsLoginAndAddMedFalse, handleLoginAndAddMed, login, isLoginAndAddMed, logout, isFetchProfileLoading, isLoggedout, setLogoutFalse, isAdditionalDataPending, setAdditionalDataPendingFalse }}
         >
             {children}
         </AuthContext.Provider>

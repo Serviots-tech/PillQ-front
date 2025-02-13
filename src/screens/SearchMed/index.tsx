@@ -13,6 +13,7 @@ import BackButtonComponent from "../../components/backButton";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
 import { setAddMedicine } from "../../redux/slices/addMedicine";
+import { useAuth } from "../../components/authContext";
 
 
 
@@ -25,6 +26,11 @@ const SearchMed: React.FC = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const dispatch = useDispatch<AppDispatch>()
 
+	const { setIsLoginAndAddMedFalse } = useAuth();
+
+	useEffect(()=>{
+		setIsLoginAndAddMedFalse()
+	},[])
 	
 
 	const handleSearch = (inputText: string) => {

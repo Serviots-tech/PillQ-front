@@ -14,7 +14,7 @@ export default function SplashScreen() {
     const { isAuthenticated, isFetchProfileLoading } = useAuth();
 
     setTimeout(() => {
-        if (!isAuthenticated && !isFetchProfileLoading) {
+        if (isAuthenticated !==null && !isAuthenticated && !isFetchProfileLoading) {
             navigation.navigate(navigationStrings.WELCOME);
         }
         if (isAuthenticated && !isFetchProfileLoading) {
