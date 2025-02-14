@@ -17,7 +17,12 @@ export const navigationStrings = {
     MED_FORM: 'MedForm',
     HOW_OFTEN: 'HowOften',
     HOW_OFTEN_EVERY_DAY: 'HowOftenEveryDay',
-    PILL_PLANNER:'PillPlanner'
+    PILL_PLANNER: 'PillPlanner',
+    MEDICATIONS: "Medications",
+    PROGRESS: "Progress",
+    MANAGE: "Manage"
+
+
     // TAB_ROUTES: "tabRoutes",
     // PROFILE: "Profile",
     // BOOKING: "Booking"
