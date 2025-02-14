@@ -79,9 +79,8 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                     {isLoading ? <View style={styles?.loaderView}>
                         <CustomLoader style={styles?.loader} />
                     </View> : Object.keys(groupedMedicines).length === 0 ? (
-                        // <Text style={styles.emptyText}>No medicines available</Text>  
                         <View style={styles?.imgView}>
-                            <CustomNoRecords style={styles.noRecordsImg} />
+                            <CustomNoRecords style={styles.noRecordsImg}  />
                         </View>
                     ) :
                         (Object.keys(groupedMedicines).map((time) => {

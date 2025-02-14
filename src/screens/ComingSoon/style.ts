@@ -1,19 +1,24 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { moderateScale, verticalScale, horizontalScale } from "../../styles";
+import { StyleSheet } from "react-native";
+import { horizontalScale, moderateScale, verticalScale } from "../../styles";
 
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFFFFF",
-        justifyContent: "space-between",
-        padding: moderateScale(16),
+        justifyContent:"center",
+        alignItems:"center",
+      
     },
-    contentContainer: {
-        alignItems: "center",
-        marginTop: verticalScale(40),
+    comingSoonImg:{
+        width:horizontalScale(300),
+        height:verticalScale(300),
     },
+    comingSoonText:{
+        fontFamily:"Nunito-Bold",
+        fontSize:moderateScale(30),
+        color:"#00A8A8"
+    }
 });
 
 export default styles;

@@ -19,6 +19,7 @@ import PillPlanner from '../screens/PillPlanner';
 import CustomProfileHeader from '../components/customProfileHeader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeIcon, ManageIcon, MedicationIcon, ProgressIcon } from '../constants/svgs';
+import ComingSoonScreen from '../screens/ComingSoon';
 
 
 export type RootStackParamList = {
@@ -90,10 +91,10 @@ export default function Routes() {
 				headerShown: false, 
 			})}
 		>
-			<Tab.Screen name={navigationStrings.HOME} component={(props:any) => <Home {...props} />} />
-			<Tab.Screen name={navigationStrings.MEDICATIONS} component={(props: any) => <Home {...props} />} />
-			<Tab.Screen name={navigationStrings.PROGRESS} component={(props: any) => <Home {...props} />} />
-			<Tab.Screen name={navigationStrings.MANAGE} component={(props: any) => <Home {...props} />} />
+			<Tab.Screen name={navigationStrings.HOME} component={(props: any) => <Home {...props} />} />
+			<Tab.Screen name={navigationStrings.MEDICATIONS} component={(props: any) => <ComingSoonScreen {...props} />} />
+			<Tab.Screen name={navigationStrings.PROGRESS} component={(props: any) => <ComingSoonScreen {...props} />} />
+			<Tab.Screen name={navigationStrings.MANAGE} component={(props: any) => <ComingSoonScreen {...props} />} />
 		</Tab.Navigator>
 	);
 

@@ -1,19 +1,20 @@
 import React from "react";
-import { Text, View, SafeAreaView, TouchableOpacity, Dimensions } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import styles from "./style";
 
-import { imagePaths } from "../../constants/imagePath";
 import CustomImage from "../../components/customImage";
+import { imagePaths } from "../../constants/imagePath";
 
 const ComingSoonScreen = () => {
-	
+
 	return (
-		<SafeAreaView style={styles.container}>
-			<View style={styles.contentContainer}>
-			{/* <CustomImage imageUrl={imagePaths?.docAnimatedImg} style={styles?.docImg}/> */}
-				
+		<>
+			<SafeAreaView />
+			<View style={styles.container}>
+				<CustomImage imageUrl={imagePaths?.comming_soon} style={styles?.comingSoonImg} />
+				<Text style={styles?.comingSoonText}>Coming Soon...</Text>
 			</View>
-		</SafeAreaView>
+		</>
 	);
 };
 

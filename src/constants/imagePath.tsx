@@ -12,6 +12,7 @@ import leftArrow from "../assets/images/leftArrow.png"
 import rigthArrow from "../assets/images/rigthArrow.png"
 import circleLoader from "../assets/gifs/circle_loader.gif"
 import noRecords  from "../assets/images/noRecordsHere.png"
+import comming_soon from "../assets/images/comming_soon.png"
 
 export const imagePaths = {
     FamImgAndroid,
@@ -27,5 +28,6 @@ export const imagePaths = {
     rigthArrow,
     leftArrow,
     circleLoader,
-    noRecords
+    noRecords,
+    comming_soon
 }
