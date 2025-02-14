@@ -12,13 +12,15 @@ import { AppDispatch } from '../../redux/store';
 import { Tablet } from '../../constants/svgs';
 import CustomProfileHeader from '../../components/customProfileHeader';
 import CustomLoader from '../../components/customLoader';
+import CustomNoRecords from '../../components/customNoRecords';
+import CustomGroup from '../../components/customGroup';
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
-    const calenderdate = dateFromCalender.format('YYYY-MM-DD');  
+    const calenderdate = dateFromCalender.format('YYYY-MM-DD');
     const today = moment().format('YYYY-MM-DD');
 
     const dispatch = useDispatch<AppDispatch>();
@@ -76,9 +78,14 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                 <View style={styles.medicineContainer}>
                     {isLoading ? <View style={styles?.loaderView}>
                         <CustomLoader style={styles?.loader} />
-                    </View> :
-                        (Object.keys(groupedMedicines).map((time) => (
-                            <View key={time}>
+                    </View> : Object.keys(groupedMedicines).length === 0 ? (
+                        // <Text style={styles.emptyText}>No medicines available</Text>  
+                        <View style={styles?.imgView}>
+                            <CustomNoRecords style={styles.noRecordsImg} />
+                        </View>
+                    ) :
+                        (Object.keys(groupedMedicines).map((time) => {
+                            return <View key={time}>
                                 <Text style={styles.timeHeader}>{time || 'No Time Available'}</Text>
                                 {groupedMedicines[time].map((item: any) => {
                                     return <View key={item.id} style={styles.medicineCard}>
@@ -95,10 +102,12 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                                     </View>
                                 })}
                             </View>
-                        )))
+                        }
+                        ))
                     }
                 </View>
 
+                <CustomGroup />
             </View>
         </>
     );
@@ -140,11 +149,14 @@ const styles = StyleSheet.create({
         fontSize: moderateScale(14),
         color: '#555',
     },
-    emptyText: {
-        textAlign: 'center',
-        marginTop: verticalScale(20),
-        fontSize: moderateScale(16),
-        color: '#999',
+    imgView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noRecordsImg: {
+        width: horizontalScale(180),
+        height: verticalScale(180),
     },
     timeHeader: {
         fontSize: moderateScale(18),
@@ -157,26 +169,26 @@ const styles = StyleSheet.create({
         flex: 1
     },
     medicineDetailsContainer: {
-        flex: 4, 
+        flex: 4,
         justifyContent: 'center',
         paddingLeft: horizontalScale(10),
     },
     medicineIconContainer: {
-        flex: 0.8, 
+        flex: 0.8,
         justifyContent: 'center',
         alignItems: "center"
     },
     line: {
-        width: 1, 
-        height: '100%', 
-        backgroundColor: '#333', 
+        width: 1,
+        height: '100%',
+        backgroundColor: '#333',
     },
     medicineForm: {
         fontFamily: "Nunito-Regular"
     },
     loader: {
-        width: 50,
-        height: 50,
+        width: horizontalScale(45),
+        height: verticalScale(45),
         resizeMode: 'contain',
     },
     loaderView: {
