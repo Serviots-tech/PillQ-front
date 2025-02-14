@@ -1,17 +1,11 @@
-export const formatTime = (time: string): string => {
-    const [timePart, modifier] = time.split(' ');
 
-    const [hours, minutes, seconds] = timePart.split(':')
 
-    let formattedHours = Number(hours);
+export function formatTime(inputString:string) {    const timePattern = /\b([01]?[0-9]|2[0-3]):([0-5]?[0-9])\b/;
+    const match = inputString.match(timePattern);
 
-    if (seconds.includes('PM') && Number(hours) !== 12) {
-        formattedHours += 12;
+    if (match) {
+        return match[0]; // Return the matched time in HH:MM format
+    } else {
+        return "7:00"; // If no valid time is found
     }
-    if (seconds.includes('AM') && Number(hours) === 12) {
-        formattedHours = 0;
-    }
-
-    const formattedTime = `${formattedHours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-    return formattedTime;
-};
+}
