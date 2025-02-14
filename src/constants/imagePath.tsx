@@ -10,7 +10,7 @@ import loader from '../assets/gifs/loader.gif'
 import docAnimatedImg from "../assets/gifs/doc.gif"
 import leftArrow from "../assets/images/leftArrow.png"
 import rigthArrow from "../assets/images/rigthArrow.png"
-
+import circleLoader from "../assets/gifs/circle_loader.gif"
 
 export const imagePaths = {
     FamImgAndroid,
@@ -24,5 +24,6 @@ export const imagePaths = {
     loader,
     docAnimatedImg,
     rigthArrow,
-    leftArrow
+    leftArrow,
+    circleLoader
 }

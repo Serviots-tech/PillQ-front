@@ -11,18 +11,25 @@ import { getUserMedicines } from '../../redux/actions/medicinesAction';
 import { AppDispatch } from '../../redux/store';
 import { Tablet } from '../../constants/svgs';
 import CustomProfileHeader from '../../components/customProfileHeader';
+import CustomLoader from '../../components/customLoader';
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
+    const [isLoading, setIsloading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
-    const calenderdate = dateFromCalender.format('YYYY-MM-DD');  // Ensure this matches your API date format
+    const calenderdate = dateFromCalender.format('YYYY-MM-DD');  
     const today = moment().format('YYYY-MM-DD');
 
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getUserMedicines());
+        setIsloading(true)
+        dispatch(getUserMedicines()).then((res: any) => {
+        }).catch((err: any) => {
+        }).finally(() => {
+            setIsloading(false)
+        });
     }, [dispatch]);
 
     const userMedicineData = useSelector((state: any) => state?.getMedicine?.data) || [];
@@ -67,26 +74,29 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                 <View style={styles.brView} />
 
                 <View style={styles.medicineContainer}>
-                    {Object.keys(groupedMedicines).map((time) => (
-                        <View key={time}>
-                            <Text style={styles.timeHeader}>{time || 'No Time Available'}</Text>
-                            {groupedMedicines[time].map((item: any) => {
-                                return <View key={item.id} style={styles.medicineCard}>
-                                    <View style={styles.medicineIconContainer}>
-                                        <Text >{item?.medicineForm ? <Tablet /> : ""}</Text>
-                                    </View>
-                                    <View style={styles.line} />
-                                    <View style={styles.medicineDetailsContainer}>
-                                        <View >
-                                            <Text style={styles?.medicineName}>{item?.medicineName}</Text>
+                    {isLoading ? <View style={styles?.loaderView}>
+                        <CustomLoader style={styles?.loader} />
+                    </View> :
+                        (Object.keys(groupedMedicines).map((time) => (
+                            <View key={time}>
+                                <Text style={styles.timeHeader}>{time || 'No Time Available'}</Text>
+                                {groupedMedicines[time].map((item: any) => {
+                                    return <View key={item.id} style={styles.medicineCard}>
+                                        <View style={styles.medicineIconContainer}>
+                                            <Text >{item?.medicineForm ? <Tablet /> : ""}</Text>
                                         </View>
-                                        <Text style={styles?.medicineForm}>{item?.medicineForm} </Text>
+                                        <View style={styles.line} />
+                                        <View style={styles.medicineDetailsContainer}>
+                                            <View >
+                                                <Text style={styles?.medicineName}>{item?.medicineName}</Text>
+                                            </View>
+                                            <Text style={styles?.medicineForm}>{item?.medicineForm} </Text>
+                                        </View>
                                     </View>
-                                </View>
-
-                            })}
-                        </View>
-                    ))}
+                                })}
+                            </View>
+                        )))
+                    }
                 </View>
 
             </View>
@@ -98,7 +108,6 @@ const styles = StyleSheet.create({
     mainContainer: {
         flex: 1,
         backgroundColor: '#F8F9FA',
-        // paddingTop: verticalScale(8),
     },
     calenderView: {
         height: verticalScale(93),
@@ -148,23 +157,35 @@ const styles = StyleSheet.create({
         flex: 1
     },
     medicineDetailsContainer: {
-        flex: 4, // Take more space for the dosage
+        flex: 4, 
         justifyContent: 'center',
-        paddingLeft: horizontalScale(10), // Adjust space between line and dosage
+        paddingLeft: horizontalScale(10),
     },
     medicineIconContainer: {
-        flex: 0.8, // Take available space for the medicine name
+        flex: 0.8, 
         justifyContent: 'center',
         alignItems: "center"
     },
     line: {
-        width: 1, // Width of the vertical line
-        height: '100%', // Stretch to the full height of the parent
-        backgroundColor: '#333', // Line color
+        width: 1, 
+        height: '100%', 
+        backgroundColor: '#333', 
     },
     medicineForm: {
         fontFamily: "Nunito-Regular"
-    }
+    },
+    loader: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+    },
+    loaderView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+    },
 
 });
 
