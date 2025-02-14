@@ -50,7 +50,11 @@ export default function Routes() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
-
+				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
+				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
+				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
+				<Stack.Screen name={navigationStrings?.HOW_OFTEN_EVERY_DAY} component={HowOftenEveryDay} />
+				<Stack.Screen name={navigationStrings?.PILL_PLANNER} component={PillPlanner} /> */}
 
 				{!isAuthenticated ? (
 					<>
@@ -82,12 +86,7 @@ export default function Routes() {
 				) : (
 					<>{isLoginAndAddMed ? <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> :
 						<>
-							<Stack.Screen name={navigationStrings?.HOME} component={Home}
-								options={{
-									headerShown: true,
-									header: () => <CustomProfileHeader />
-								}}
-							/>
+							<Stack.Screen name={navigationStrings?.HOME} component={Home}/>
 							<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 							<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 							<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
