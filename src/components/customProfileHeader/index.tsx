@@ -1,13 +1,34 @@
 import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
-import { NotificationIcon } from '../../constants/svgs'
+import { LogOutIcon, NotificationIcon } from '../../constants/svgs'
 import { horizontalScale, moderateScale, verticalScale } from '../../styles'
+import { postApi } from '../../apis/apis'
+import { removeData } from '../../helpers/asyncStorageHelpers'
+import { useAuth } from '../authContext'
+import { showToast } from '../customToast/ToastManager'
 
 const CustomProfileHeader = () => {
     const userProfileData = useSelector((data: any) => data?.userProfile?.data)
+    const { logout } = useAuth();
 
+    const logoutUser = async () => {
+        try {
+            const res = await postApi('/auth/logout')
+            await removeData('accessToken')
+            logout()
+
+        }
+        catch (error: any) {
+            showToast({
+                text: `${error?.response?.data?.error?.errorDescription ?? "Some thing went Wrong"}`,
+                duration: 3000,
+                type: 'error'
+            })
+        }
+
+    }
 
     return (
         <>
@@ -25,7 +46,11 @@ const CustomProfileHeader = () => {
                         <Text style={styles.profileText}>{userProfileData?.name ? userProfileData?.name : ""}</Text>
                     </View>
                     <View>
-                        <NotificationIcon />
+                        <TouchableOpacity
+                            onPress={() => { logoutUser() }}
+                        >
+                            <LogOutIcon />
+                        </TouchableOpacity>
                     </View>
                 </View>
             {/* </SafeAreaView> */}

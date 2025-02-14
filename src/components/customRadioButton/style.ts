@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         marginBottom: verticalScale(20), // Vertical scale for margin
         alignItems: 'flex-start',
         justifyContent: 'center',
-        height: verticalScale(44)
+        height: verticalScale(54)
+        // height: verticalScale(44)
     },
     selectedButton: {
         borderColor: "#00A8A8", // Darker border color for selected button
