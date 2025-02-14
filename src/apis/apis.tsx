@@ -6,6 +6,7 @@ const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 console.log("🚀 ~ ANDROID_API_URL:", ANDROID_API_URL)
 console.log("🚀 ~ IOS_API_URL:", IOS_API_URL)
 
+
 const apiConfig = async (flag = false) => {
 	const getAccessToken = await retrieveData('accessToken')
 	if (await getAccessToken) {
@@ -21,6 +22,7 @@ const apiConfig = async (flag = false) => {
 	}
 	return { withCredentials: false };
 };
+console.log("🚀 ~ IOS_API_URL:", IOS_API_URL)
 
 
 // Response Interceptor

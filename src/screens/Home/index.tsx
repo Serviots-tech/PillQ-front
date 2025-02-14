@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserMedicines } from '../../redux/actions/medicinesAction';
 import { AppDispatch } from '../../redux/store';
 import { Tablet } from '../../constants/svgs';
+import CustomProfileHeader from '../../components/customProfileHeader';
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -55,6 +56,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     return (
         <>
             <SafeAreaView />
+            <CustomProfileHeader />
             <View style={styles.mainContainer}>
                 <View style={styles.calenderView}>
                     <CustomCalender getDateFromCalender={setDateFromCalender} />
@@ -160,8 +162,8 @@ const styles = StyleSheet.create({
         height: '100%', // Stretch to the full height of the parent
         backgroundColor: '#333', // Line color
     },
-    medicineForm:{
-        fontFamily:"Nunito-Regular"
+    medicineForm: {
+        fontFamily: "Nunito-Regular"
     }
 
 });

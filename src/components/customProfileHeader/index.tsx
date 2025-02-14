@@ -32,7 +32,7 @@ const CustomProfileHeader = () => {
 
     return (
         <>
-            <SafeAreaView  >
+            {/* <SafeAreaView  > */}
                 <View style={[styles.imgWrapper]}>
                     <View style={styles.imgContainer}>
                         <View style={styles.container}>
@@ -53,7 +53,7 @@ const CustomProfileHeader = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </SafeAreaView>
+            {/* </SafeAreaView> */}
         </>
     )
 }

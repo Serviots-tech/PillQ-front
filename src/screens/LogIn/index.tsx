@@ -78,13 +78,27 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
 
             await dispatch(getUserProfile())
                 .then(async () => {
-                    const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-                    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        const fcmToken = await messaging().getToken()
-                        await putApi('/user/update-firebase-token', { firebaseToken : fcmToken})
+                    let fcmToken;
+
+                    if (Platform.OS === "android") {
+                        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+                        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                            fcmToken = await messaging().getToken()
+                        }
                     }
+                    else {
+                        const authStatus = await messaging().requestPermission();
+                        const enabled =
+                            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-
+                        if (enabled) {
+                            fcmToken = await messaging().getToken()
+                        }
+                    }
+                    console.log("🚀 ~ .then ~ fcmToken:", fcmToken)
+                    const res = await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+                    
                     if (res?.data?.firstLogin) {
                         dispatch(setGuestUser(false))
                         navigation.navigate(navigationStrings.GENDER_SELECTION)
@@ -94,7 +108,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                     }
                 })
                 .catch((error) => {
-                    console.log("🚀 ~ loginUser ~ error:", error)
                     navigation.navigate(navigationStrings.WELCOME)
                 });
         }
@@ -138,13 +151,20 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                 const hashedMessage = CryptoJS.SHA256(deviceId).toString(CryptoJS.enc.Hex);
                 setDeviceId(hashedMessage)
             } catch (error) {
-                console.log("🚀 ~ fetchDeviceId ~ error:", error)
             }
         };
 
         fetchDeviceId();
     }, []);
 
+
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            Alert.alert("a new message ", JSON.stringify(remoteMessage))
+        })
+        return unsubscribe
+    }, [])
+    
     return (
         <>
             <SafeAreaView />
