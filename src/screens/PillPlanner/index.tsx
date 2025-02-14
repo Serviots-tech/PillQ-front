@@ -7,17 +7,11 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
-import { CheckmarkIcon } from "../../constants/svgs";
 import ProgressBar from "../../components/progressBar";
-import CustomRadioButton from "../../components/customRadioButton";
-import { howOftenEveryDayOptions } from "../../constants/constantData";
 import BackButtonComponent from "../../components/backButton";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../redux/store";
-import { setAddMedicine } from "../../redux/slices/addMedicine";
+import {  useSelector } from "react-redux";
 import styles from "./style";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { formatTime } from "../../helpers/helper";
 import CustomButton from "../../components/customButton";
 import { postApi, putApi } from "../../apis/apis";
 import { useNavigation } from "@react-navigation/native";
@@ -27,10 +21,10 @@ import { navigationStrings } from "../../constants/navigationStrings";
 import { PermissionsAndroid } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import { showToast } from "../../components/customToast/ToastManager";
+import { formatTime } from "../../helpers/helper";
 
 const PillPlanner: React.FC = () => {
 	const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-	const dispatch = useDispatch<AppDispatch>();
 	const { data: addMedData } = useSelector((state: any) => state?.addMedicine);
 	const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 	const [selectedTime, setSelectedTime] = useState("08:00");
@@ -42,7 +36,7 @@ const PillPlanner: React.FC = () => {
 	const handleConfirm = (date: Date | null) => {
 
 		if (date) {
-			const timeString = date.toLocaleTimeString();
+			const timeString = date.toString()
 			const formattedTime = formatTime(timeString)
 			setSelectedTime(formattedTime);
 		}
