@@ -17,6 +17,8 @@ import HowOften from '../screens/HowOften';
 import HowOftenEveryDay from '../screens/HowOftenEveryDay';
 import PillPlanner from '../screens/PillPlanner';
 import CustomProfileHeader from '../components/customProfileHeader';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HomeIcon, ManageIcon, MedicationIcon, ProgressIcon } from '../constants/svgs';
 
 
 export type RootStackParamList = {
@@ -44,8 +46,56 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>();
 
+const Tab = createBottomTabNavigator();
+
 export default function Routes() {
 	const { isAuthenticated, isLoggedout, isAdditionalDataPending, isLoginAndAddMed } = useAuth();
+
+	const Tab = createBottomTabNavigator();
+	const HomeTabs = () => (
+		<Tab.Navigator
+			initialRouteName={navigationStrings.HOME}
+			screenOptions={({ route }) => ({
+				tabBarIcon: ({ focused }) => {
+					const color = focused ? "#00A8A8" : "#666";
+					switch (route.name) {
+						case navigationStrings.HOME:
+							return <HomeIcon width={24} height={24} color={color} />;
+						case navigationStrings.MEDICATIONS:
+							return <MedicationIcon width={24} height={24} color={color} />;
+						case navigationStrings.PROGRESS:
+							return <ProgressIcon width={24} height={24} color={color} />;
+						case navigationStrings.MANAGE:
+							return <ManageIcon width={24} height={24} color={color} />;
+						default:
+							return null;
+					}
+				},
+				tabBarLabel: (() => {
+					switch (route.name) {
+						case navigationStrings.HOME:
+							return "Home";
+						case navigationStrings.MEDICATIONS:
+							return "Medications";
+						case navigationStrings.PROGRESS:
+							return "Progress"
+						case navigationStrings.MANAGE:
+							return "Manage"
+						default:
+							return "";
+					}
+				})(),
+				tabBarActiveTintColor: '#00A8A8',
+				tabBarInactiveTintColor: '#666',
+				headerShown: false, 
+			})}
+		>
+			<Tab.Screen name={navigationStrings.HOME} component={(props:any) => <Home {...props} />} />
+			<Tab.Screen name={navigationStrings.MEDICATIONS} component={(props: any) => <Home {...props} />} />
+			<Tab.Screen name={navigationStrings.PROGRESS} component={(props: any) => <Home {...props} />} />
+			<Tab.Screen name={navigationStrings.MANAGE} component={(props: any) => <Home {...props} />} />
+		</Tab.Navigator>
+	);
 
 	return (
 		<NavigationContainer>
@@ -86,7 +136,8 @@ export default function Routes() {
 				) : (
 					<>{isLoginAndAddMed ? <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} /> :
 						<>
-							<Stack.Screen name={navigationStrings?.HOME} component={Home}/>
+								<Stack.Screen name={navigationStrings?.HOME} component={HomeTabs} options={{ headerShown: false }} />
+							{/* <Stack.Screen name={navigationStrings?.HOME} component={Home}/> */}
 							<Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 							<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 							<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
