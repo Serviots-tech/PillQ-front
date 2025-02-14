@@ -1,6 +1,5 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleProp, View } from 'react-native';
-// import FastImage from 'react-native-fast-image';
 import FastImage, { ImageStyle as FastImageStyle,Source } from 'react-native-fast-image';
 
 type ImageProps = PropsWithChildren<{

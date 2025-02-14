@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import { Alert, View, useColorScheme } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Routes from './Navigation/Routes';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { ToastProvider } from './components/customToast/ToastManager';
-import { AuthProvider } from './components/authContext';
-import { PermissionsAndroid } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
 import notifee, { AndroidImportance } from '@notifee/react-native';
+import messaging from '@react-native-firebase/messaging';
+import React, { useEffect } from 'react';
+import { View, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Provider } from 'react-redux';
+import { AuthProvider } from './components/authContext';
+import { ToastProvider } from './components/customToast/ToastManager';
+import Routes from './Navigation/Routes';
+import store from './redux/store';
 
 
 function App(): React.JSX.Element {
