@@ -17,8 +17,6 @@ const CustomLoader = ({
             source={imagePaths?.circleLoader}
             resizeMode='cover'
         />
-
-
     )
 }
 

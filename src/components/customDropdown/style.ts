@@ -3,7 +3,6 @@ import { moderateScale, verticalScale, horizontalScale } from '../../styles';
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
         backgroundColor: '#FFFFFF',
     },
     title: {
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#333333",
         borderRadius: 4,
-        paddingRight: horizontalScale(20),
+        paddingRight: horizontalScale(10),
         paddingLeft: horizontalScale(10),
         paddingVertical: verticalScale(10),
         height: verticalScale(50)
@@ -73,6 +72,11 @@ const styles = StyleSheet.create({
     },
     listContentContainer: {
         paddingBottom: verticalScale(20),
+    },
+    loader: {
+        width: horizontalScale(22),
+        height: verticalScale(22),
+        resizeMode: 'contain',
     },
 });
 

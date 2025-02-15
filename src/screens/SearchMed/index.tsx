@@ -84,27 +84,14 @@ const SearchMed: React.FC = () => {
 	}, [debouncedSearchTerm]);
 
 
-	// useEffect(() => {
-	// 	const timeout = setTimeout(() => inputRef.current?.focus(), 100);
-	// 	return () => clearTimeout(timeout); // Cleanup timeout on unmount
-	// }, []);
-
 	return (
 		<>
 			<SafeAreaView />
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
-					{/* <View style={styles.backicon}>
-						<CustomButton
-							label={"Back"}
-							buttonTextStyle={styles.backBtn}
-							onPress={() => { navigation.navigate(navigationStrings.HOME); }}
-							icon={Platform.OS === "ios" ? <IosbackIcon /> : <AndroidbackIcon />} />
-					</View> */}
 					<View>
 						<BackButtonComponent centerText="" />
 						<View style={styles.progressbarview}>
-							{/* <ProgressBar percentage={30} detailsText={"Getting to Know You"} /> */}
 							<ProgressBar percentage={15} detailsText={' '} />
 						</View>
 						<CustomDropdown

@@ -30,7 +30,7 @@ const CustomGroup = () => {
                     fabStyle={styles?.icon}
                     icon={() => (
                         <View style={styles.iconContainer}>
-                            {open ? <CloseIcon /> : <PlusIcon />}
+                            {open ? <CloseIcon color={"#F5F5F5"} width={18} /> : <PlusIcon />}
                         </View>
                     )}
                     actions={[

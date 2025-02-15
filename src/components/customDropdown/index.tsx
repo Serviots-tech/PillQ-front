@@ -7,9 +7,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import styles from './style';
-import { ForwardIcon, SearchIcon } from '../../constants/svgs';
-import Icon from 'react-native-vector-icons/AntDesign';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import { CloseIcon, ForwardIcon, SearchIcon } from '../../constants/svgs';
+import CustomLoader from '../customLoader';
 
 interface CustomDropdownProps {
     value: string;
@@ -51,7 +50,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
             {title && <Text style={styles.title}>{title}</Text>}
             <View style={styles.inputContainer}>
                 <Text style={styles.icon}>
-                    <SearchIcon /> {/* Removed the <Text> wrapper */}
+                    <SearchIcon /> 
                 </Text>
                 <TextInput
                     ref={inputRef}
@@ -63,9 +62,9 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                 {value && (
                     <TouchableOpacity onPress={() => setText('')}>
                         {isLoading ? (
-                            <FontAwesomeIcon name="spinner" size={20} color="#000" />
+                            <CustomLoader style={styles?.loader} />
                         ) : (
-                            <Icon name="close" size={20} color="#000" />
+                                <CloseIcon color='#333' width={10}/>
                         )}
                     </TouchableOpacity>
                 )}
@@ -81,9 +80,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                         onPressIn={() => handlePressIn(item)}
                         onPressOut={handlePressOut}
                         activeOpacity={1}
-
                     >
-                            {highlightText(item, value)}
+                        {highlightText(item, value)}
                     </TouchableOpacity>
                 )}
                 ListFooterComponent={
