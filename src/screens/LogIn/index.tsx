@@ -96,7 +96,9 @@ const LogIn: React.FC<LogInProps> = ({ navigation }) => {
                             fcmToken = await messaging().getToken()
                         }
                     }
-                    console.log("🚀 ~ .then ~ fcmToken:", fcmToken)
+                    if (!fcmToken) {
+                        fcmToken = await messaging().getToken();
+                    }
                     const res = await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
                     
                     if (res?.data?.firstLogin) {

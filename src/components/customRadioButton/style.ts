@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     errormsg: {
         color: 'red',
-        height: verticalScale(16)
+        height: verticalScale(20)
     }
 });
 

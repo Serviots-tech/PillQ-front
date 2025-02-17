@@ -1,6 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, View, FlatList, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, View, FlatList, Text, BackHandler, Alert, ScrollView } from 'react-native';
 import { RootStackParamList } from '../../Navigation/Routes';
 import CustomCalender from '../../components/customCalender';
 import moment, { Moment } from 'moment';
@@ -17,6 +17,7 @@ import CustomGroup from '../../components/customGroup';
 
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
+
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
@@ -24,6 +25,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const today = moment().format('YYYY-MM-DD');
 
     const dispatch = useDispatch<AppDispatch>();
+
 
     useEffect(() => {
         setIsloading(true)
@@ -33,6 +35,35 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
             setIsloading(false)
         });
     }, [dispatch]);
+    useEffect(() => {
+        const backAction = () => {
+            if (navigation.canGoBack()) {
+                navigation.goBack(); // Navigate back if possible
+                return true;
+            }
+
+            // If navigation stack is empty, show exit alert
+            Alert.alert('Exit App', 'Are you sure you want to exit?', [
+                {
+                    text: 'Cancel',
+                    onPress: () => null,
+                    style: 'cancel',
+                },
+                {
+                    text: 'Yes',
+                    onPress: () => BackHandler.exitApp(),
+                },
+            ]);
+            return true; // Prevent default behavior
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => backHandler.remove(); // Cleanup on unmount
+    }, [navigation]);
 
     const userMedicineData = useSelector((state: any) => state?.getMedicine?.data) || [];
 
@@ -62,52 +93,65 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
 
 
 
+
     return (
         <>
             <SafeAreaView />
-            <CustomProfileHeader />
-            <View style={styles.mainContainer}>
-                <View style={styles.calenderView}>
-                    <CustomCalender getDateFromCalender={setDateFromCalender} />
-                </View>
-                <View style={styles.progressView}>
-                    <ProgressBarWithDivision calenderdate={calenderdate} today={today} totalTasks={groupedMedicines.length} />
-                </View>
-                <View style={styles.brView} />
+            <CustomGroup>
+                <CustomProfileHeader />
+                <View style={styles.mainContainer}>
+                    <View style={styles.calenderView}>
+                        <CustomCalender getDateFromCalender={setDateFromCalender} />
+                    </View>
+                    <View style={styles.progressView}>
+                        <ProgressBarWithDivision calenderdate={calenderdate} today={today} totalTasks={groupedMedicines.length} />
+                    </View>
+                    <View style={styles.brView} />
 
-                <View style={styles.medicineContainer}>
-                    {isLoading ? <View style={styles?.loaderView}>
-                        <CustomLoader style={styles?.loader} />
-                    </View> : Object.keys(groupedMedicines).length === 0 ? (
-                        <View style={styles?.imgView}>
-                            <CustomNoRecords style={styles.noRecordsImg}  />
-                        </View>
-                    ) :
-                        (Object.keys(groupedMedicines).map((time) => {
-                            return <View key={time}>
-                                <Text style={styles.timeHeader}>{time || 'No Time Available'}</Text>
-                                {groupedMedicines[time].map((item: any) => {
-                                    return <View key={item.id} style={styles.medicineCard}>
-                                        <View style={styles.medicineIconContainer}>
-                                            <Text >{item?.medicineForm ? <Tablet /> : ""}</Text>
-                                        </View>
-                                        <View style={styles.line} />
-                                        <View style={styles.medicineDetailsContainer}>
-                                            <View >
-                                                <Text style={styles?.medicineName}>{item?.medicineName}</Text>
-                                            </View>
-                                            <Text style={styles?.medicineForm}>{item?.medicineForm} </Text>
-                                        </View>
-                                    </View>
-                                })}
+                    <View style={styles.medicineContainer}>
+                        {isLoading ? <View style={styles?.loaderView}>
+                            <CustomLoader style={styles?.loader} />
+                        </View> : Object.keys(groupedMedicines).length === 0 ? (
+                            // <View style={styles?.imgView}>
+                            <View style={styles.noRecordsImgContainer}>
+                                <CustomNoRecords style={styles.noRecordsImg} />
                             </View>
+                        ) : (
+                            <ScrollView >
+                                {Object.keys(groupedMedicines).map((time) => {
+                                    return (
+                                        <View key={time}>
+                                            <Text style={styles.timeHeader}>{time || 'No Time Available'}</Text>
+                                            {groupedMedicines[time].map((item: any) => {
+                                                return (
+                                                    <View key={item.id} style={styles.medicineCard}>
+                                                        <View style={styles.medicineIconContainer}>
+                                                            <Text>{item?.medicineForm ? <Tablet /> : ""}</Text>
+                                                        </View>
+                                                        <View style={styles.line} />
+                                                        <View style={styles.medicineDetailsContainer}>
+                                                            <View>
+                                                                <Text style={styles?.medicineName}>
+                                                                    {item?.medicineName?.length > 10
+                                                                        ? item?.medicineName.substring(0, 25) + '...'
+                                                                        : item?.medicineName}
+                                                                </Text>
+                                                            </View>
+                                                            <Text style={styles?.medicineForm}>{item?.medicineForm?.toUpperCase()}</Text>
+                                                        </View>
+                                                    </View>
+                                                );
+                                            })}
+                                        </View>
+                                    );
+                                })}
+                            </ScrollView>
+                        )
                         }
-                        ))
-                    }
-                </View>
+                    </View>
 
-                <CustomGroup />
-            </View>
+                </View>
+            </CustomGroup>
         </>
     );
 };
@@ -153,9 +197,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    // noRecordsImg: {
+    //     width: horizontalScale(180),
+    //     height: verticalScale(180),
+    //     // margin:moderateScale(100)
+    // },
+    noRecordsImgContainer: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
     noRecordsImg: {
-        width: horizontalScale(180),
-        height: verticalScale(180),
+        width: "80%",
+        height: "60%",
+        resizeMode: "cover", // Adjust as needed: 'cover' or 'center'
     },
     timeHeader: {
         fontSize: moderateScale(18),
@@ -197,7 +253,6 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     },
-
 });
 
 export default Home;

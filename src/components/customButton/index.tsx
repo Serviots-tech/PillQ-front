@@ -49,7 +49,7 @@ export default function CustomButton({
           }}
         >
           {icon && <View>{icon}</View>}
-          <Text style={[buttonTextStyle, { fontWeight: '600' }]}>{'  '}{label}</Text>
+            <Text style={[buttonTextStyle, { fontWeight: '600' }]} >{'  '}{ label.length > 10 ? label.substring(0, 5) + '...' : label }</Text>
         </View>
       )}
     </TouchableOpacity>

@@ -3,6 +3,10 @@ import { horizontalScale, moderateScale, verticalScale } from '../../styles';
 
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        paddingBottom: 20, // Optional: Adds space at the bottom for scrolling
+        paddingHorizontal: 10, // Optional: Adds horizontal padding if needed
+    },
     mainContainer: {
         flex: 1,
         backgroundColor: '#F8F9FA',

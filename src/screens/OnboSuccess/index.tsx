@@ -27,7 +27,10 @@ const OnboardSuccessScreen = () => {
 				<CustomImage imageUrl={imagePaths?.docAnimatedImg} style={styles?.docImg}/>
 				<Text style={styles.title}>Welcome aboard, {userData?.name}</Text>
 				<Text style={styles.subtitle}>
-					You've completed your *APP* profile. Now, let's add your medication to create your very first reminder.
+					Your PillQ profile is ready!
+				</Text>
+				<Text style={styles.subtitle}>
+					Add your medication to create your reminder.
 				</Text>
 			</View>
 

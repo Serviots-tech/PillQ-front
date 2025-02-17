@@ -58,6 +58,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
                     placeholder={placeholder}
                     value={value}
                     onChangeText={handleSearch}
+                    placeholderTextColor={"#7E8183"}
                 />
                 {value && (
                     <TouchableOpacity onPress={() => setText('')}>

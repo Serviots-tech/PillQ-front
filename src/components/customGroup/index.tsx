@@ -13,8 +13,8 @@ type State = {
     open: boolean;
 };
 
-const CustomGroup = () => {
-    const [state, setState] =useState({ open: false });
+const CustomGroup = ({ children }: any) => {
+    const [state, setState] = useState({ open: false });
 
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const onStateChange = ({ open }: State) => setState({ open });
@@ -22,36 +22,35 @@ const CustomGroup = () => {
     const { open } = state;
 
     return (
-        <PaperProvider>
-            <Portal>
-                <FAB.Group
-                    open={open}
-                    visible
-                    fabStyle={styles?.icon}
-                    icon={() => (
-                        <View style={styles.iconContainer}>
-                            {open ? <CloseIcon color={"#F5F5F5"} width={18} /> : <PlusIcon />}
-                        </View>
-                    )}
-                    actions={[
-                        {
-                            icon: () => <AddDoseIcon/>,
-                            label: 'Add Dose',
-                            style: { width: horizontalScale(40), height:verticalScale(40), backgroundColor:"#00A8A8"},
-                            labelStyle: styles.labelText,
-                            onPress: () => { navigation .navigate(navigationStrings.SEARCH_MED)},
-                        },
-                        
-                    ]}
-                    onStateChange={onStateChange}
-                    onPress={() => {
-                        if (open) {
-                           
-                        }
-                    }}
-                />
-            </Portal>
-        </PaperProvider>
+        <>
+            <PaperProvider>
+                <Portal>
+                    {children}
+                    <FAB.Group
+                        open={open}
+                        visible
+                        backdropColor='rgba(255, 255, 255, 0.8)'
+                        fabStyle={styles?.icon}
+                        icon={() => (
+                            <View style={styles.iconContainer}>
+                                {open ? <CloseIcon /> : <PlusIcon />}
+                            </View>
+                        )}
+                        actions={[
+                            {
+                                icon: () => (<View style={{justifyContent:'center', alignItems:"center"}}><AddDoseIcon /></View> ),
+                                label: 'Add Dose',
+                                style: { backgroundColor: "#00A8A8" },
+                                labelStyle: styles.labelText,
+                                onPress: () => { navigation.navigate(navigationStrings.SEARCH_MED) },
+                            },
+
+                        ]}
+                        onStateChange={onStateChange}
+                    />
+                </Portal>
+            </PaperProvider>
+        </>
     );
 }
 

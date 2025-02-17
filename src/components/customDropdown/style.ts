@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
         paddingRight: horizontalScale(10),
         paddingLeft: horizontalScale(10),
         paddingVertical: verticalScale(10),
-        height: verticalScale(50)
+        height: verticalScale(50),
+        color: '#000000'
     },
     filteredItem: {
         flexDirection: 'row',

@@ -90,7 +90,7 @@ const SearchMed: React.FC = () => {
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
 					<View>
-						<BackButtonComponent centerText="" />
+						<BackButtonComponent centerText="" targetScreen={navigationStrings?.HOME}/>
 						<View style={styles.progressbarview}>
 							<ProgressBar percentage={15} detailsText={' '} />
 						</View>

@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import ProgressBar from "../../components/progressBar";
 import BackButtonComponent from "../../components/backButton";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styles from "./style";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import CustomButton from "../../components/customButton";
@@ -43,21 +43,50 @@ const PillPlanner: React.FC = () => {
 		hideDatePicker();
 	};
 
+
 	const handleSubmit = async () => {
 		setIsLoading(true)
 		try {
 			const data = await postApi('/medicine/create', { medicineName: addMedData.name, medicineForm: addMedData.medicineForm, timingSetup: addMedData?.timingSetup, dosePerDay: addMedData?.dosePerDay, startTime: selectedTime })
 
-			if (!data?.data?.data?.deviceToken) {
+			// if (!data?.data?.data?.deviceToken) {
+			// 	const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+			// 	if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+			// 		const fcmToken = await messaging().getToken();
+
+			// 		await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+			// 	}
+			// }
+
+			let fcmToken;
+
+			if (Platform.OS === "android") {
 				const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
 				if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-					const fcmToken = await messaging().getToken();
-
-					await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+					fcmToken = await messaging().getToken()
 				}
 			}
+			else {
+				const authStatus = await messaging().requestPermission();
+				const enabled =
+					authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+					authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-			navigation.navigate(navigationStrings.HOME)
+				if (enabled) {
+					fcmToken = await messaging().getToken()
+				}
+			}
+			if (!fcmToken) {
+				fcmToken = await messaging().getToken();
+			}
+			const res = await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+
+
+			// navigation.navigate(navigationStrings.HOME)
+			navigation.reset({
+				index: 0,
+				routes: [{ name: navigationStrings.HOME }],
+			});
 
 		} catch (error: any) {
 			console.log("🚀 ~ handleSubmit ~ error:", error)
@@ -81,7 +110,7 @@ const PillPlanner: React.FC = () => {
 					<View>
 						<View>
 							<BackButtonComponent
-								centerText={`${addMedData?.name.toLowerCase()}, ${addMedData?.medicineForm.toLowerCase()}`}
+								centerText={`${addMedData?.name?.toLowerCase().length > 10 ? addMedData?.name?.toLowerCase().substring(0, 12) + '...' : addMedData?.name?.toLowerCase() }, ${addMedData?.medicineForm.toLowerCase()}`}
 							/>
 							<View style={styles.progressbarview}>
 								<ProgressBar percentage={30} detailsText="Getting to Know You" />
@@ -97,7 +126,7 @@ const PillPlanner: React.FC = () => {
 
 							<View style={styles.row}>
 								<Text style={styles.label}>Time</Text>
-								<TouchableOpacity style={styles.inputBox} onPress={showDatePicker}>
+								<TouchableOpacity style={styles.inputBox} onPress={() => {!isLoading && showDatePicker()}}>
 									<Text style={styles.text}>{selectedTime}</Text>
 								</TouchableOpacity>
 							</View>

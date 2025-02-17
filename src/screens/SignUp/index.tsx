@@ -73,13 +73,11 @@ const SignUp: React.FC = () => {
             navigation.navigate(navigationStrings.VERIFY_EMAIL)
         }
         catch (error: any) {
-            if (error?.response?.data?.error?.code === 109) {
                 showToast({
-                    text: `${error?.response?.data?.error?.errorDescription}`,
+                    text: `${error?.response?.data?.error?.errorDescription ?? "Something went wrong,try again"}`,
                     duration: 3000,
                     type: 'error'
                 })
-            }
         }
         finally {
             setIsLoading(false)

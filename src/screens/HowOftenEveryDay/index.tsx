@@ -30,7 +30,7 @@ const HowOftenEveryDay: React.FC = () => {
 			<KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
 				<View style={styles.container}>
 					<View>
-						<BackButtonComponent centerText={`${addMedData?.name.toLowerCase()},${addMedData?.medicineForm.toLowerCase()}`} />
+						<BackButtonComponent centerText={`${addMedData?.name?.toLowerCase().length > 10 ? addMedData?.name?.toLowerCase().substring(0, 12) + '...' : addMedData?.name?.toLowerCase() },${addMedData?.medicineForm.toLowerCase()}`} />
 						<View style={styles.progressbarview}>
 							<ProgressBar percentage={30} detailsText={"Getting to Know You"} />
 						</View>
