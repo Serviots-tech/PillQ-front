@@ -209,8 +209,8 @@ const styles = StyleSheet.create({
     },
 
     noRecordsImg: {
-        width: "80%",
-        height: "60%",
+        width: "50%",
+        height: "37%",
         resizeMode: "cover", // Adjust as needed: 'cover' or 'center'
     },
     timeHeader: {

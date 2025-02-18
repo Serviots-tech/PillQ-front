@@ -14,11 +14,14 @@ export default function SplashScreen() {
     const { isAuthenticated, isFetchProfileLoading } = useAuth();
 
     setTimeout(() => {
-        if (isAuthenticated !==null && !isAuthenticated && !isFetchProfileLoading) {
+        if (isAuthenticated !== null && !isAuthenticated && !isFetchProfileLoading) {
             navigation.navigate(navigationStrings.WELCOME);
         }
         if (isAuthenticated && !isFetchProfileLoading) {
-            navigation.navigate(navigationStrings.HOME);
+            navigation.reset({
+                index: 0,
+                routes: [{ name: navigationStrings.HOME as never }],
+            });
         }
     }, 3500);
 

@@ -100,7 +100,7 @@ export default function Routes() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
+			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
 				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
