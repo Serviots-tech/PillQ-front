@@ -8,13 +8,23 @@ import { DoubleArrowIcon } from '../../constants/svgs';
 
 const CustomCalendar = ({
     getDateFromCalender,
+    dateFromCalender,
 }: {
     getDateFromCalender: (date: Moment) => void;
+    dateFromCalender:Moment;
 }) => {
-    const [selectedDate, setSelectedDate] = useState<Moment>(moment());
+    const [selectedDate, setSelectedDate] = useState<Moment>(dateFromCalender); // Initialize with prop value
     const minDate = moment().subtract(30, 'days'); 
     const maxDate = moment().add(30, 'days');
 
+
+  // Sync selectedDate with parent’s state change
+  useEffect(() => {
+    if (!selectedDate.isSame(dateFromCalender, 'day')) {
+      setSelectedDate(dateFromCalender); // Update only if the date is different
+    }
+  }, [dateFromCalender]);
+    
     const goToToday = () => {
         const today = moment();
         setSelectedDate(today);
