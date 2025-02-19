@@ -18,12 +18,23 @@ import CustomGroup from '../../components/customGroup';
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 
+type State = {
+    open: boolean;
+};
+
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
     const [isLogOutLoading, setIsLogOutLoading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
     const calenderdate = dateFromCalender.format('YYYY-MM-DD');
     const today = moment().format('YYYY-MM-DD');
+
+    const [state, setState] = useState({ open: false });
+
+
+    const onStateChange = ({ open }: State) => setState({ open });
+
+    const { open } = state;
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -98,14 +109,14 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     return (
         <>
             <SafeAreaView />
-            {isLogOutLoading ? <View style={styles?.loaderView}><CustomLoader style={styles?.loader} /></View> : <CustomGroup>
+            {isLogOutLoading ? <View style={styles?.loaderView}><CustomLoader style={styles?.loader} /></View> : <CustomGroup onStateChange={onStateChange} isOpen={open}>
                 <CustomProfileHeader setIsLogOutLoading={setIsLogOutLoading} />
                 <View style={styles.mainContainer}>
                     <View style={styles.calenderView}>
                         <CustomCalender getDateFromCalender={setDateFromCalender} />
                     </View>
                     <View style={styles.progressView}>
-                        <ProgressBarWithDivision calenderdate={calenderdate} today={today} totalTasks={groupedMedicines.length} />
+                        <ProgressBarWithDivision calenderdate={calenderdate} today={today} totalTasks={Number(Object.values(groupedMedicines).reduce((sum, arr:any) => sum + arr.length, 0))} />
                     </View>
                     <View style={styles.brView} />
 
