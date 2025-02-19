@@ -22,6 +22,7 @@ const screenWidth = Dimensions.get('window').width; // Get full screen width
 
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
+    const [isLogOutLoading, setIsLogOutLoading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
     const calenderdate = dateFromCalender.format('YYYY-MM-DD');
     const today = moment().format('YYYY-MM-DD');
@@ -56,7 +57,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                     onPress: () => BackHandler.exitApp(),
                 },
             ]);
-            return true; // Prevent default behavior
+            return true; 
         };
 
         const backHandler = BackHandler.addEventListener(
@@ -64,7 +65,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
             backAction
         );
 
-        return () => backHandler.remove(); // Cleanup on unmount
+        return () => backHandler.remove(); 
     }, [navigation]);
 
     const userMedicineData = useSelector((state: any) => state?.getMedicine?.data) || [];
@@ -137,25 +138,18 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     };
 
     return (
-      <>
-        <SafeAreaView />
-        <CustomGroup>
-          <CustomProfileHeader />
-          <View style={styles.mainContainer}>
-            <View style={styles.calenderView}>
-              <CustomCalender
-                dateFromCalender={dateFromCalender}
-                getDateFromCalender={getDateFromCalender}
-              />
-            </View>
-            <View style={styles.progressView}>
-              <ProgressBarWithDivision
-                calenderdate={calenderdate}
-                today={today}
-                totalTasks={groupedMedicines.length}
-              />
-            </View>
-            <View style={styles.brView} />
+        <>
+            <SafeAreaView />
+            {isLogOutLoading ? <View style={styles?.loaderView}><CustomLoader style={styles?.loader} /></View> : <CustomGroup>
+                <CustomProfileHeader setIsLogOutLoading={setIsLogOutLoading} />
+                <View style={styles.mainContainer}>
+                    <View style={styles.calenderView}>
+                        <CustomCalender getDateFromCalender={setDateFromCalender} dateFromCalender={dateFromCalender}/>
+                    </View>
+                    <View style={styles.progressView}>
+                        <ProgressBarWithDivision calenderdate={calenderdate} today={today} totalTasks={groupedMedicines.length} />
+                    </View>
+                    <View style={styles.brView} />
 
             <View style={styles.medicineContainer}>
               <GestureRecognizer
@@ -221,7 +215,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
               </GestureRecognizer>
             </View>
           </View>
-        </CustomGroup>
+        </CustomGroup>}
       </>
     );
 };
@@ -278,9 +272,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
   },
 
-  noRecordsImg: {
-        width: "80%",
-        height: "60%",
+    noRecordsImg: {
+        width: "50%",
+        height: "37%",
         resizeMode: "cover", // Adjust as needed: 'cover' or 'center'
   },
   timeHeader: {

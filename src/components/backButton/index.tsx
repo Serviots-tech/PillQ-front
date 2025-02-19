@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { AndroidbackIcon, IosbackIcon } from "../../constants/svgs";
 import CustomButton from "../customButton";
 import styles from "./style";
+import { navigationStrings } from "../../constants/navigationStrings";
 
 type BackButtonProps = {
     label?: string;
@@ -28,7 +29,15 @@ const BackButtonComponent: React.FC<BackButtonProps> = ({
         if (onPress) {
             onPress(event);
         } else if (targetScreen) {
-            navigation.navigate(targetScreen as never);
+            if (targetScreen === "Home") {
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: navigationStrings.HOME as never }],
+                });
+            }
+            else {
+                navigation.navigate(targetScreen as never);
+            }
         } else {
             navigation.goBack();
         }

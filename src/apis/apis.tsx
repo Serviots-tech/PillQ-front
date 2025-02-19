@@ -6,8 +6,6 @@ const endPoint = Platform.OS === 'ios' ? IOS_API_URL : ANDROID_API_URL
 
 console.log('ANDROID_API_URL====>',ANDROID_API_URL)
 console.log('IOS_API_URL=====>',IOS_API_URL)
-// console.log("🚀 ~ ANDROID_API_URL:", ANDROID_API_URL)
-// console.log("🚀 ~ IOS_API_URL:", IOS_API_URL)
 
 
 const apiConfig = async (flag = false) => {

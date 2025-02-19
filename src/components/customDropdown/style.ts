@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
         paddingBottom: verticalScale(20),
     },
     loader: {
-        width: horizontalScale(22),
-        height: verticalScale(22),
+        width: horizontalScale(20),
+        height: verticalScale(20),
         resizeMode: 'contain',
     },
 });

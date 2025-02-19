@@ -20,6 +20,7 @@ import CustomProfileHeader from '../components/customProfileHeader';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeIcon, ManageIcon, MedicationIcon, ProgressIcon } from '../constants/svgs';
 import ComingSoonScreen from '../screens/ComingSoon';
+import { verticalScale } from '../styles';
 
 
 export type RootStackParamList = {
@@ -86,9 +87,15 @@ export default function Routes() {
 							return "";
 					}
 				})(),
+				tabBarStyle: {
+					height: verticalScale(50), 
+					paddingTop:verticalScale(5),
+					paddingBottom: verticalScale(5)
+				},
 				tabBarActiveTintColor: '#00A8A8',
 				tabBarInactiveTintColor: '#666',
 				headerShown: false, 
+				
 			})}
 		>
 			<Tab.Screen name={navigationStrings.HOME} component={(props: any) => <Home {...props} />} />
@@ -100,7 +107,7 @@ export default function Routes() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
+			<Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromRightAndroid }}>
 				{/* <Stack.Screen name={navigationStrings?.SEARCH_MED} component={SearchMed} />
 				<Stack.Screen name={navigationStrings?.MED_FORM} component={MedForm} />
 				<Stack.Screen name={navigationStrings?.HOW_OFTEN} component={HowOften} />
