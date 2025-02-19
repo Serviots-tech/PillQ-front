@@ -15,8 +15,8 @@ interface ProgressBarProps {
 }
 
 const ProgressBarWithDivision = ({
-    completedTasks = 0,
-    totalTasks = 1,
+    completedTasks = 6,
+    totalTasks = 10,
     height = 6,
     gapWidth = 4,
     backgroundColor = '#E1E3E4',

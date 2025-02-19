@@ -31,8 +31,9 @@ function App(): React.JSX.Element {
 
     // Create a channel (required for Android)
     const channelId = await notifee.createChannel({
-      id: 'default',
-      name: 'Default Channel',
+      id: 'default2',
+      name: 'Default Channel 2',
+      sound: "notification_sound",
       importance: AndroidImportance.HIGH, 
     })
 
@@ -44,7 +45,11 @@ function App(): React.JSX.Element {
         channelId,
         smallIcon: 'notification_icon', // Ensure this icon exists in your project
         pressAction: { id: 'default' },
+        sound: "notification_sound"
       },
+      ios:{
+        
+      }
     });
 
   }
