@@ -9,11 +9,12 @@ import { removeData } from '../../helpers/asyncStorageHelpers'
 import { useAuth } from '../authContext'
 import { showToast } from '../customToast/ToastManager'
 
-const CustomProfileHeader = () => {
+const CustomProfileHeader = ({ setIsLogOutLoading }: { setIsLogOutLoading: any}) => {
     const userProfileData = useSelector((data: any) => data?.userProfile?.data)
     const { logout } = useAuth();
 
     const logoutUser = async () => {
+        setIsLogOutLoading(true)
         try {
             const res = await postApi('/auth/logout')
             await removeData('accessToken')
@@ -26,6 +27,9 @@ const CustomProfileHeader = () => {
                 duration: 3000,
                 type: 'error'
             })
+        }
+        finally{
+            setIsLogOutLoading(false)
         }
 
     }
