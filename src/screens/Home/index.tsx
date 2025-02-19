@@ -20,6 +20,7 @@ type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
+    const [isLogOutLoading, setIsLogOutLoading] = useState(false)
     const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
     const calenderdate = dateFromCalender.format('YYYY-MM-DD');
     const today = moment().format('YYYY-MM-DD');
@@ -54,7 +55,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                     onPress: () => BackHandler.exitApp(),
                 },
             ]);
-            return true; // Prevent default behavior
+            return true; 
         };
 
         const backHandler = BackHandler.addEventListener(
@@ -62,7 +63,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
             backAction
         );
 
-        return () => backHandler.remove(); // Cleanup on unmount
+        return () => backHandler.remove(); 
     }, [navigation]);
 
     const userMedicineData = useSelector((state: any) => state?.getMedicine?.data) || [];
@@ -97,8 +98,8 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     return (
         <>
             <SafeAreaView />
-            <CustomGroup>
-                <CustomProfileHeader />
+            {isLogOutLoading ? <View style={styles?.loaderView}><CustomLoader style={styles?.loader} /></View> : <CustomGroup>
+                <CustomProfileHeader setIsLogOutLoading={setIsLogOutLoading} />
                 <View style={styles.mainContainer}>
                     <View style={styles.calenderView}>
                         <CustomCalender getDateFromCalender={setDateFromCalender} />
@@ -132,8 +133,8 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                                                         <View style={styles.medicineDetailsContainer}>
                                                             <View>
                                                                 <Text style={styles?.medicineName}>
-                                                                    {item?.medicineName?.length > 10
-                                                                        ? item?.medicineName.substring(0, 25) + '...'
+                                                                    {item?.medicineName?.length > 20
+                                                                        ? item?.medicineName.substring(0, 20) + '...'
                                                                         : item?.medicineName}
                                                                 </Text>
                                                             </View>
@@ -151,7 +152,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                     </View>
 
                 </View>
-            </CustomGroup>
+            </CustomGroup>}
         </>
     );
 };
