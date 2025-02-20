@@ -97,5 +97,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIBackgroundModes</key>
+   <array>
+    <string>audio</string>
+    <string>remote-notification</string>
+    <string>processing</string> <!-- Keep 'processing' if needed -->
+   </array>
+
 </dict>
 </plist>

@@ -33,8 +33,10 @@ export default function CustomButton({
       disabled={isDisabled}
     >
       {isLoading ? (
-        <View style={{ alignItems: 'center',
-        justifyContent:'center'}}>
+        <View style={{
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <CustomImage imageUrl={imagePaths?.loader} style={{
             width: horizontalScale(50),
             height: moderateScale(50),
@@ -49,7 +51,10 @@ export default function CustomButton({
           }}
         >
           {icon && <View>{icon}</View>}
-            <Text style={[buttonTextStyle, { fontWeight: '600' }]} >{'  '}{label != "Reset Password" ? label.length > 10 ? label.substring(0, 5) + '...' : label  : label}</Text>
+          <Text style={[buttonTextStyle, { fontWeight: '600' }]} >{'  '}{label !== "Reset Password" && label !== "Request OTP" ?
+            (label.length > 10 ? label.substring(0, 5) + '...' : label)
+            : label}
+          </Text>
         </View>
       )}
     </TouchableOpacity>

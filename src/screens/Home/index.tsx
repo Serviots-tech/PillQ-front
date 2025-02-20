@@ -33,6 +33,10 @@ type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const screenWidth = Dimensions.get('window').width; // Get full screen width
 
+type State = {
+    open: boolean;
+};
+
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     const [isLoading, setIsloading] = useState(false)
     const [isLogOutLoading, setIsLogOutLoading] = useState(false)

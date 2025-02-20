@@ -87,11 +87,11 @@ export default function Routes() {
 							return "";
 					}
 				})(),
-				tabBarStyle: {
-					height: verticalScale(50), 
-					paddingTop:verticalScale(5),
-					paddingBottom: verticalScale(5)
-				},
+				// tabBarStyle: {
+				// 	height: verticalScale(50), 
+				// 	paddingTop:verticalScale(5),
+				// 	paddingBottom: verticalScale(5)
+				// },
 				tabBarActiveTintColor: '#00A8A8',
 				tabBarInactiveTintColor: '#666',
 				headerShown: false, 
