@@ -1,23 +1,25 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useSelector } from 'react-redux'
-import { LogOutIcon, NotificationIcon } from '../../constants/svgs'
+import { useDispatch, useSelector } from 'react-redux'
+import { LogOutIcon } from '../../constants/svgs'
 import { horizontalScale, moderateScale, verticalScale } from '../../styles'
 import { postApi } from '../../apis/apis'
 import { removeData } from '../../helpers/asyncStorageHelpers'
 import { useAuth } from '../authContext'
 import { showToast } from '../customToast/ToastManager'
+import { clearUserDetails } from '../../redux/slices/userSlice'
+import { AppDispatch } from '../../redux/store'
 
 const CustomProfileHeader = ({ setIsLogOutLoading }: { setIsLogOutLoading: any}) => {
     const userProfileData = useSelector((data: any) => data?.userProfile?.data)
     const { logout } = useAuth();
-
+    const dispatch = useDispatch<AppDispatch>()
     const logoutUser = async () => {
         setIsLogOutLoading(true)
         try {
             const res = await postApi('/auth/logout')
             await removeData('accessToken')
+            dispatch(clearUserDetails())
             logout()
 
         }

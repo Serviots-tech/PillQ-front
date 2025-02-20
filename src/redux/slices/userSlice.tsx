@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchCostCenterAction } from '../actions/costCenterAction';
 import { getUserProfile } from '../actions/userAction';
 
 const initialState: any = {
@@ -11,7 +10,11 @@ const initialState: any = {
 export const userProfileSlice = createSlice({
     name: 'userProfile',
     initialState,
-    reducers: {},
+    reducers: {
+        clearUserDetails: (state) => {
+            state.data = null;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getUserProfile.pending, (state) => {
             state.isLoading = true;
@@ -31,4 +34,6 @@ export const userProfileSlice = createSlice({
         );
     },
 });
+
+export const { clearUserDetails } = userProfileSlice.actions;
 

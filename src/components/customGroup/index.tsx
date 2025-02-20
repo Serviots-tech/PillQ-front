@@ -1,13 +1,15 @@
-import { View } from 'react-native'
+import { Platform, View } from 'react-native'
 import React, { useCallback, useMemo, useState } from 'react'
 import { FAB, Portal, PaperProvider } from 'react-native-paper';
-import { AddDoseIcon, CloseIcon, PlusIcon } from '../../constants/svgs';
+import { AddDoseIcon, CloseIcon, NotifyIcon, PlusIcon } from '../../constants/svgs';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../Navigation/Routes';
 import { navigationStrings } from '../../constants/navigationStrings';
 import styles from './style';
-
+import { postApi, putApi } from '../../apis/apis';
+import { PermissionsAndroid } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
 
 const CustomGroup = ({ children, onStateChange,isOpen=false }: any) => {
 
@@ -38,6 +40,42 @@ const CustomGroup = ({ children, onStateChange,isOpen=false }: any) => {
                                 style: { backgroundColor: "#00A8A8" },
                                 labelStyle: styles.labelText,
                                 onPress: () => { navigation.navigate(navigationStrings.SEARCH_MED) },
+                            },
+                            {
+                                icon: () => (<View style={{ justifyContent: 'center', alignItems: "center" }}><NotifyIcon/></View>),
+                                label: 'Notify',
+                                style: { backgroundColor: "#00A8A8" },
+                                labelStyle: styles.labelText,
+                                onPress: async () => { 
+                                    try{
+                                        let fcmToken;
+
+                                        if (Platform.OS === "android") {
+                                            const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+                                            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                                                fcmToken = await messaging().getToken()
+                                            }
+                                        }
+                                        else {
+                                            const authStatus = await messaging().requestPermission();
+                                            const enabled =
+                                                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                                                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+                                            if (enabled) {
+                                                fcmToken = await messaging().getToken()
+                                            }
+                                        }
+                                        if (!fcmToken) {
+                                            fcmToken = await messaging().getToken();
+                                        }
+                                        const res = await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+
+                                        await postApi('/expo/notify')
+                                    }
+                                    catch(error:any){}
+                                    finally{}
+                                },
                             },
 
                         ]}
