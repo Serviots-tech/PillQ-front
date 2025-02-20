@@ -47,9 +47,9 @@ function App(): React.JSX.Element {
         pressAction: { id: 'default' },
         sound: "notification_sound"
       },
-      ios:{
-        
-      }
+      ios: {
+        sound: 'notification_sound.wav',
+      },
     });
 
   }
