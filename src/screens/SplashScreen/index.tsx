@@ -18,10 +18,10 @@ export default function SplashScreen() {
             navigation.navigate(navigationStrings.WELCOME);
         }
         if (isAuthenticated && !isFetchProfileLoading) {
-            navigation.reset({
-                index: 0,
-                routes: [{ name: navigationStrings.HOME as never }],
-            });
+            // navigation.reset({
+            //     index: 0,
+            //     routes: [{ name: navigationStrings.HOME as never }],
+            // });
         }
     }, 3500);
 

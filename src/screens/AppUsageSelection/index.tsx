@@ -10,7 +10,7 @@ import { AndroidbackIcon, CheckmarkIcon, IosbackIcon } from "../../constants/svg
 import ProgressBar from "../../components/progressBar";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../redux/store";
-import { setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
+import { clearGuestUserData, setRegisterAsGuest } from "../../redux/slices/registerAsGuest";
 import CustomCheckbox from "../../components/customCheckbox";
 import styles from "./style";
 import { postApi, putApi } from "../../apis/apis";
@@ -18,6 +18,9 @@ import { getValueFromAcessToken } from "../../helpers/jwtHelpers";
 import { storeData } from "../../helpers/asyncStorageHelpers";
 import DeviceInfo from "react-native-device-info";
 import CryptoJS from "crypto-js";
+import { PermissionsAndroid } from 'react-native';
+import messaging from '@react-native-firebase/messaging';
+import { getUserProfile } from "../../redux/actions/userAction";
 
 
 
@@ -46,6 +49,7 @@ const AppUsageSelection: React.FC = () => {
 					const res = await postApi('/auth/register-as-guest', guestUserData)
 
 					const getDeviceId = getValueFromAcessToken(res?.data?.accessToken)
+					dispatch(clearGuestUserData());
 					storeData("accessToken", res?.data?.accessToken)
 					storeData("deviceId", getDeviceId)
 
@@ -58,12 +62,39 @@ const AppUsageSelection: React.FC = () => {
 						appUsages: selectedOptions
 					}
 
-					const res = await putApi('/user/update-user', updateUserData)
+					await putApi('/user/update-user', updateUserData)
+
+					dispatch(clearGuestUserData());
+
 					navigation.navigate(navigationStrings.ONBOARD_SUCCESS)
 
 				}
 
+				let fcmToken;
 
+				if (Platform.OS === "android") {
+					const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+					if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+						fcmToken = await messaging().getToken()
+					}
+				}
+				else {
+					const authStatus = await messaging().requestPermission();
+					const enabled =
+						authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+						authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+					if (enabled) {
+						fcmToken = await messaging().getToken()
+					}
+				}
+				if (!fcmToken) {
+					fcmToken = await messaging().getToken();
+				}
+				const res = await putApi('/user/update-firebase-token', { firebaseToken: fcmToken })
+
+
+				await dispatch(getUserProfile());
 			} catch (error: any) {
 				console.log("🚀 ~ handleSubmit ~ error:", JSON.stringify(error))
 
