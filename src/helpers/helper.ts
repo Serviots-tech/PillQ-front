@@ -9,3 +9,9 @@ export function formatTime(inputString:string) {    const timePattern = /\b([01]
         return "7:00"; // If no valid time is found
     }
 }
+
+
+export const capitalizeFirstLetter = (str: string): string => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+};

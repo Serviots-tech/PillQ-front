@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {horizontalScale, moderateScale, verticalScale} from '../../styles';
+
 import {
   CHECKICON,
   ClockIcon,
@@ -21,16 +21,23 @@ import {
   Tablet,
   TrashIcon,
 } from '../../constants/svgs';
+import { horizontalScale, verticalScale } from '../../styles';
+import styles from './style';
+import { capitalizeFirstLetter } from '../../helpers/helper';
 
 const CustomModal = ({
   visible,
   onClose,
   medicine,
+  handleSkipTake
 }: {
   visible: boolean;
   onClose: () => void;
   medicine: any;
+  handleSkipTake: any
 }) => {
+
+
   return (
     <Modal
       animationType="fade"
@@ -56,7 +63,7 @@ const CustomModal = ({
 
             <View style={styles.container}>
               <View
-                style={{flexDirection: 'row', alignItems: 'center', gap: 18}}>
+                style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
                 <Tablet
                   width={horizontalScale(50)}
                   height={verticalScale(50)}
@@ -65,43 +72,59 @@ const CustomModal = ({
                   {medicine?.medicineName || 'NA'}
                 </Text>
               </View>
-
-              <View style={{gap: 14}}>
+              {/* {medicine?.status !== "SCHEDULED" && <Text style={{ color: medicine?.status === "MISSED" ? "red" : medicine?.status === "SKIPPED" ? "gray" : medicine?.status === "TAKEN" ? "green" : "black" }}>
+                {medicine?.status === "MISSED" ? "Missed!!" : medicine?.status === "TAKEN" ? `Taken at ${medicine?.scheduleTime}` : capitalizeFirstLetter(medicine?.status)}
+              </Text>} */}
+              <View style={{ gap: 10 }}>
                 <View style={styles.iconContainer}>
                   <ShoppingBagIcon />
-                  <Text style={styles.desTxt}>Schedule for 8:00 pm, Today</Text>
+                  <Text style={styles.desTxt}>Schedule for {medicine?.scheduleTime}, Today</Text>
                 </View>
                 <View style={styles.iconContainer}>
                   <MenuIcon />
                   <Text style={styles.desTxt}>
-                    500mg, 1 Tablet after breakfast
+                    {medicine?.medicineForm}
                   </Text>
                 </View>
-                <View style={styles.iconContainer}>
+                {/* <View style={styles.iconContainer}>
                   <ClockIcon />
                   <Text style={styles.desTxt}>
                     Last taken at 7:12pm, Mn, 18 Feb
                   </Text>
-                </View>
+                </View> */}
               </View>
             </View>
 
-            <View style={{padding: 20}}>
+            <View style={{ padding: 10 }}>
               <View style={styles.buttonContainer}>
-                <View style={{gap: 5}}>
-                  <TouchableOpacity onPress={onClose}>
+                {medicine?.status !== "SKIPPED" && <View style={{ gap: 5 }}>
+                  <TouchableOpacity onPress={() => { handleSkipTake("SKIPPED") }}>
                     <CLOSEICON />
+                    <Text style={styles.btntxt}>Skip</Text>
                   </TouchableOpacity>
-                  <Text style={styles.btntxt}>Skip</Text>
                 </View>
+                }
+                {medicine?.status === "SKIPPED" && <View style={{ gap: 5 }}>
+                  <TouchableOpacity onPress={() => { handleSkipTake("MISSED") }}>
+                    <CLOSEICON />
+                    <Text style={styles.btntxt}>Un-Skip</Text>
+                  </TouchableOpacity>
+                </View>
+                }
 
-                <View style={{gap: 5}}>
-                  <TouchableOpacity>
+                {medicine?.status !== "TAKEN" && <View style={{ gap: 5 }}>
+                  <TouchableOpacity onPress={() => { handleSkipTake("TAKEN") }}>
                     <CHECKICON />
+                    <Text style={styles.btntxt}>Take</Text>
                   </TouchableOpacity>
-                  <Text style={styles.btntxt}>Take</Text>
-                </View>
+                </View>}
 
+                {medicine?.status === "TAKEN" && <View style={{ gap: 5 }}>
+                  <TouchableOpacity onPress={() => { handleSkipTake("MISSED") }}>
+                    <CHECKICON />
+                    <Text style={styles.btntxt}>Un-Take</Text>
+                  </TouchableOpacity>
+                </View>}
                 {/* <View style={{alignItems: 'center',gap:5}}>
                 <TouchableOpacity>
                   <MySVG />
@@ -117,76 +140,4 @@ const CustomModal = ({
   );
 };
 
-const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    width: horizontalScale(350),
-    // padding: 10,
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalHeader: {
-    width: '100%',
-    padding: 20,
-    paddingBottom: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#00A8A8',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  rightModalHeader: {
-    width: horizontalScale(50),
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  container: {
-    width: horizontalScale(350),
-    borderBottomWidth: 1,
-    borderBottomColor: '#00A8A8',
-    padding: 20,
-    gap: horizontalScale(30),
-  },
-  iconContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-  },
-  desTxt: {
-    color: '#525252',
-    fontWeight: '400',
-    fontFamily: 'Nunito-SemiBold',
-    fontSize: 15,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: '700',
-    fontFamily: 'Nunito-Regular',
-    color: '#333',
-  },
-
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 10,
-    width: horizontalScale(230),
-  },
-  btntxt: {
-    textAlign: 'center',
-    color: '#00A8A8',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-});
 export default CustomModal;
