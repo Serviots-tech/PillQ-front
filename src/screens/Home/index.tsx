@@ -1,5 +1,5 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useEffect, useState, useRef} from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,7 +14,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {RootStackParamList} from '../../Navigation/Routes';
+import { RootStackParamList } from '../../Navigation/Routes';
 import CustomCalender from '../../components/customCalender';
 import moment, { Moment } from 'moment';
 import ProgressBarWithDivision from '../../components/progresBarWithDivision';
@@ -33,17 +33,18 @@ import { putApi } from '../../apis/apis';
 import { showToast } from '../../components/customToast/ToastManager';
 import { updateDoseStatus } from '../../redux/slices/getMedicineSlice';
 import { capitalizeFirstLetter } from '../../helpers/helper';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 type LogInAsGuestProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const screenWidth = Dimensions.get('window').width; // Get full screen width
 
 type State = {
-    open: boolean;
+  open: boolean;
 };
 
 const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
-    const [isLoading, setIsloading] = useState(false)
-    const [isLogOutLoading, setIsLogOutLoading] = useState(false)
+  const [isLoading, setIsloading] = useState(false)
+  const [isLogOutLoading, setIsLogOutLoading] = useState(false)
   const [dateFromCalender, setDateFromCalender] = useState<Moment>(moment());
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -183,7 +184,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
     setModalVisible(false);
     try {
       if (medicineItem) {
-        dispatch(updateDoseStatus({ id: medicineItem?.id, status: status , date: calenderdate }))
+        dispatch(updateDoseStatus({ id: medicineItem?.id, status: status, date: calenderdate }))
         const res = await putApi('/dose', { doseId: medicineItem?.id, medicineId: medicineItem?.medicineId, status: status })
       }
       setMedicineItem(null);
@@ -217,12 +218,12 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
               />
             </View>
             <View style={styles.progressView}>
-                <ProgressBarWithDivision calenderdate={calenderdate} completedTasks={Number(
-                  Object.values(groupedMedicines).reduce(
-                    (sum, arr:any) => sum + arr.filter((med:any) => med.status === "TAKEN").length,
-                    0
-                  )
-                )} today={today} totalTasks={Number(Object.values(groupedMedicines).reduce((sum, arr: any) => sum + arr.length, 0))} />
+              <ProgressBarWithDivision calenderdate={calenderdate} completedTasks={Number(
+                Object.values(groupedMedicines).reduce(
+                  (sum, arr: any) => sum + arr.filter((med: any) => med.status === "TAKEN").length,
+                  0
+                )
+              )} today={today} totalTasks={Number(Object.values(groupedMedicines).reduce((sum, arr: any) => sum + arr.length, 0))} />
             </View>
             <View style={styles.brView} />
             <View style={styles.medicineContainer}>
@@ -237,14 +238,84 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                     { transform: [{ translateX }], width: screenWidth },
                   ]}>
                   {isLoading ? (
-                    <View style={styles?.loaderView}>
-                      <CustomLoader style={styles?.loader} />
-                    </View>
+                    <View style={{marginHorizontal:horizontalScale(12)}}>
+                        <SkeletonPlaceholder
+                          borderRadius={12}
+                          highlightColor="#F2F8FC"
+                          backgroundColor="#E1E9EE"
+                          
+                        >
+                          <>
+                            <SkeletonPlaceholder.Item style={{ marginVertical: verticalScale(12) }}>
+                            {/* Time Section */}
+                            <SkeletonPlaceholder.Item width={80} height={20} marginBottom={8} />
+
+                            {/* Card Section */}
+                            <SkeletonPlaceholder.Item
+                              flexDirection="row"
+                              alignItems="center"
+                              borderWidth={1}
+                              borderColor="#D1D9E0"
+                              borderRadius={8}
+                              padding={12}
+                            >
+                              {/* Icon */}
+                              <SkeletonPlaceholder.Item
+                                width={40}
+                                height={40}
+                                borderRadius={8}
+                                marginRight={12}
+                              />
+
+                              {/* Text Section */}
+                              <SkeletonPlaceholder.Item flex={1}>
+                                <SkeletonPlaceholder.Item width={150} height={20} />
+                                <SkeletonPlaceholder.Item marginTop={6} width={120} height={16} />
+                                <SkeletonPlaceholder.Item marginTop={6} width={180} height={16} />
+                              </SkeletonPlaceholder.Item>
+                              
+                            </SkeletonPlaceholder.Item>
+                          </SkeletonPlaceholder.Item>
+                          
+                          <SkeletonPlaceholder.Item style={{marginVertical:verticalScale(12)}}>
+                            {/* Time Section */}
+                            <SkeletonPlaceholder.Item width={80} height={20} marginBottom={8} />
+
+                            {/* Card Section */}
+                            <SkeletonPlaceholder.Item
+                              flexDirection="row"
+                              alignItems="center"
+                              borderWidth={1}
+                              borderColor="#D1D9E0"
+                              borderRadius={8}
+                              padding={12}
+                            >
+                              {/* Icon */}
+                              <SkeletonPlaceholder.Item
+                                width={40}
+                                height={40}
+                                borderRadius={8}
+                                marginRight={12}
+                              />
+
+                              {/* Text Section */}
+                              <SkeletonPlaceholder.Item flex={1}>
+                                <SkeletonPlaceholder.Item width={150} height={20} />
+                                <SkeletonPlaceholder.Item marginTop={6} width={120} height={16} />
+                                <SkeletonPlaceholder.Item marginTop={6} width={180} height={16} />
+                              </SkeletonPlaceholder.Item>
+
+                            </SkeletonPlaceholder.Item>
+                          </SkeletonPlaceholder.Item>
+                          </>
+                        </SkeletonPlaceholder>
+
+                     </View>
                   ) : Object.keys(groupedMedicines).length === 0 ? (
                     // <View style={styles?.imgView}>
                     <View style={styles.noRecordsImgContainer}>
                       <CustomNoRecords style={styles.noRecordsImg} />
-                    </View>
+                      </View>
                   ) : (
                     <ScrollView>
                       {Object.keys(groupedMedicines).map(time => {
@@ -284,7 +355,7 @@ const Home: React.FC<LogInAsGuestProps> = ({ navigation }) => {
                                     <Text style={styles?.medicineForm}>
                                       {capitalizeFirstLetter(item?.medicineForm)}
                                     </Text>
-                                    {item?.status !=="SCHEDULED" && <Text style={{ color: item?.status === "MISSED" ? "red" : item?.status === "SKIPPED" ? "gray" : item?.status === "TAKEN" ? "green" : "black" }}>
+                                    {item?.status !== "SCHEDULED" && <Text style={{ color: item?.status === "MISSED" ? "red" : item?.status === "SKIPPED" ? "gray" : item?.status === "TAKEN" ? "green" : "black" }}>
                                       {item?.status === "MISSED" ? "Missed!!" : item?.status === "TAKEN" ? `Taken at ${time}` : capitalizeFirstLetter(item?.status)}
                                     </Text>}
                                   </View>
@@ -433,10 +504,16 @@ const styles = StyleSheet.create({
   },
   loaderView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-    width: '100%',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    height: verticalScale(75),
+    marginHorizontal: horizontalScale(12),
+    marginVertical: verticalScale(5),
+    borderRadius: moderateScale(5),
+    // borderColor: "#333",
+    width:'100%',
+    // borderWidth: 1,
+    flexDirection: "row"
   },
   animatedView: {
     flex: 1,
